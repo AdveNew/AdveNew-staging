@@ -5,7 +5,7 @@ Handles requests from front end to database, with Cors and Morgan as middleware 
 In the terminal, run:
 - `npm run start-dev` for development server (listens for code changes on server)
 - `npm run start` for production server
-- *Note: to shutdown the server (and free the port), use ***Ctrl+C*** *
+- *Note: to shutdown the server (and free the port), use ***Ctrl+C****
 
 ##### Using MVC:
   - **Model**: Handles queries to the database

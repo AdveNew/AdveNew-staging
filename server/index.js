@@ -1,12 +1,14 @@
 const express = require('express');
 const morgan = require('morgan');
+var cors = require('cors');
 const router = require('./routes/route.js');
 
 const PORT = 3000;
 const app = express();
 
 // middleware
-app.use(morgan('dev'));
+app.use(morgan('dev')); // tokens, req, and res funtionality
+app.use(cors()); // cross domain
 app.use(express.json());
 
 // serve static assets

@@ -13,3 +13,5 @@ In the terminal, run:
   - **Route**: End-points for querying; data addresses
   - **index.js**: main entry for server, will handle basic endpoints and some security (cross-site scripting, etc.) 
 
+#### Resources:
+- [Express JS](https://expressjs.com/)

@@ -1,5 +1,6 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 const { Faker } = require('fakergem');
-const db = require('../database/index.js');
+const db = require('./index.js');
 
 // delete the previous data from Store schema so as to not overload it
 db.Store.deleteMany()
@@ -59,7 +60,7 @@ for (let i = 0; i < 100; i += 1) {
     emailAddress: Faker.Internet.email(),
     websiteUrl: Faker.Internet.url(),
     hours: 'Mon-Fri: '.concat(Faker.Number.between(7, 10)).concat('-').concat(Faker.Number.between(4, 6)),
-    calendar: calendar,
+    calendar,
     calendar_request: customBookings,
   };
   // add each store data created to array (for db)
@@ -78,7 +79,7 @@ for (let i = 0; i < 100; i += 1) {
   };
   // add each customer data created to array (for db)
   customers.push(customerAll);
-};
+}
 
 // add all generated data to the 'Store' schema
 db.Store.insertMany(stores)
@@ -91,8 +92,8 @@ db.Store.insertMany(stores)
 
 // add all generated data to the 'Customer' schema
 db.Customer.insertMany(customers)
-.then(() => console.log(`Created ${stores.length} new seeds, planted into 'Store' schema.`))
-.catch((err) => console.error(`Error seeding data to Customer schema: ${err.message}.`))
-.finally(() => {
-  console.log('Exiting Customer seed script...');
-});
+  .then(() => console.log(`Created ${stores.length} new seeds, planted into 'Store' schema.`))
+  .catch((err) => console.error(`Error seeding data to Customer schema: ${err.message}.`))
+  .finally(() => {
+    console.log('Exiting Customer seed script...');
+  });

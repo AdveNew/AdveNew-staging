@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-// Server Discover and Monitoring engine
+// Server Discover and Monitoring engine, for advenew database
 //? If not local, change `localhost` to `database` or IP location of database
 mongoose.connect('mongodb://localhost/advenew', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('[ [ Connected to database. ] ]'))
@@ -10,6 +10,7 @@ mongoose.connect('mongodb://localhost/advenew', { useNewUrlParser: true, useUnif
 const storeSchema = new mongoose.Schema({
   name: String,
   logo: String,
+  phrase: String,
   phoneNumber: String,
   emailAddress: String,
   websiteUrl: String,
@@ -25,7 +26,7 @@ const storeSchema = new mongoose.Schema({
       notes: String,
     },
   ],
-  store_calendar_request: [
+  calendar_request: [
     {
       datetime: Date, // stores both data and time
       guide: String,

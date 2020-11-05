@@ -1,7 +1,7 @@
 const db = require('../../database/index.js');
 
 const getCalendarData = (storeId, callback) => {
-  const query = db.Product.find({ store_id: storeId });
+  const query = db.Store.find({ storeId });
   query.exec((err, results) => {
     if (err) {
       callback(err);

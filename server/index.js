@@ -1,6 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
-var cors = require('cors');
+const cors = require('cors');
 const router = require('./routes/route.js');
 
 const PORT = 3000;
@@ -12,11 +12,11 @@ app.use(cors()); // cross domain
 app.use(express.json());
 
 // serve static assets
-app.use(express.static('public'));
+app.use(express.static('client/dist'));
 
 // router
 app.use('/', router);
 
 app.listen(PORT, () => {
-  console.log(`Server listening at http://localhost:${PORT}`)
+  console.log(`Server listening at http://localhost:${PORT}`);
 });

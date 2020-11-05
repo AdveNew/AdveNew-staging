@@ -8,6 +8,7 @@ mongoose.connect('mongodb://localhost/advenew', { useNewUrlParser: true, useUnif
 
 // mongoDB creates unique IDs, so not added to schema
 const storeSchema = new mongoose.Schema({
+  storeId: Number,
   name: String,
   logo: String,
   phrase: String,

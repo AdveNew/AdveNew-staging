@@ -6,10 +6,12 @@ class App extends React.Component {
     super(props);
 
     this.state = {
+      store: [],
     };
   }
 
   componentDidMount() {
+    axios.get('/api/store')
   }
 
   render() {

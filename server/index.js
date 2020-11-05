@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.static('client/dist'));
 
 // router
-app.use('/', router);
+app.use('/api', router);
 
 app.listen(PORT, () => {
   console.log(`Server listening at http://localhost:${PORT}`);

@@ -14,7 +14,7 @@ db.Customer.deleteMany()
 
 /* ************ seed data for 100 stores ************ */
 const stores = [];
-for (let i = 0; i < 100; i += 1) {
+for (let i = 1; i <= 100; i += 1) {
   // make some calendar bookings for each store
   const calendar = [];
   const numberOfBookings = Math.floor((Math.random() * 15) + 5); // 5 - 20 bookings
@@ -53,6 +53,7 @@ for (let i = 0; i < 100; i += 1) {
 
   // for all of store info
   const storeAll = {
+    storeId: i,
     name: Faker.Company.name(),
     logo: Faker.Company.logo(),
     phrase: Faker.Hipster.sentences(3).join(' '),

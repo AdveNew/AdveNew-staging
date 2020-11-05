@@ -1,5 +1,5 @@
 import React from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 
 class App extends React.Component {
   constructor(props) {
@@ -7,19 +7,36 @@ class App extends React.Component {
 
     this.state = {
       store: [],
+      loading: true,
     };
   }
 
   componentDidMount() {
-    const randomStore = Math.floor(Math.random() * 100 + 1);
-    axios.get('/api/calendar',
-    )
+    const storeId = Math.floor(Math.random() * 100 + 1);
+    axios.get('api/calendar', {
+      params: {
+        storeId,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        this.setState({
+          store: res.data.store,
+          loading: false,
+        });
+      }, console.log(this.state.store))
+      .catch((err) => console.error(err.message));
   }
 
   render() {
+    if (this.state.loading) {
+      return <h1>Loading data...</h1>;
+    }
     return (
       <div className='body'>
-        <h1>In React App</h1>
+        <div>
+          <h2>Company Name: {this.state.store.name}</h2>
+        </div>
       </div>
     );
   }

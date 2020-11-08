@@ -2,6 +2,9 @@
 const { Faker } = require('fakergem');
 const db = require('./index.js');
 
+const storeSeed = 100;
+const customerSeed = 100;
+
 // delete the previous data from Store schema so as to not overload it
 db.Store.deleteMany()
   .then((data) => console.log(`Store schema cleared - Deleted ${data.deletedCount} entries.`))
@@ -14,14 +17,22 @@ db.Customer.deleteMany()
 
 /* ************ seed data for 100 stores ************ */
 const stores = [];
-for (let i = 1; i <= 100; i += 1) {
+for (let i = 1; i <= storeSeed; i += 1) {
   // make some calendar bookings for each store
   const calendar = [];
-  const numberOfBookings = Math.floor((Math.random() * 15) + 5); // 5 - 20 bookings
+  const numberOfBookings = Math.floor((Math.random() * 16) + 20); // 20 - 35 bookings
   for (let j = 0; j < numberOfBookings; j += 1) {
+    // creates dates 3 weeks forward and 3 weeks backwards
+    const datetime = Faker.Time.between(
+      Faker.Time.forward(21),
+      Faker.Time.backward(21),
+      Faker.Time.DAY,
+    );
+    const hour = Math.floor((Math.random() * 11) + 1); // hours 0800 - 1800 (odd, I know)
     const newBooking = {
       // set dates 90 days forward, with time during the DAY
-      datetime: Faker.Time.forward(90, Faker.Time.DAY),
+      datetimeStart: datetime.setHours(hour),
+      datetimeEnd: datetime.setHours(hour + (Math.floor((Math.random() * 8) + 1)) / 2),
       guide: Faker.Name.firstName(),
       price: Faker.Number.between(75, 280),
       booked: Faker.Boolean.boolean(),
@@ -39,7 +50,7 @@ for (let i = 1; i <= 100; i += 1) {
   for (let j = 0; j < numberOfCustomerBookings; j += 1) {
     const newBooking = {
       // set dates 90 days forward, with time during the DAY
-      datetime: Faker.Time.forward(90, Faker.Time.DAY),
+      datetime: Faker.Time.forward(30, Faker.Time.DAY),
       guide: Faker.Name.firstName(),
       price: Faker.Number.between(75, 280),
       booked: Faker.Boolean.boolean(),
@@ -70,7 +81,7 @@ for (let i = 1; i <= 100; i += 1) {
 
 // generate some customers (users on website)
 const customers = [];
-for (let i = 0; i < 100; i += 1) {
+for (let i = 0; i < customerSeed; i += 1) {
   // for all of customer info
   const customerAll = {
     name: Faker.Name.name(),

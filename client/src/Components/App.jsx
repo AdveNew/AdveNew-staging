@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Calendar from './Calendar.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -19,12 +20,11 @@ class App extends React.Component {
       },
     })
       .then((res) => {
-        console.log(res);
         this.setState({
           store: res.data.store,
           loading: false,
         });
-      }, console.log(this.state.store))
+      })
       .catch((err) => console.error(err.message));
   }
 
@@ -34,8 +34,9 @@ class App extends React.Component {
     }
     return (
       <div className='body'>
-        <div>
-          <h2>Company Name: {this.state.store.name}</h2>
+        <h2>Company Name: {this.state.store.name}</h2>
+        <div className='calendar'>
+          <Calendar />
         </div>
       </div>
     );

@@ -30,6 +30,8 @@
     "axios": "^0.21.0",
     "babel-loader": "^8.1.0",
     "cors": "^2.8.5",
+    "devextreme": "20.2.3",
+    "devextreme-react": "20.2.3",
     "express": "^4.17.1",
     "mongoose": "^5.10.11",
     "morgan": "^1.10.0",

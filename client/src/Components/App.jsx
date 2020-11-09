@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import Calendar from './Calendar.jsx';
+import CustomCalendar from './CustomCalendar.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -35,8 +35,8 @@ class App extends React.Component {
     return (
       <div className='body'>
         <h2>Company Name: {this.state.store.name}</h2>
-        <div className='calendar'>
-          <Calendar />
+        <div className='custom-calendar'>
+          <CustomCalendar />
         </div>
       </div>
     );

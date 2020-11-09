@@ -17,6 +17,11 @@ module.exports = {
         include: SRC_DIR,
         use: 'babel-loader',
       },
+      {
+        test: /\.(sass|less|css)$/,
+        include: SRC_DIR,
+        use: ['style-loader', 'css-loader', 'less-loader'],
+      },
     ],
   },
 };

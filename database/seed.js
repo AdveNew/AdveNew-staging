@@ -20,19 +20,20 @@ const stores = [];
 for (let i = 1; i <= storeSeed; i += 1) {
   // make some calendar bookings for each store
   const calendar = [];
-  const numberOfBookings = Math.floor((Math.random() * 16) + 20); // 20 - 35 bookings
+  const numberOfBookings = Math.floor((Math.random() * 61) + 60); // 60 - 120 bookings
   for (let j = 0; j < numberOfBookings; j += 1) {
     // creates dates 3 weeks forward and 3 weeks backwards
     const datetime = Faker.Time.between(
-      Faker.Time.forward(21),
-      Faker.Time.backward(21),
+      Faker.Time.forward(90),
+      Faker.Time.backward(90),
       Faker.Time.DAY,
     );
-    const hour = Math.floor((Math.random() * 11) + 1); // hours 0800 - 1800 (odd, I know)
+    const hour = Math.floor((Math.random() * 7) + 8); // hours 0800 - 1500 (odd, I know)
+    datetime.setMinutes(Math.floor((Math.random() * 1.5)) * 30); // on the hour, or half hour
     const newBooking = {
       // set dates 90 days forward, with time during the DAY
       datetimeStart: datetime.setHours(hour),
-      datetimeEnd: datetime.setHours(hour + (Math.floor((Math.random() * 8) + 1)) / 2),
+      datetimeEnd: datetime.setHours(hour + (Math.floor((Math.random() * 3) + 1))),
       guide: Faker.Name.firstName(),
       price: Faker.Number.between(75, 280),
       booked: Faker.Boolean.boolean(),

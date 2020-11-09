@@ -70,7 +70,7 @@ async function generateData() {
     // for all of store info
     const storeAll = {
       storeId: i,
-      name: Faker.Company.name(),
+      name: `${Faker.Name.firstName().concat("'s")} ${Faker.Team.sport().replace(/\b./g, (a) => a.toUpperCase())} ${Faker.Company.suffix()}`,
       logo: Faker.Company.logo(),
       phrase: Faker.Hipster.sentences(3).join(' '),
       phoneNumber: Faker.Random.element(['303-', '720-']).concat(Faker.PhoneNumber.exchangeCode().concat('-').concat(Faker.PhoneNumber.subscriberNumber())),

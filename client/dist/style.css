@@ -2,10 +2,19 @@
 body {
   font-family: "Graphik Webfont" ,-apple-system,BlinkMacSystemFont,"Roboto","Droid Sans","Segoe UI","Helvetica",Arial,sans-serif !important;
   font-size: 13px;
-  margin: 0 auto;
+  margin: 20 auto;
   max-width: 1400px;
   font-weight: 300;
   font-size: 13px;
   line-height: 18px;
   -webkit-font-smoothing: antialiased !important;
+}
+
+root {
+  background-color: black;
+}
+
+.paper .scheduler .appointments {
+  background-color: black;
+  color: rgb(197, 197, 26);
 }

@@ -54,7 +54,7 @@ const CustomerCalendar = (props) => {
     ]);
   }, [1]);
 
-  function commitChanges({ added, changed, deleted }) {
+  const commitChanges = ({ added, changed, deleted }) => {
     if (added) {
       const startingAddedId = calendar.length > 0 ? calendar[calendar.length - 1].id + 1 : 0;
       setCalendar([...calendar, { id: startingAddedId, ...added }]);
@@ -66,12 +66,31 @@ const CustomerCalendar = (props) => {
     if (deleted !== undefined) {
       setCalendar(calendar.filter((appointment) => appointment.id !== deleted));
     }
-  }
+  };
+
+  const views = [{
+    type: 'month',
+    name: 'Auto Mode',
+    maxAppointmentsPerCell: 2,
+  }, {
+    type: 'month',
+    name: 'Unlimited Mode',
+    maxAppointmentsPerCell: 2,
+  }, {
+    type: 'month',
+    name: 'Numeric Mode',
+    maxAppointmentsPerCell: 2,
+  }];
 
   return (
     <div>
-      <Paper>
-        <Scheduler data={calendar}>
+      <Paper className='paper'>
+        <Scheduler
+          data={calendar}
+          views={views}
+          defaultCurrentView='Numeric Mode'
+          className='scheduler'
+        >
           <ViewState
             defaultCurrentDate={Date()}
           />
@@ -84,7 +103,7 @@ const CustomerCalendar = (props) => {
           <ViewSwitcher />
           <EditingState onCommitChanges={commitChanges} />
           <IntegratedEditing />
-          <Appointments showDeleteButton />
+          <Appointments className='appointments' showDeleteButton />
           <AppointmentTooltip
             showOpenButton
             showDeleteButton

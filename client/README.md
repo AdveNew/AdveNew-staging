@@ -10,4 +10,4 @@ The front end framework is built on ReactJS. All components should be added to t
   3. [Material UI](https://material-ui.com/)
   4. [Calendar Overview](https://js.devexpress.com/Documentation/Guide/Widgets/Calendar/Overview/)
   5. [Calendar Widget](https://js.devexpress.com/Demos/WidgetsGallery/Demo/Calendar/Overview/React/Light/)
-  6. [Scheduler Reference](https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/scheduler/)
+  6. [React Scheduler Reference](https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/scheduler/)

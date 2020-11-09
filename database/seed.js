@@ -8,12 +8,12 @@ const customerSeed = 100;
 // delete the previous data from Store schema so as to not overload it
 async function clearDatabase() {
   await db.Store.deleteMany()
-    .then((data) => console.log(`  🗑️   Store schema cleared    - Deleted ${data.deletedCount} entries.`))
+    .then((data) => console.log(`  🗑️   'Store' schema cleared    - Deleted ${data.deletedCount} entries.`))
     .catch((err) => console.error(`  ❌  Unable to clear Store schema, error: ${err.message}.`));
 
   // delete the previous data from Customer schema so as to not overload it
   await db.Customer.deleteMany()
-    .then((data) => console.log(`  🗑️   Customer schema cleared - Deleted ${data.deletedCount} entries.`))
+    .then((data) => console.log(`  🗑️   'Customer' schema cleared - Deleted ${data.deletedCount} entries.`))
     .catch((err) => console.error(`  ❌  Unable to clear Customer schema, error: ${err.message}.`));
 }
 
@@ -24,7 +24,7 @@ async function generateData() {
     // make some calendar bookings for each store
     const calendar = [];
     const numberOfBookings = Math.floor((Math.random() * 61) + 60); // 60 - 120 bookings
-    for (let j = 0; j < numberOfBookings; j += 1) {
+    for (let j = 1; j <= numberOfBookings; j += 1) {
       // creates dates 3 weeks forward and 3 weeks backwards
       const datetime = Faker.Time.between(
         Faker.Time.forward(90),
@@ -35,8 +35,9 @@ async function generateData() {
       datetime.setMinutes(Math.floor((Math.random() * 1.5)) * 30); // on the hour, or half hour
       const newBooking = {
         // set dates 90 days forward, with time during the DAY
-        datetimeStart: datetime.setHours(hour),
-        datetimeEnd: datetime.setHours(hour + (Math.floor((Math.random() * 3) + 1))),
+        id: j,
+        startDate: datetime.setHours(hour),
+        endDate: datetime.setHours(hour + (Math.floor((Math.random() * 3) + 1))),
         guide: Faker.Name.firstName(),
         price: Faker.Number.between(75, 280),
         booked: Faker.Boolean.boolean(),

@@ -6,9 +6,9 @@
   "scripts": {
     "start": "node server/index.js",
     "start-dev": "nodemon server/index.js",
-    "webpack-init": "webpack --config webpack.config.js",
+    "webpack-init": "webpack --config webpack.config.js --progess",
     "build": "webpack --no-stats",
-    "build-dev": "webpack --watch",
+    "build-dev": "webpack --mode development --watch --hot",
     "seed": "node database/seed.js"
   },
   "repository": {
@@ -44,6 +44,7 @@
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.1",
+    "dotenv-webpack": "^5.1.0",
     "eslint": "^7.12.1",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-plugin-import": "^2.22.1",

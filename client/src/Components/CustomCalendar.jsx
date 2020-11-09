@@ -33,6 +33,9 @@ axios.get('api/calendar', {
           endDate: event.datetimeEnd,
           title: event.guide,
           notes: event.notes,
+          customer: event.customerName,
+          booked: event.booked,
+          id: event.experience,
         },
       );
     });

@@ -76,7 +76,7 @@ async function generateData() {
       phoneNumber: Faker.Random.element(['303-', '720-']).concat(Faker.PhoneNumber.exchangeCode().concat('-').concat(Faker.PhoneNumber.subscriberNumber())),
       emailAddress: Faker.Internet.email(),
       websiteUrl: Faker.Internet.url(),
-      hours: 'Mon-Fri: '.concat(Faker.Number.between(7, 10)).concat('-').concat(Faker.Number.between(4, 6)),
+      hours: '\n     Mon-Fri: '.concat(Faker.Number.between(7, 10)).concat('-').concat(Faker.Number.between(4, 6)).concat('\n     Sat-Sun: '.concat(Faker.Number.between(7, 10)).concat('-').concat(Faker.Number.between(1, 3))),
       calendar,
       calendar_request: customBookings,
     };

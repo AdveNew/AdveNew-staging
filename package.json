@@ -9,7 +9,8 @@
     "webpack-init": "webpack --config webpack.config.js --progess",
     "build": "webpack --no-stats",
     "build-dev": "webpack --mode development --watch",
-    "seed": "node database/seed.js"
+    "seed": "node database/seed.js",
+    "dev": "npm run start-dev & npm run build-dev"
   },
   "repository": {
     "type": "git",

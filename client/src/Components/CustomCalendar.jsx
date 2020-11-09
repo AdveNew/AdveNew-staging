@@ -1,19 +1,20 @@
 /* eslint-disable import/prefer-default-export */
 import React, { useState, useEffect } from 'react';
 import Paper from '@material-ui/core/Paper/Paper.js';
-import { ViewState } from '@devexpress/dx-react-scheduler';
+import { ViewState, EditingState, IntegratedEditing } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler, CurrentTimeIndicator,
   MonthView, WeekView, DayView, ViewSwitcher,
   Appointments, AppointmentTooltip, AppointmentForm,
   DateNavigator, Resources,
-  Toolbar, TodayButton,
+  Toolbar, TodayButton, ConfirmationDialog,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 const CustomerCalendar = (props) => {
   const [store] = useState(props.calendar);
   const [calendar, setCalendar] = useState([]);
   const [resources, setResources] = useState([]);
+  const [editorProps, setEditorProps] = useState([]);
 
   useEffect(() => {
     setCalendar(store.map((event) => ({
@@ -40,18 +41,32 @@ const CustomerCalendar = (props) => {
       {
         fieldName: 'customerName',
         title: 'Customer Name',
-        allowMultiple: true,
-        instances: [calendar.map((i) => ({ text: i.customerName }))],
+        instances: calendar,
       },
-      // {
-      //   fieldName: 'price',
-      //   title: 'Price',
-      //   instances: [
-      //     { id: schedulerData.price, text: schedulerData.price },
-      //   ],
-      // },
+    ]);
+
+    setEditorProps([
+      {
+        placeholder: 'Customer Name',
+        type: 'Name',
+        value: 'TEST',
+      },
     ]);
   }, [1]);
+
+  function commitChanges({ added, changed, deleted }) {
+    if (added) {
+      const startingAddedId = calendar.length > 0 ? calendar[calendar.length - 1].id + 1 : 0;
+      setCalendar([...calendar, { id: startingAddedId, ...added }]);
+    }
+    if (changed) {
+      setCalendar(calendar.map((appointment) => (
+        changed[calendar.id] ? appointment : { ...appointment, ...changed[appointment.id] })));
+    }
+    if (deleted !== undefined) {
+      setCalendar(calendar.filter((appointment) => appointment.id !== deleted));
+    }
+  }
 
   return (
     <div>
@@ -67,9 +82,19 @@ const CustomerCalendar = (props) => {
           <DateNavigator />
           <TodayButton />
           <ViewSwitcher />
-          <Appointments />
-          <AppointmentTooltip showOpenButton showDeleteButton />
-          <AppointmentForm />
+          <EditingState onCommitChanges={commitChanges} />
+          <IntegratedEditing />
+          <Appointments showDeleteButton />
+          <AppointmentTooltip
+            showOpenButton
+            showDeleteButton
+            showCloseButton
+          />
+          <AppointmentForm
+            TextEditorProps={editorProps}
+            showDeleteButton
+          />
+          <ConfirmationDialog />
           <CurrentTimeIndicator shadePreviousAppointments shadePreviousCells />
           <Resources data={resources} />
         </Scheduler>
@@ -79,84 +104,3 @@ const CustomerCalendar = (props) => {
 };
 
 export default CustomerCalendar;
-
-// const storeId = Math.floor(Math.random() * 100 + 1);
-//   const schedulerData = [];
-//   axios.get('api/calendar', {
-//     params: {
-//       storeId,
-//     },
-//   })
-//     .then((res) => {
-//       res.data.store.calendar.forEach((event) => {
-//         // console.log(event);
-//         schedulerData.push(
-//           {
-//             id: event.id,
-//             startDate: new Date(event.datetimeStart),
-//             endDate: new Date(event.datetimeEnd),
-//             title: event.guide,
-//             price: event.price,
-//             status: event.booked,
-//             customerName: event.customerName,
-//             experience: event.experience,
-//             notes: event.notes,
-//           },
-//         );
-//       });
-//       // console.log(schedulerData);
-//     })
-//     .catch((err) => console.error(err.message));
-//   // const customerData = [
-//   //   { startDate: '2020-11-22T18:35:02', endDate: '2020-11-22T20:00:02', title: 'Meeting' },
-//   //   { startDate: '2020-11-01T12:00', endDate: '2020-11-01T13:30', title: 'Go to a gym' },
-//   // ];
-
-//   const resources = [
-//     {
-//       fieldName: 'status',
-//       title: 'Status',
-//       instances: [
-//         { id: true, color: 'lightgreen', text: 'Booked' },
-//         { id: false, colorRGB: '245,181,108', text: 'Available' },
-//       ],
-//     },
-//     {
-//       fieldName: 'customerName',
-//       title: 'Customer Name',
-//       allowMultiple: true,
-//       instances: [schedulerData.forEach((i) => ({ id: i.customerName, text: i.customerName }))],
-//     },
-//     // {
-//     //   fieldName: 'price',
-//     //   title: 'Price',
-//     //   instances: [
-//     //     { id: schedulerData.price, text: schedulerData.price },
-//     //   ],
-//     // },
-//   ];
-
-//   return (
-//     <div>
-//       <Paper>
-//         <Scheduler data={schedulerData}>
-//           <ViewState
-//             defaultCurrentDate={Date()}
-//           />
-//           <MonthView />
-//           <WeekView startDayHour={6} endDayHour={20} />
-//           <DayView startDayHour={6} endDayHour={20} />
-//           <Toolbar />
-//           <DateNavigator />
-//           <TodayButton />
-//           <ViewSwitcher />
-//           <Appointments />
-//           <AppointmentTooltip showOpenButton showDeleteButton />
-//           <AppointmentForm />
-//           <CurrentTimeIndicator shadePreviousAppointments shadePreviousCells />
-//           <Resources data={resources} />
-//         </Scheduler>
-//       </Paper>
-//     </div>
-//   );
-// };

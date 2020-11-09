@@ -11,6 +11,8 @@ The front end framework is built on ReactJS. All components should be added to t
   4. [Calendar Overview](https://js.devexpress.com/Documentation/Guide/Widgets/Calendar/Overview/)
   5. [Calendar Widget](https://js.devexpress.com/Demos/WidgetsGallery/Demo/Calendar/Overview/React/Light/)
   6. [React Scheduler Reference](https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/scheduler/)
+    - [subref #1](https://js.devexpress.com/Documentation/Guide/Widgets/Scheduler/Appointments/Customize_Appointment_Tooltip/)
+    - [subref #2](https://js.devexpress.com/Demos/WidgetsGallery/Demo/Scheduler/LimitAppointmentCountPerCell/React/Dark/)
   ##### Some potential other calendar alternatives:
     1. [syncfusion](https://www.syncfusion.com/react-ui-components/react-scheduler) - 2/5
     2. [kendo](https://www.telerik.com/kendo-react-ui/components/scheduler/) - 3/5

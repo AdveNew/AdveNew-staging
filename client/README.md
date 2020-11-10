@@ -13,7 +13,7 @@ The front end framework is built on ReactJS. All components should be added to t
   6. [React Scheduler Reference](https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/scheduler/)
     - [subref #1](https://js.devexpress.com/Documentation/Guide/Widgets/Scheduler/Appointments/Customize_Appointment_Tooltip/)
     - [subref #2](https://js.devexpress.com/Demos/WidgetsGallery/Demo/Scheduler/LimitAppointmentCountPerCell/React/Dark/)
-    
+
   ##### Some potential other calendar alternatives:
   1. [syncfusion](https://www.syncfusion.com/react-ui-components/react-scheduler) - 2/5
   2. [kendo](https://www.telerik.com/kendo-react-ui/components/scheduler/) - 3/5
@@ -23,3 +23,4 @@ The front end framework is built on ReactJS. All components should be added to t
   6. [FullCalendar](https://fullcalendar.io/) - 3.5/5
   7. [BigCalendar](https://jquense.github.io/react-big-calendar/examples/index.html) - 3.5/5
   8. [some nonsense scheduler to look at](https://demo.easyappointments.org/) - ?
+  9. [Nylas](https://www.nylas.com/products/calendar-sync/) - 4/5

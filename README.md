@@ -11,7 +11,7 @@ Once repo is cloned/pulled, run the follow commands in the root directory of the
 - `npm install`: installs dependencies
 
 ### Execution
-Before starting the server or bundling the front end, make sure to seed the database `npm run seed`. This will fill the database with 100 stores and 100 customers. 
+Before starting the server or bundling the front end, make sure to seed the database `npm run seed`. This will fill the database with 100 stores and 100 customers. (or whatever amount)
 
 To get the server up and running, run any combination of 1 even and 1 odd command (two different cmd windows). While developing, it's best to run #3 and #4.
 1. `npm start`: starts express server, doesn't watch for updates

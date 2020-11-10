@@ -1,5 +1,5 @@
 ## EXPRESS SERVER
-Handles requests from front end to database, with Cors and Morgan as middleware features. Also included json to help parse the data. 
+Handles requests from front end to database, with CORS and Morgan as middleware features. Also included json to help parse the data. 
 
 ### Execution
 In the terminal, run:

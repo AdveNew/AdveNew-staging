@@ -19,6 +19,8 @@ To get the server up and running, run any combination of 1 even and 1 odd comman
 3. `npm run start-dev`: starts express server, watches for updates
 4. `npm run build-dev`: creates a bundle of any react code to serve up, rebundles on any save within client/src directory
 
+5. To help with quicker development, use the cmd `npm run dev` to get the server and webpack going together.
+
 ### Sub Readme's
 - [Server Readme](/server/README.md)
 - [Database Readme](/database/README.md)

@@ -27,4 +27,4 @@ To get the server up and running, run any combination of 1 even and 1 odd comman
 - [Client (Front end) Readme](/client/README.md)
 
 ### Demo (11/11)
-![V1](v1_11-11.png)
+![V1](demo/v1_11-11.png)

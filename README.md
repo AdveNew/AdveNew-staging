@@ -3,8 +3,8 @@ Web Application for hosted services
 
 ### Requirements
 Install: 
-- npm
-- MongoDB
+- npm >=6.14.8 (check with `npm -v`)
+- MongoDB >=4.2.7 (check with `mongo -version`)
 
 ### Development
 Once repo is cloned/pulled, run the follow commands in the root directory of the project (where `package.json` is)

@@ -20,6 +20,7 @@ import TodayIcon from '@material-ui/icons/Today';
 import HomeIcon from '@material-ui/icons/Home';
 import EditIcon from '@material-ui/icons/Edit';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -52,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
     bottom: 0,
     left: 0,
     backgroundColor: 'lightgrey',
+    zIndex: 1,
   },
 }));
 
@@ -212,6 +214,12 @@ export function Footer() {
       <BottomNavigationAction label='Home' value='home' icon={<HomeIcon />} />
       <BottomNavigationAction label='Nearby' value='nearby' icon={<LocationOnIcon />} />
       <BottomNavigationAction label='Edit Calendar' value='edit' icon={<EditIcon />} />
+      <BottomNavigationAction
+        label='Email'
+        // eslint-disable-next-line no-return-assign
+        onClick={() => window.location.href = 'mailto:customercare@advenew.com?subject=Hello AdveNew'}
+        icon={<MailOutlineIcon />}
+      />
     </BottomNavigation>
   );
 }

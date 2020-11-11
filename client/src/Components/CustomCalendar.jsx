@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import React, { useState, useEffect } from 'react';
 import Paper from '@material-ui/core/Paper/Paper.js';
+import Container from '@material-ui/core/Container/Container.js';
 import { ViewState, EditingState, IntegratedEditing } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler, CurrentTimeIndicator,
@@ -35,7 +36,7 @@ export default function CustomerCalendar(props) {
         title: 'Status',
         instances: [
           { id: true, color: 'lightgreen', text: 'Booked' },
-          { id: false, colorRGB: '245,181,108', text: 'Available' },
+          { id: false, color: 'gold', text: 'Available' },
         ],
       },
       {
@@ -83,8 +84,8 @@ export default function CustomerCalendar(props) {
   }];
 
   return (
-    <div>
-      <Paper elevation={3} className='paper'>
+    <Container maxWidth='md'>
+      <Paper elevation={10} className='paper'>
         <Scheduler
           data={calendar}
           views={views}
@@ -118,7 +119,7 @@ export default function CustomerCalendar(props) {
           <Resources data={resources} />
         </Scheduler>
       </Paper>
-    </div>
+    </Container>
   );
 }
 

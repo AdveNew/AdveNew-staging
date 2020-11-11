@@ -1,17 +1,23 @@
 const path = require('path');
+const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
 
 const SRC_DIR = path.join(__dirname, './client/src');
 const DIST_DIR = path.join(__dirname, './client/dist');
 
-module.exports = {
+const client = {
   mode: 'development',
   entry: `${SRC_DIR}/index.jsx`,
   output: {
     filename: 'bundle.js',
     path: DIST_DIR,
   },
-  plugins: [new Dotenv()],
+  plugins: [
+    new Dotenv(),
+    new webpack.DefinePlugin({
+      __isBrowser__: 'true',
+    }),
+  ],
   devServer: {
     host: 'localhost',
     watchContentBase: true,
@@ -51,3 +57,26 @@ module.exports = {
     ],
   },
 };
+
+const server = {
+  mode: 'development',
+  entry: './server/index.js',
+  target: 'node',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'server.js',
+  },
+  module: {
+    rules: [
+      { test: /\.(js|jsx)$/, use: 'babel-loader' },
+      { test: /\.css$/, use: 'css-loader' },
+    ],
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      __isBrowser__: 'false',
+    }),
+  ],
+};
+
+module.exports = [client, server];

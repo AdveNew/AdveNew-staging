@@ -1,11 +1,15 @@
+/* eslint-disable import/extensions */
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route, browserHistory } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
+
+// Components
 import LaunchPage from './LaunchPage.jsx';
 import CustomCalendar from './CustomCalendar.jsx';
 import CustomCalendar2 from './CustomCalendar2.jsx';
 import NotFound from './404.jsx';
-// import Footer from './Footer.jsx';
 import { Header, Footer } from './AppBars.jsx';
 
 export default function App() {
@@ -27,24 +31,32 @@ export default function App() {
   }, [0]);
 
   if (loading) {
-    return <h1>Loading data...</h1>;
+    return (<h1>Loading data...</h1>);
   }
   return (
-    <>
+    // eslint-disable-next-line react/jsx-fragments
+    <React.Fragment>
       <Header />
-      <Router history={browserHistory}>
-        <Switch>
-          <Route path='/'><LaunchPage store={store} /></Route>
-          <Route path='/c1'><CustomCalendar calendar={store.calendar} /></Route>
-          <Route path='/c2'>
-            <CustomCalendar2 calendar={store.calendar} />
-          </Route>
-          <Route path='*' component={NotFound} />
-        </Switch>
-      </Router>
-      <CustomCalendar calendar={store.calendar} />
+      <Grid
+        container
+        direction='row'
+        justify='center'
+        alignItems='center'
+      >
+        <Router>
+          <Switch>
+            <Route path='/'><LaunchPage store={store} /></Route>
+            <Route path='/c1'><CustomCalendar calendar={store.calendar} /></Route>
+            <Route path='/c2'>
+              <CustomCalendar2 calendar={store.calendar} />
+            </Route>
+            <Route path='*' component={NotFound} />
+          </Switch>
+        </Router>
+        <CustomCalendar calendar={store.calendar} />
+      </Grid>
       <Footer />
-    </>
+    </React.Fragment>
   );
 }
 

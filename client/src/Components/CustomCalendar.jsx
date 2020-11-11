@@ -10,7 +10,7 @@ import {
   Toolbar, TodayButton, ConfirmationDialog,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
-const CustomerCalendar = (props) => {
+export default function CustomerCalendar(props) {
   const [store] = useState(props.calendar);
   const [calendar, setCalendar] = useState([]);
   const [resources, setResources] = useState([]);
@@ -84,7 +84,7 @@ const CustomerCalendar = (props) => {
 
   return (
     <div>
-      <Paper className='paper'>
+      <Paper elevation={3} className='paper'>
         <Scheduler
           data={calendar}
           views={views}
@@ -120,6 +120,6 @@ const CustomerCalendar = (props) => {
       </Paper>
     </div>
   );
-};
+}
 
-export default CustomerCalendar;
+// export default CustomerCalendar;

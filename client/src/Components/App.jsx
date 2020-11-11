@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Switch, Route, browserHistory } from 'react-router-dom';
 import axios from 'axios';
+import LaunchPage from './LaunchPage.jsx';
 import CustomCalendar from './CustomCalendar.jsx';
+import CustomCalendar2 from './CustomCalendar2.jsx';
+import NotFound from './404.jsx';
+// import Footer from './Footer.jsx';
+import { Header, Footer } from './AppBars.jsx';
 
-function App() {
+export default function App() {
   const [store, setStore] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -24,21 +30,21 @@ function App() {
     return <h1>Loading data...</h1>;
   }
   return (
-    <div className='body'>
-      <h2 className='header'>Company Name: {store.name}</h2>
-      <span>{store.phrase}</span>
-      <h3>
-        Company Hours: {store.hours} &nbsp;
-        Website: {store.websiteUrl}
-      </h3>
-      <h3>
-        Phone: {store.phoneNumber} &nbsp;
-        Email: {store.emailAddress}
-      </h3>
-      <div className='custom-calendar'>
-        <CustomCalendar calendar={store.calendar} />
-      </div>
-    </div>
+    <>
+      <Header />
+      <Router history={browserHistory}>
+        <Switch>
+          <Route path='/'><LaunchPage store={store} /></Route>
+          <Route path='/c1'><CustomCalendar calendar={store.calendar} /></Route>
+          <Route path='/c2'>
+            <CustomCalendar2 calendar={store.calendar} />
+          </Route>
+          <Route path='*' component={NotFound} />
+        </Switch>
+      </Router>
+      <CustomCalendar calendar={store.calendar} />
+      <Footer />
+    </>
   );
 }
 
@@ -82,5 +88,3 @@ function App() {
 //     );
 //   }
 // }
-
-export default App;

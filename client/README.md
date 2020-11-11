@@ -25,3 +25,4 @@ The front end framework is built on ReactJS. All components should be added to t
   8. [some nonsense scheduler to look at](https://demo.easyappointments.org/) - ?
   9. [Nylas](https://www.nylas.com/products/calendar-sync/) - 4/5
   10. [Amelia](https://wpamelia.com/) - ?
+  11. [vcalendar](https://vcalendar.io/i18n.html) - ? - used on canvas

@@ -4,7 +4,11 @@ The front end framework is built on ReactJS. All components should be added to t
 #### Bundle data
  Refer to [main README](../README.md) for how to create the bundle.js file.
 
-#### Resources
+### Helpful Resources:
+1. Material UI
+    1. [Icon](https://material-ui.com/components/material-icons/)
+
+#### Calendar Resources
   1. [React](https://reactjs.org/)
   2. [React Hooks](https://reactjs.org/docs/hooks-intro.html)
   3. [Material UI](https://material-ui.com/)
@@ -26,8 +30,3 @@ The front end framework is built on ReactJS. All components should be added to t
   9. [Nylas](https://www.nylas.com/products/calendar-sync/) - 4/5
   10. [Amelia](https://wpamelia.com/) - ?
   11. [vcalendar](https://vcalendar.io/i18n.html) - ? - used on canvas
-
-
-### Helpful Resources:
-1. Material UI
-  1. [Icon](https://material-ui.com/components/material-icons/)

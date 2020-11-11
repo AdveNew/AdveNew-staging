@@ -6,7 +6,7 @@ The front end framework is built on ReactJS. All components should be added to t
 
 ### Helpful Resources:
 1. Material UI
-    1. [Icon](https://material-ui.com/components/material-icons/)
+    1. [Icons](https://material-ui.com/components/material-icons/)
 
 #### Calendar Resources
   1. [React](https://reactjs.org/)

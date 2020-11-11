@@ -26,5 +26,5 @@ To get the server up and running, run any combination of 1 even and 1 odd comman
 - [Database Readme](/database/README.md)
 - [Client (Front end) Readme](/client/README.md)
 
-### Demo V 0.0.01 (11/11)
+### Demo V0.0.01 (11/11)
 ![V1](demo/v1_11-11.png)

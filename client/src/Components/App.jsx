@@ -1,12 +1,12 @@
 /* eslint-disable import/extensions */
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
 import axios from 'axios';
 
 // Components
-import LaunchPage from './LaunchPage.jsx';
+import CompanyInfo from './CompanyInfo.jsx';
 import CustomCalendar from './CustomCalendar.jsx';
 import CustomCalendar2 from './CustomCalendar2.jsx';
 import NotFound from './404.jsx';
@@ -40,10 +40,10 @@ export default function App() {
       <Grid
         container
         direction='row'
-        justify='center'
+        justify='space-evenly'
         alignItems='center'
       >
-        <Router>
+        {/* <Router>
           <Switch>
             <Route path='/'><LaunchPage store={store} /></Route>
             <Route path='/c1'><CustomCalendar calendar={store.calendar} /></Route>
@@ -52,7 +52,9 @@ export default function App() {
             </Route>
             <Route path='*' component={NotFound} />
           </Switch>
-        </Router>
+        </Router> */}
+        <CompanyInfo store={store} />
+        <Divider orientation="vertical" flexItem />
         <CustomCalendar calendar={store.calendar} />
       </Grid>
       <Footer />

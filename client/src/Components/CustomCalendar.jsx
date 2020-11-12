@@ -21,21 +21,47 @@ export default function CustomerCalendar(props) {
   const [editorProps, setEditorProps] = useState([]);
   const [checked, setChecked] = useState({
     Booked: true,
-    Available: false,
+    Available: true,
   });
 
   useEffect(() => {
-    setCalendar(store.map((event) => ({
-      id: event.id,
-      startDate: new Date(event.startDate),
-      endDate: new Date(event.endDate),
-      title: event.guide,
-      price: event.price,
-      status: event.booked,
-      customerName: event.customerName,
-      experience: event.experience,
-      notes: event.notes,
-    })));
+    if (checked.Booked && checked.Available) {
+      setCalendar(store.map((event) => ({
+        id: event.id,
+        startDate: new Date(event.startDate),
+        endDate: new Date(event.endDate),
+        title: event.guide,
+        price: event.price,
+        status: event.booked,
+        customerName: event.customerName,
+        experience: event.experience,
+        notes: event.notes,
+      })));
+    } else if (checked.Booked && !checked.Available) {
+      setCalendar(store.filter((b) => b.booked === true).map((event) => ({
+        id: event.id,
+        startDate: new Date(event.startDate),
+        endDate: new Date(event.endDate),
+        title: event.guide,
+        price: event.price,
+        status: event.booked,
+        customerName: event.customerName,
+        experience: event.experience,
+        notes: event.notes,
+      })));
+    } else if (checked.Available && !checked.Booked) {
+      setCalendar(store.filter((b) => b.booked === false).map((event) => ({
+        id: event.id,
+        startDate: new Date(event.startDate),
+        endDate: new Date(event.endDate),
+        title: event.guide,
+        price: event.price,
+        status: event.booked,
+        customerName: event.customerName,
+        experience: event.experience,
+        notes: event.notes,
+      })));
+    } else setCalendar([]);
 
     setResources([
       {
@@ -43,7 +69,7 @@ export default function CustomerCalendar(props) {
         title: 'Status',
         instances: [
           { id: true, color: 'lightgreen', text: 'Booked' },
-          { id: false, color: 'gold', text: 'Available' },
+          { id: false, color: 'f8de7e', text: 'Available' },
         ],
       },
       // {
@@ -60,7 +86,7 @@ export default function CustomerCalendar(props) {
         value: 'TEST',
       },
     ]);
-  }, [1]);
+  }, [checked]);
 
   const commitChanges = ({ added, changed, deleted }) => {
     if (added) {

@@ -23,9 +23,9 @@ import {
 
 const GreenCheckbox = withStyles({
   root: {
-    color: green[200],
+    color: green[100],
     '&$checked': {
-      color: green[400],
+      color: green[200],
     },
     marginLeft: '15px',
   },
@@ -45,9 +45,9 @@ const YellowCheckbox = withStyles({
 
 const BlueCheckbox = withStyles({
   root: {
-    color: blue[200],
+    color: blue[100],
     '&$checked': {
-      color: blue[400],
+      color: blue[200],
     },
     marginLeft: '15px',
   },
@@ -86,7 +86,7 @@ export default function CustomerCalendar(props) {
     if (checked.Requested) toFilter.push(-1);
     if (checked.Cancelled) toFilter.push(-2);
 
-    setCalendar([].concat.apply([], ...[toFilter.map((b) => (
+    setCalendar(Array.prototype.concat.apply([], ...[toFilter.map((b) => (
       storeCalendar.filter((c) => c.booked === b).map((e) => ({
         id: e.id,
         startDate: new Date(e.startDate),
@@ -104,10 +104,10 @@ export default function CustomerCalendar(props) {
         fieldName: 'status',
         title: 'Status',
         instances: [
-          { id: -2, color: 'grey', text: 'Cancelled' },
-          { id: -1, color: 'lightblue', text: 'Requested' },
-          { id: 0, color: 'f8de7e', text: 'Available' },
-          { id: 1, color: 'lightgreen', text: 'Booked' },
+          { id: -2, color: 'lightgrey', text: 'Cancelled' },
+          { id: -1, color: blue[200], text: 'Requested' },
+          { id: 0, color: yellow[600], text: 'Available' },
+          { id: 1, color: green[200], text: 'Booked' },
         ],
       },
       {
@@ -161,32 +161,6 @@ export default function CustomerCalendar(props) {
       setCalendar(calendar.filter((appointment) => appointment.id !== deleted));
     }
   };
-
-  // eslint-disable-next-line react/destructuring-assignment
-  // const Content = ({ children, appointmentData, ...restProps }) => (
-  //   <AppointmentTooltip.Content {...restProps} appointmentData={appointmentData}>
-  //     <Grid container alignItems='center' className={classes.info}>
-  //       <Grid item xs={2} className={classes.textCenter}>
-  //         <PersonIcon />
-  //       </Grid>
-  //       <Grid item xs={10}>
-  //         {appointmentData.customerName}
-  //       </Grid>
-  //       <Grid item xs={2} className={classes.textCenter}>
-  //         <AttachMoneyIcon />
-  //       </Grid>
-  //       <Grid item xs={10}>
-  //         ${appointmentData.price}
-  //       </Grid>
-  //       <Grid item xs={2} className={classes.textCenter}>
-  //         <EqualizerIcon />
-  //       </Grid>
-  //       <Grid item xs={10}>
-  //         {appointmentData.experience}
-  //       </Grid>
-  //     </Grid>
-  //   </AppointmentTooltip.Content>
-  // );
 
   const handleChange = (e) => {
     const attr = e.target.name;
@@ -272,6 +246,7 @@ export default function CustomerCalendar(props) {
                 checked={checked.Cancelled}
                 onChange={handleChange}
                 name='Cancelled'
+                color='default'
               />
             )}
             label='Show Cancellations'
@@ -281,3 +256,31 @@ export default function CustomerCalendar(props) {
     </Container>
   );
 }
+
+// some weird icon stuff for info
+
+// eslint-disable-next-line react/destructuring-assignment
+// const Content = ({ children, appointmentData, ...restProps }) => (
+//   <AppointmentTooltip.Content {...restProps} appointmentData={appointmentData}>
+//     <Grid container alignItems='center' className={classes.info}>
+//       <Grid item xs={2} className={classes.textCenter}>
+//         <PersonIcon />
+//       </Grid>
+//       <Grid item xs={10}>
+//         {appointmentData.customerName}
+//       </Grid>
+//       <Grid item xs={2} className={classes.textCenter}>
+//         <AttachMoneyIcon />
+//       </Grid>
+//       <Grid item xs={10}>
+//         ${appointmentData.price}
+//       </Grid>
+//       <Grid item xs={2} className={classes.textCenter}>
+//         <EqualizerIcon />
+//       </Grid>
+//       <Grid item xs={10}>
+//         {appointmentData.experience}
+//       </Grid>
+//     </Grid>
+//   </AppointmentTooltip.Content>
+// );

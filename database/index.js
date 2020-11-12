@@ -29,18 +29,6 @@ const storeSchema = new mongoose.Schema({
       notes: String,
     },
   ],
-  calendar_request: [
-    {
-      startDate: Date, // stores both data and time
-      endDate: Date,
-      guide: String,
-      price: Number,
-      booked: Number,
-      customerName: String,
-      experience: String,
-      notes: String,
-    },
-  ],
 });
 
 const customerSchema = new mongoose.Schema({

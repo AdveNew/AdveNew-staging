@@ -16,7 +16,7 @@ import {
 
 export default function CustomerCalendar(props) {
   const [storeCalendar] = useState(props.calendar);
-  const [requestCalendar] = useState(props.requets);
+  const [requestCalendar] = useState(props.requests);
   const [calendar, setCalendar] = useState([]);
   const [requests, setRequests] = useState([]);
   const [resources, setResources] = useState([]);
@@ -24,7 +24,7 @@ export default function CustomerCalendar(props) {
   const [checked, setChecked] = useState({
     Booked: true,
     Available: true,
-    Requests: false,
+    Requests: true,
   });
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export default function CustomerCalendar(props) {
         notes: event.notes,
       })));
     } else if (checked.Booked && !checked.Available) {
-      setCalendar(storeCalendar.filter((b) => b.booked === true).map((event) => ({
+      setCalendar(storeCalendar.filter((b) => b.booked === 1).map((event) => ({
         id: event.id,
         startDate: new Date(event.startDate),
         endDate: new Date(event.endDate),
@@ -53,7 +53,7 @@ export default function CustomerCalendar(props) {
         notes: event.notes,
       })));
     } else if (checked.Available && !checked.Booked) {
-      setCalendar(storeCalendar.filter((b) => b.booked === false).map((event) => ({
+      setCalendar(storeCalendar.filter((b) => b.booked === 0).map((event) => ({
         id: event.id,
         startDate: new Date(event.startDate),
         endDate: new Date(event.endDate),
@@ -66,25 +66,28 @@ export default function CustomerCalendar(props) {
       })));
     } else setCalendar([]);
 
-    setRequests(storeCalendar.map((event) => ({
-      id: event.id,
-      startDate: new Date(event.startDate),
-      endDate: new Date(event.endDate),
-      title: event.guide,
-      price: event.price,
-      status: event.booked,
-      customerName: event.customerName,
-      experience: event.experience,
-      notes: event.notes,
-    })));
+    if (checked.Requests) {
+      setRequests(requestCalendar.filter((b) => b.booked === -1).map((event) => ({
+        id: event.id,
+        startDate: new Date(event.startDate),
+        endDate: new Date(event.endDate),
+        title: event.guide,
+        price: event.price,
+        status: event.booked,
+        customerName: event.customerName,
+        experience: event.experience,
+        notes: event.notes,
+      })));
+    } else setRequests([]);
 
     setResources([
       {
         fieldName: 'status',
         title: 'Status',
         instances: [
-          { id: true, color: 'lightgreen', text: 'Booked' },
-          { id: false, color: 'f8de7e', text: 'Available' },
+          { id: -1, color: 'lightblue', text: 'Requested' },
+          { id: 0, color: 'f8de7e', text: 'Available' },
+          { id: 1, color: 'lightgreen', text: 'Booked' },
         ],
       },
       // {
@@ -133,7 +136,7 @@ export default function CustomerCalendar(props) {
       <Paper elevation={2} className='calendar'>
         <Paper elevation={1} className='calendar'>
           <Scheduler
-            data={calendar}
+            data={calendar.concat(requests)}
             views={views}
             defaultCurrentView='Numeric Mode'
             className='scheduler'

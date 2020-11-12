@@ -39,7 +39,7 @@ async function generateData() {
         endDate: datetime.setHours(hour + (Math.floor((Math.random() * 3) + 1))),
         guide: Faker.Name.firstName(),
         price: Faker.Number.between(75, 280),
-        booked: Faker.Boolean.boolean(),
+        booked: Faker.Random.element([0, 1]),
         customerName: Faker.Name.name(), // eventually tie to customer schema
         experience: Faker.Random.element(['Beginner', 'Novice', 'Advanced', 'Pro', 'Expert']),
         notes: Faker.Matz.quote(),
@@ -51,17 +51,17 @@ async function generateData() {
     // make some custom bookings requests
     const customBookings = [];
     const numberOfCustomerBookings = Math.floor((Math.random() * 11) + 20); // 20-30 custom bookings
-    // creates dates 4 months forward
-    const datetime = Faker.Time.forward(90, Faker.Time.DAY);
-    const hour = Math.floor((Math.random() * 7) + 8); // hours 0800 - 1500 (odd, I know)
-    datetime.setMinutes(Math.floor((Math.random() * 1.5)) * 30); // on the hour, or half hour
     for (let j = 0; j < numberOfCustomerBookings; j += 1) {
+      // creates dates 4 months forward
+      const datetime = Faker.Time.forward(90, Faker.Time.DAY);
+      const hour = Math.floor((Math.random() * 7) + 8); // hours 0800 - 1500 (odd, I know)
+      datetime.setMinutes(Math.floor((Math.random() * 1.5)) * 30); // on the hour, or half hour
       const newBooking = {
         startDate: datetime.setHours(hour),
         endDate: datetime.setHours(hour + (Math.floor((Math.random() * 3) + 1))),
         guide: Faker.Name.firstName(),
         price: Faker.Number.between(75, 280),
-        booked: Faker.Boolean.boolean(),
+        booked: -1,
         customerName: Faker.Name.name(), // eventually tie to customer schema
         experience: Faker.Random.element(['Beginner', 'Novice', 'Advanced', 'Pro', 'Expert']),
         notes: Faker.Matz.quote(),

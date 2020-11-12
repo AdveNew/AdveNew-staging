@@ -15,18 +15,21 @@ import {
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 export default function CustomerCalendar(props) {
-  const [store] = useState(props.calendar);
+  const [storeCalendar] = useState(props.calendar);
+  const [requestCalendar] = useState(props.requets);
   const [calendar, setCalendar] = useState([]);
+  const [requests, setRequests] = useState([]);
   const [resources, setResources] = useState([]);
   const [editorProps, setEditorProps] = useState([]);
   const [checked, setChecked] = useState({
     Booked: true,
     Available: true,
+    Requests: false,
   });
 
   useEffect(() => {
     if (checked.Booked && checked.Available) {
-      setCalendar(store.map((event) => ({
+      setCalendar(storeCalendar.map((event) => ({
         id: event.id,
         startDate: new Date(event.startDate),
         endDate: new Date(event.endDate),
@@ -38,7 +41,7 @@ export default function CustomerCalendar(props) {
         notes: event.notes,
       })));
     } else if (checked.Booked && !checked.Available) {
-      setCalendar(store.filter((b) => b.booked === true).map((event) => ({
+      setCalendar(storeCalendar.filter((b) => b.booked === true).map((event) => ({
         id: event.id,
         startDate: new Date(event.startDate),
         endDate: new Date(event.endDate),
@@ -50,7 +53,7 @@ export default function CustomerCalendar(props) {
         notes: event.notes,
       })));
     } else if (checked.Available && !checked.Booked) {
-      setCalendar(store.filter((b) => b.booked === false).map((event) => ({
+      setCalendar(storeCalendar.filter((b) => b.booked === false).map((event) => ({
         id: event.id,
         startDate: new Date(event.startDate),
         endDate: new Date(event.endDate),
@@ -62,6 +65,18 @@ export default function CustomerCalendar(props) {
         notes: event.notes,
       })));
     } else setCalendar([]);
+
+    setRequests(storeCalendar.map((event) => ({
+      id: event.id,
+      startDate: new Date(event.startDate),
+      endDate: new Date(event.endDate),
+      title: event.guide,
+      price: event.price,
+      status: event.booked,
+      customerName: event.customerName,
+      experience: event.experience,
+      notes: event.notes,
+    })));
 
     setResources([
       {
@@ -177,6 +192,17 @@ export default function CustomerCalendar(props) {
               />
             )}
             label='Show Available'
+          />
+          <FormControlLabel
+            control={(
+              <Checkbox
+                checked={checked.Requests}
+                onChange={handleChange}
+                name='Requests'
+                color='primary'
+              />
+            )}
+            label='Show Customer Requests'
           />
         </Grid>
       </Paper>

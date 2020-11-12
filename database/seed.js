@@ -25,7 +25,7 @@ async function generateData() {
     const calendar = [];
     const numberOfBookings = Math.floor((Math.random() * 31) + 30); // 30 - 60 bookings
     for (let j = 1; j <= numberOfBookings; j += 1) {
-      // creates dates 3 weeks forward and 3 weeks backwards
+      // creates dates 3 months forward and 3 months back
       const datetime = Faker.Time.between(
         Faker.Time.forward(90),
         Faker.Time.backward(90),
@@ -34,7 +34,6 @@ async function generateData() {
       const hour = Math.floor((Math.random() * 7) + 8); // hours 0800 - 1500 (odd, I know)
       datetime.setMinutes(Math.floor((Math.random() * 1.5)) * 30); // on the hour, or half hour
       const newBooking = {
-        // set dates 90 days forward, with time during the DAY
         id: j,
         startDate: datetime.setHours(hour),
         endDate: datetime.setHours(hour + (Math.floor((Math.random() * 3) + 1))),
@@ -51,11 +50,15 @@ async function generateData() {
 
     // make some custom bookings requests
     const customBookings = [];
-    const numberOfCustomerBookings = Math.floor((Math.random() * 5) + 3); // 3-8 custom bookings
+    const numberOfCustomerBookings = Math.floor((Math.random() * 11) + 20); // 20-30 custom bookings
+    // creates dates 4 months forward
+    const datetime = Faker.Time.forward(90, Faker.Time.DAY);
+    const hour = Math.floor((Math.random() * 7) + 8); // hours 0800 - 1500 (odd, I know)
+    datetime.setMinutes(Math.floor((Math.random() * 1.5)) * 30); // on the hour, or half hour
     for (let j = 0; j < numberOfCustomerBookings; j += 1) {
       const newBooking = {
-        // set dates 90 days forward, with time during the DAY
-        datetime: Faker.Time.forward(30, Faker.Time.DAY),
+        startDate: datetime.setHours(hour),
+        endDate: datetime.setHours(hour + (Math.floor((Math.random() * 3) + 1))),
         guide: Faker.Name.firstName(),
         price: Faker.Number.between(75, 280),
         booked: Faker.Boolean.boolean(),

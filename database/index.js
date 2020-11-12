@@ -31,7 +31,8 @@ const storeSchema = new mongoose.Schema({
   ],
   calendar_request: [
     {
-      datetime: Date, // stores both data and time
+      startDate: Date, // stores both data and time
+      endDate: Date,
       guide: String,
       price: Number,
       booked: Boolean,

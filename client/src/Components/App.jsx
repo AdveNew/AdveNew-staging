@@ -10,13 +10,13 @@ import axios from 'axios';
 import CompanyInfo from './CompanyInfo.jsx';
 import CustomCalendar from './CustomCalendar.jsx';
 // import CustomCalendar2 from './CustomCalendar2.jsx';
-// import NotFound from './404.jsx';
 import { Header, Footer } from './AppBars.jsx';
 
 export default function App() {
   const [store, setStore] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // get a random company for now
   const storeId = Math.floor(Math.random() * 100 + 1);
   useEffect(() => {
     axios.get('api/calendar', {
@@ -62,7 +62,7 @@ export default function App() {
           </Switch>
         </Router> */}
         <CompanyInfo store={store} />
-        <CustomCalendar calendar={store.calendar} />
+        <CustomCalendar calendar={store.calendar} requests={store.calendar_request} />
       </Grid>
       <Footer store={store} />
     </React.Fragment>

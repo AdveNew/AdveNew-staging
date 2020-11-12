@@ -88,8 +88,8 @@ export default function CustomerCalendar(props) {
   };
 
   return (
-    <Container maxWidth='md'>
-      <Paper elevation={5} className='calendar'>
+    <Container maxWidth='md' style={{ marginTop: '20' }}>
+      <Paper elevation={2} className='calendar'>
         <Paper elevation={1} className='calendar'>
           <Scheduler
             data={calendar}

@@ -15,17 +15,15 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
 // bottom bar imports
-import BottomNavigation from '@material-ui/core/BottomNavigation';
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import Grid from '@material-ui/core/Grid';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Drawer from '@material-ui/core/Drawer/Drawer.js';
+import Tooltip from '@material-ui/core/Tooltip/Tooltip.js';
 import TodayIcon from '@material-ui/icons/Today';
 import HomeIcon from '@material-ui/icons/Home';
 import EditIcon from '@material-ui/icons/Edit';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import Drawer from '@material-ui/core/Drawer/Drawer.js';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
 
 import InfoIcon from '@material-ui/icons/Info';
 import CompanyInfo from './CompanyInfo.jsx';
@@ -206,47 +204,45 @@ export function Header() {
 export function Footer(props) {
   const classes = useStyles();
   const [store] = useState(props.store);
-  const [value, setValue] = useState('recents');
   const [drawer, setDrawer] = useState(false);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
 
   return (
     // eslint-disable-next-line react/jsx-fragments
     <React.Fragment>
       <CssBaseline />
       <AppBar position='fixed' color='default' className={classes.appBar}>
-        <Toolbar
-          value={value}
-          onChange={handleChange}
-          className={classes.footer}
-        >
-          <Grid
-            container
-            direction='row'
-            justify='space-evenly'
-            alignItems='center'
-          >
-            <IconButton label='Calendar' value='calendar'><TodayIcon /></IconButton>
-            <IconButton label='Home' value='home'><HomeIcon /></IconButton>
-            <IconButton label='Nearby' value='nearby'><LocationOnIcon /></IconButton>
-            <IconButton label='Edit Calendar' value='edit'><EditIcon /></IconButton>
-            <IconButton
-              label='Email'
-            // eslint-disable-next-line no-return-assign
-              onClick={() => window.location.href = 'mailto:customercare@advenew.com?subject=Hello AdveNew'}
-            >
-              <MailOutlineIcon />
-            </IconButton>
-            <IconButton onClick={() => setDrawer(true)} label='Company Info'><InfoIcon /></IconButton>
+        <Toolbar>
+          <Grid container justify='space-evenly' alignItems='center'>
+            <Tooltip title='Calendar' placement='top'>
+              <IconButton><TodayIcon /></IconButton>
+            </Tooltip>
+            <Tooltip title='Home' placement='top'>
+              <IconButton><HomeIcon /></IconButton>
+            </Tooltip>
+            <Tooltip title='Nearby' placement='top'>
+              <IconButton><LocationOnIcon /></IconButton>
+            </Tooltip>
+            <Tooltip title='Edit Calendar' placement='top'>
+              <IconButton label='Edit Calendar' value='edit'><EditIcon /></IconButton>
+            </Tooltip>
+            <Tooltip title='Send Email' placement='top'>
+              <IconButton
+                label='Email'
+              // eslint-disable-next-line no-return-assign
+                onClick={() => window.location.href = 'mailto:customercare@advenew.com?subject=Hello AdveNew'}
+              >
+                <MailOutlineIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title='Company Info' placement='top'>
+              <IconButton onClick={() => setDrawer(true)}><InfoIcon /></IconButton>
+            </Tooltip>
             <Drawer open={drawer} onClose={() => setDrawer(false)}>
               <CompanyInfo store={store} />
             </Drawer>
-            <IconButton edge='end' color='inherit'>
-              <MoreIcon />
-            </IconButton>
+            <Tooltip title='More Info' placement='top'>
+              <IconButton><MoreIcon /></IconButton>
+            </Tooltip>
           </Grid>
         </Toolbar>
       </AppBar>

@@ -7,7 +7,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import axios from 'axios';
 
 // Components
-// import CompanyInfo from './CompanyInfo.jsx';
+import CompanyInfo from './CompanyInfo.jsx';
 import CustomCalendar from './CustomCalendar.jsx';
 // import CustomCalendar2 from './CustomCalendar2.jsx';
 // import NotFound from './404.jsx';
@@ -61,7 +61,7 @@ export default function App() {
             <Route path='*' component={NotFound} />
           </Switch>
         </Router> */}
-        {/* <CompanyInfo store={store} /> */}
+        <CompanyInfo store={store} />
         <CustomCalendar calendar={store.calendar} />
       </Grid>
       <Footer store={store} />

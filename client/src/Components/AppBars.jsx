@@ -16,7 +16,6 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 
 // bottom bar imports
 import Grid from '@material-ui/core/Grid';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer/Drawer.js';
 import Tooltip from '@material-ui/core/Tooltip/Tooltip.js';
 import TodayIcon from '@material-ui/icons/Today';
@@ -53,10 +52,9 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
-  appBar: {
+  footer: {
     top: 'auto',
     bottom: 0,
-    zIndex: 1,
   },
 }));
 
@@ -209,8 +207,7 @@ export function Footer(props) {
   return (
     // eslint-disable-next-line react/jsx-fragments
     <React.Fragment>
-      <CssBaseline />
-      <AppBar position='fixed' color='default' className={classes.appBar}>
+      <AppBar position='fixed' color='default' className={classes.footer}>
         <Toolbar>
           <Grid container justify='space-evenly' alignItems='center'>
             <Tooltip title='Calendar' placement='top'>

@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -14,6 +14,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
+// bottom bar imports
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import TodayIcon from '@material-ui/icons/Today';
@@ -21,6 +22,13 @@ import HomeIcon from '@material-ui/icons/Home';
 import EditIcon from '@material-ui/icons/Edit';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import Drawer from '@material-ui/core/Drawer/Drawer.js';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+
+import InfoIcon from '@material-ui/icons/Info';
+import CompanyInfo from './CompanyInfo.jsx';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -47,20 +55,36 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
-  footer: {
-    width: '100%',
-    position: 'fixed',
+  text: {
+    padding: theme.spacing(2, 2, 0),
+  },
+  paper: {
+    paddingBottom: 50,
+  },
+  list: {
+    marginBottom: theme.spacing(2),
+  },
+  subheader: {
+    backgroundColor: theme.palette.background.paper,
+  },
+  appBar: {
+    top: 'auto',
     bottom: 0,
-    left: 0,
-    backgroundColor: 'lightgrey',
+  },
+  fabButton: {
+    position: 'absolute',
     zIndex: 1,
+    top: -30,
+    left: 0,
+    right: 0,
+    margin: '0 auto',
   },
 }));
 
 export function Header() {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -196,30 +220,55 @@ export function Header() {
   );
 }
 
-export function Footer() {
+/* ***************** */
+/* Simple footer bar */
+export function Footer(props) {
   const classes = useStyles();
-  const [value, setValue] = React.useState('recents');
+  const [store] = useState(props.store);
+  const [value, setValue] = useState('recents');
+  const [drawer, setDrawer] = useState(false);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   return (
-    <BottomNavigation
-      value={value}
-      onChange={handleChange}
-      className={classes.footer}
-    >
-      <BottomNavigationAction label='Calendar' value='calendar' icon={<TodayIcon />} />
-      <BottomNavigationAction label='Home' value='home' icon={<HomeIcon />} />
-      <BottomNavigationAction label='Nearby' value='nearby' icon={<LocationOnIcon />} />
-      <BottomNavigationAction label='Edit Calendar' value='edit' icon={<EditIcon />} />
-      <BottomNavigationAction
-        label='Email'
-        // eslint-disable-next-line no-return-assign
-        onClick={() => window.location.href = 'mailto:customercare@advenew.com?subject=Hello AdveNew'}
-        icon={<MailOutlineIcon />}
-      />
-    </BottomNavigation>
+    // eslint-disable-next-line react/jsx-fragments
+    <React.Fragment>
+      <CssBaseline />
+      <AppBar position='fixed' color='default' className={classes.appBar}>
+        <Toolbar
+          value={value}
+          onChange={handleChange}
+          className={classes.footer}
+        >
+          <Grid
+            container
+            direction='row'
+            justify='space-evenly'
+            alignItems='center'
+          >
+            <IconButton label='Calendar' value='calendar'><TodayIcon /></IconButton>
+            <IconButton label='Home' value='home'><HomeIcon /></IconButton>
+            <IconButton label='Nearby' value='nearby'><LocationOnIcon /></IconButton>
+            <IconButton label='Edit Calendar' value='edit'><EditIcon /></IconButton>
+            <IconButton
+              label='Email'
+            // eslint-disable-next-line no-return-assign
+              onClick={() => window.location.href = 'mailto:customercare@advenew.com?subject=Hello AdveNew'}
+            >
+              <MailOutlineIcon />
+            </IconButton>
+            <IconButton onClick={() => setDrawer(true)} label='Company Info'><InfoIcon /></IconButton>
+            <Drawer open={drawer} onClose={() => setDrawer(false)}>
+              <CompanyInfo store={store} />
+            </Drawer>
+            <IconButton edge='end' color='inherit'>
+              <MoreIcon />
+            </IconButton>
+          </Grid>
+        </Toolbar>
+      </AppBar>
+    </React.Fragment>
   );
 }

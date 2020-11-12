@@ -1,15 +1,16 @@
 /* eslint-disable import/extensions */
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+// import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
-import Divider from '@material-ui/core/Divider';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Backdrop from '@material-ui/core/Backdrop';
 import axios from 'axios';
 
 // Components
-import CompanyInfo from './CompanyInfo.jsx';
+// import CompanyInfo from './CompanyInfo.jsx';
 import CustomCalendar from './CustomCalendar.jsx';
-import CustomCalendar2 from './CustomCalendar2.jsx';
-import NotFound from './404.jsx';
+// import CustomCalendar2 from './CustomCalendar2.jsx';
+// import NotFound from './404.jsx';
 import { Header, Footer } from './AppBars.jsx';
 
 export default function App() {
@@ -31,7 +32,14 @@ export default function App() {
   }, [0]);
 
   if (loading) {
-    return (<h1>Loading data...</h1>);
+    // return (<h1>Loading data...</h1>);
+    return (
+      <div className='loading'>
+        <Backdrop open>
+          <CircularProgress color='inherit' />
+        </Backdrop>
+      </div>
+    );
   }
   return (
     // eslint-disable-next-line react/jsx-fragments
@@ -53,11 +61,10 @@ export default function App() {
             <Route path='*' component={NotFound} />
           </Switch>
         </Router> */}
-        <CompanyInfo store={store} />
-        <Divider orientation="vertical" flexItem />
+        {/* <CompanyInfo store={store} /> */}
         <CustomCalendar calendar={store.calendar} />
       </Grid>
-      <Footer />
+      <Footer store={store} />
     </React.Fragment>
   );
 }

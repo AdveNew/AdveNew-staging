@@ -69,10 +69,6 @@ const useStyles = makeStyles(() => ({
 export default function CustomerCalendar(props) {
   const classes = useStyles();
   const [storeCalendar] = useState(props.calendar);
-  const [bookedCalendar, setBookedCalendar] = useState([]);
-  const [availableCalendar, setAvailableCalendar] = useState([]);
-  const [requestedCalendar, setRequestedCalendar] = useState([]);
-  const [cancelledCalendar, setCancelledCalendar] = useState([]);
   const [calendar, setCalendar] = useState([]);
   const [resources, setResources] = useState([]);
   const [editorProps, setEditorProps] = useState([]);
@@ -84,8 +80,14 @@ export default function CustomerCalendar(props) {
   });
 
   useEffect(() => {
-    if (checked.Booked) {
-      setBookedCalendar(storeCalendar.filter((c) => c.booked === 1).map((e) => ({
+    const toFilter = [];
+    if (checked.Booked) toFilter.push(1);
+    if (checked.Available) toFilter.push(0);
+    if (checked.Requested) toFilter.push(-1);
+    if (checked.Cancelled) toFilter.push(-2);
+
+    setCalendar([].concat.apply([], ...[toFilter.map((b) => (
+      storeCalendar.filter((c) => c.booked === b).map((e) => ({
         id: e.id,
         startDate: new Date(e.startDate),
         endDate: new Date(e.endDate),
@@ -95,47 +97,7 @@ export default function CustomerCalendar(props) {
         customerName: e.customerName,
         experience: e.experience,
         notes: e.notes,
-      })));
-    } else setBookedCalendar([]);
-    if (checked.Available) {
-      setAvailableCalendar(storeCalendar.filter((c) => c.booked === 0).map((e) => ({
-        id: e.id,
-        startDate: new Date(e.startDate),
-        endDate: new Date(e.endDate),
-        title: e.guide,
-        price: e.price,
-        status: e.booked,
-        customerName: e.customerName,
-        experience: e.experience,
-        notes: e.notes,
-      })));
-    } else setAvailableCalendar([]);
-    if (checked.Requested) {
-      setRequestedCalendar(storeCalendar.filter((c) => c.booked === -1).map((e) => ({
-        id: e.id,
-        startDate: new Date(e.startDate),
-        endDate: new Date(e.endDate),
-        title: e.guide,
-        price: e.price,
-        status: e.booked,
-        customerName: e.customerName,
-        experience: e.experience,
-        notes: e.notes,
-      })));
-    } else setRequestedCalendar([]);
-    if (checked.Cancelled) {
-      setCancelledCalendar(storeCalendar.filter((c) => c.booked === -2).map((e) => ({
-        id: e.id,
-        startDate: new Date(e.startDate),
-        endDate: new Date(e.endDate),
-        title: e.guide,
-        price: e.price,
-        status: e.booked,
-        customerName: e.customerName,
-        experience: e.experience,
-        notes: e.notes,
-      })));
-    } else setCancelledCalendar([]);
+      }))))]));
 
     setResources([
       {
@@ -236,7 +198,7 @@ export default function CustomerCalendar(props) {
       <Paper elevation={2}>
         <Paper elevation={1}>
           <Scheduler
-            data={bookedCalendar.concat(availableCalendar.concat(requestedCalendar.concat(cancelledCalendar)))}
+            data={calendar}
             defaultCurrentView='Numeric Mode'
             className={classes.calendar}
           >
@@ -319,5 +281,3 @@ export default function CustomerCalendar(props) {
     </Container>
   );
 }
-
-// export default CustomerCalendar;

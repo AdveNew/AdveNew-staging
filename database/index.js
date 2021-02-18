@@ -11,7 +11,7 @@ const storeSchema = new mongoose.Schema({
   storeId: Number,
   name: String,
   logo: String,
-  phrase: String,
+  details: String,
   phoneNumber: String,
   emailAddress: String,
   websiteUrl: String,
@@ -24,7 +24,11 @@ const storeSchema = new mongoose.Schema({
       guide: String,
       price: Number,
       booked: Number,
+      location: String,
+      size: Number,
       customerName: String,
+      accommodations: String,
+      cancellationHours: Number,
       experience: String,
       notes: String,
     },
@@ -32,10 +36,12 @@ const storeSchema = new mongoose.Schema({
 });
 
 const customerSchema = new mongoose.Schema({
+  customerId: Number,
   name: String,
   avatar: String,
   phoneNumber: String,
   emailAddress: String,
+  location: String,
 });
 
 // compiling schema into a model

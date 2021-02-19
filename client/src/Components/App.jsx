@@ -1,16 +1,16 @@
 /* eslint-disable import/extensions */
 import React, { useState, useEffect } from 'react';
-// import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Backdrop from '@material-ui/core/Backdrop';
 import axios from 'axios';
 
 // Components
-import CompanyInfo from './CompanyInfo.jsx';
-import CustomCalendar from './CustomCalendar.jsx';
-// import CustomCalendar2 from './CustomCalendar2.jsx';
+import CompanyPage from './CompanyPage.jsx';
 import { Header, Footer } from './AppBars.jsx';
+import Home from './Home.jsx';
+import NotFound from './NotFound.jsx';
 
 export default function App() {
   const [store, setStore] = useState([]);
@@ -51,18 +51,13 @@ export default function App() {
         justify='space-evenly'
         alignItems='center'
       >
-        {/* <Router>
-          <Switch>
-            <Route path='/'><LaunchPage store={store} /></Route>
-            <Route path='/c1'><CustomCalendar calendar={store.calendar} /></Route>
-            <Route path='/c2'>
-              <CustomCalendar2 calendar={store.calendar} />
-            </Route>
-            <Route path='*' component={NotFound} />
-          </Switch>
-        </Router> */}
-        <CompanyInfo store={store} />
-        <CustomCalendar calendar={store.calendar} requests={store.calendar_request} />
+        <Switch>
+          <Route path='/' component={Home} exact />
+          <Route path='/c1' component={() => <CompanyPage store={store} />} />
+          <Route component={NotFound} />
+        </Switch>
+        {/* <CompanyInfo store={store} /> */}
+        {/* <CustomCalendar calendar={store.calendar} requests={store.calendar_request} /> */}
       </Grid>
       <Footer store={store} />
     </React.Fragment>

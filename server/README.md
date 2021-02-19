@@ -6,6 +6,7 @@ In the terminal, run:
 - `npm run start-dev` for development server (listens for code changes on server)
 - `npm run start` for production server
 - *Note: to shutdown the server (and free the port), use **Ctrl+C***
+If a port gets stuck for whatever reason, run (as admin+ for MacOS): `lsof -i :3000` and then `kill -9 <PID>`.
 
 #### Using MVC:
   - **Model**: Handles queries to the database

@@ -1,18 +1,19 @@
 /* eslint-disable import/extensions */
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
+import IconButton from '@material-ui/core/IconButton';
+import MailIcon from '@material-ui/icons/Mail';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import MenuItem from '@material-ui/core/MenuItem';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 
 // bottom bar imports
 import Grid from '@material-ui/core/Grid';
@@ -25,11 +26,20 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 
 import InfoIcon from '@material-ui/icons/Info';
+import * as SVG from './svgFiles.jsx';
 import CompanyInfo from './CompanyInfo.jsx';
 
 const useStyles = makeStyles((theme) => ({
+  footer: {
+    top: 'auto',
+    bottom: 0,
+  },
   grow: {
     flexGrow: 1,
+  },
+  logo: {
+    height: 40,
+    marginRight: theme.spacing(1),
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -52,11 +62,20 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
-  footer: {
-    top: 'auto',
-    bottom: 0,
-  },
 }));
+
+function ElevationScroll(props) {
+  const { children } = props;
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 0,
+  });
+
+  return React.cloneElement(children, {
+    elevation: trigger ? 4 : 0,
+    color: trigger ? 'default' : 'transparent',
+  });
+}
 
 export function Header() {
   const classes = useStyles();
@@ -142,59 +161,62 @@ export function Header() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position='static'>
-        <Toolbar>
-          <IconButton
-            edge='start'
-            className={classes.menuButton}
-            color='inherit'
-            aria-label='open drawer'
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography className={classes.title} variant='h6' noWrap>
-            AdveNew
-          </Typography>
-          <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
-            <Tooltip title='Messages' placement='bottom'>
-              <IconButton aria-label='show 4 new mails' color='inherit'>
-                <Badge badgeContent={4} color='secondary'>
-                  <MailIcon />
-                </Badge>
-              </IconButton>
-            </Tooltip>
-            <Tooltip title='Notifications' placement='bottom'>
-              <IconButton aria-label='show 17 new notifications' color='inherit'>
-                <Badge badgeContent={17} color='secondary'>
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
-            </Tooltip>
+      <ElevationScroll>
+        <AppBar position='fixed' color='transparent' elevation={0}>
+          <Toolbar>
             <IconButton
-              edge='end'
-              aria-label='account of current user'
-              aria-controls={menuId}
-              aria-haspopup='true'
-              onClick={handleProfileMenuOpen}
+              edge='start'
+              className={classes.menuButton}
               color='inherit'
+              aria-label='open drawer'
             >
-              <AccountCircle />
+              <MenuIcon />
             </IconButton>
-          </div>
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label='show more'
-              aria-controls={mobileMenuId}
-              aria-haspopup='true'
-              onClick={handleMobileMenuOpen}
-              color='inherit'
-            >
-              <MoreIcon />
-            </IconButton>
-          </div>
-        </Toolbar>
-      </AppBar>
+            {SVG.handmadeIconSVG}
+            <Typography className={classes.title} variant='h6' noWrap>
+              AdveNew
+            </Typography>
+            <div className={classes.grow} />
+            <div className={classes.sectionDesktop}>
+              <Tooltip title='Messages' placement='bottom'>
+                <IconButton aria-label='show 4 new mails' color='inherit'>
+                  <Badge badgeContent={4} color='secondary'>
+                    <MailIcon />
+                  </Badge>
+                </IconButton>
+              </Tooltip>
+              <Tooltip title='Notifications' placement='bottom'>
+                <IconButton aria-label='show 17 new notifications' color='inherit'>
+                  <Badge badgeContent={17} color='secondary'>
+                    <NotificationsIcon />
+                  </Badge>
+                </IconButton>
+              </Tooltip>
+              <IconButton
+                edge='end'
+                aria-label='account of current user'
+                aria-controls={menuId}
+                aria-haspopup='true'
+                onClick={handleProfileMenuOpen}
+                color='inherit'
+              >
+                <AccountCircle />
+              </IconButton>
+            </div>
+            <div className={classes.sectionMobile}>
+              <IconButton
+                aria-label='show more'
+                aria-controls={mobileMenuId}
+                aria-haspopup='true'
+                onClick={handleMobileMenuOpen}
+                color='inherit'
+              >
+                <MoreIcon />
+              </IconButton>
+            </div>
+          </Toolbar>
+        </AppBar>
+      </ElevationScroll>
       {renderMobileMenu}
       {renderMenu}
     </div>

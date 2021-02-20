@@ -4,6 +4,7 @@ const Dotenv = require('dotenv-webpack');
 
 const SRC_DIR = path.join(__dirname, './client/src');
 const DIST_DIR = path.join(__dirname, './client/dist');
+const PORT = process.env.PORT || 3000;
 
 const client = {
   mode: 'development',
@@ -11,6 +12,7 @@ const client = {
   output: {
     filename: 'bundle.js',
     path: DIST_DIR,
+    publicPath: '/',
   },
   plugins: [
     new Dotenv(),
@@ -22,7 +24,8 @@ const client = {
     host: 'localhost',
     watchContentBase: true,
     conentBase: 'server',
-    port: 3000,
+    port: PORT,
+    historyApiFallback: true,
   },
   resolve: {
     alias: {
@@ -49,6 +52,11 @@ const client = {
         use: [
           { loader: 'style-loader' },
           { loader: 'css-loader' }],
+      },
+      {
+        test: /\.(jpg|JPG|jpeg|png|gif|mp3|svg|ttf|woff2|woff|eot)$/gi,
+        use: [
+          { loader: 'url-loader' }],
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2)$/,

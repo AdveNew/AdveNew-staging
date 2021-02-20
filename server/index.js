@@ -15,10 +15,11 @@ app.use(express.json());
 // serve static assets
 app.use(express.static('client/dist'));
 
-// router
+// endpoint for server side requests to db
 app.use('/api', router);
 
-app.get('/', (req, res) => {
+// handle anything from root for react router (front-end)
+app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 

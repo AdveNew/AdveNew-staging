@@ -9,39 +9,39 @@ mongoose.connect('mongodb://localhost/advenew', { useNewUrlParser: true, useUnif
 // mongoDB creates unique IDs, so not added to schema
 const storeSchema = new mongoose.Schema({
   storeId: Number,
-  name: String,
-  logo: String,
   details: String,
-  phoneNumber: String,
   emailAddress: String,
-  websiteUrl: String,
   hours: String,
+  logo: String,
+  name: String,
+  phoneNumber: String,
+  websiteUrl: String,
   calendar: [
     {
       id: Number,
-      startDate: Date, // stores both data and time
-      endDate: Date,
-      guide: String,
-      price: Number,
-      booked: Number,
-      location: String,
-      size: Number,
-      customerName: String,
       accommodations: String,
+      booked: Number, // -2, -1, 0, 1
       cancellationHours: Number,
+      customerId: Number,
+      endDate: Date,
       experience: String,
+      guide: String,
+      location: String,
       notes: String,
+      price: Number,
+      groupSize: Number,
+      startDate: Date, // stores both data and time
     },
   ],
 });
 
 const customerSchema = new mongoose.Schema({
   customerId: Number,
-  name: String,
   avatar: String,
-  phoneNumber: String,
   emailAddress: String,
   location: String,
+  name: String,
+  phoneNumber: String,
 });
 
 // compiling schema into a model

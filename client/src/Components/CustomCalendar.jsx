@@ -94,7 +94,7 @@ export default function CustomerCalendar(props) {
         title: e.guide,
         price: e.price,
         status: e.booked,
-        customerName: e.customerName,
+        customerName: e.customerId,
         experience: e.experience,
         notes: e.notes,
       }))))]));
@@ -114,9 +114,9 @@ export default function CustomerCalendar(props) {
         fieldName: 'customerName',
         title: 'Customer Name',
         instances: storeCalendar.map((c) => ({
-          id: c.customerName,
+          id: c.customerId,
           color: 'grey',
-          text: c.customerName,
+          text: c.customerId,
         })),
       },
       {

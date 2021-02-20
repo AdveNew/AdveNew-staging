@@ -1,11 +1,11 @@
 ## EXPRESS SERVER
-Handles requests from front end to database, with CORS and Morgan as middleware features. Also included json to help parse the data. 
+Handles requests from front end to database, with CORS and Morgan as middleware features. Also included express json to help parse the data. 
 
 ### Execution
 In the terminal, run:
 - `npm run start-dev` for development server (listens for code changes on server)
 - `npm run start` for production server
-- *Note: to shutdown the server (and free the port), use **Ctrl+C***
+- *Note: to shutdown the server (and free the port), use **Ctrl+C***  
 If a port gets stuck for whatever reason, run (as admin+ for MacOS): `lsof -i :3000` and then `kill -9 <PID>`.
 
 #### Using MVC:

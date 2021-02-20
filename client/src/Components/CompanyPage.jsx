@@ -21,7 +21,6 @@ export default function CompanyPage(props) {
   }, [0]);
 
   if (loading) {
-    // return (<h1>Loading data...</h1>);
     return (
       <div className='loading'>
         <Backdrop open>

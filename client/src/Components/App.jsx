@@ -7,9 +7,10 @@ import Backdrop from '@material-ui/core/Backdrop';
 import axios from 'axios';
 
 // Components
+import Header from './Header.jsx';
 import CompanyPage from './CompanyPage.jsx';
-import { Header, Footer } from './AppBars.jsx';
 import Home from './Home.jsx';
+import Footer from './Footer.jsx';
 import NotFound from './NotFound.jsx';
 
 export default function App() {
@@ -32,7 +33,6 @@ export default function App() {
   }, [0]);
 
   if (loading) {
-    // return (<h1>Loading data...</h1>);
     return (
       <div className='loading'>
         <Backdrop open>
@@ -53,11 +53,9 @@ export default function App() {
       >
         <Switch>
           <Route path='/' component={Home} exact />
-          <Route path='/c1' component={() => <CompanyPage store={store} />} />
+          <Route path='/c1' component={() => <CompanyPage store={store} isAuthed />} />
           <Route component={NotFound} />
         </Switch>
-        {/* <CompanyInfo store={store} /> */}
-        {/* <CustomCalendar calendar={store.calendar} requests={store.calendar_request} /> */}
       </Grid>
       <Footer store={store} />
     </React.Fragment>

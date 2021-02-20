@@ -8,14 +8,14 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import GuideSearch from './GuideSearch.jsx';
-import Image from '../../dist/background7.jpg';
+import Image from '../../dist/background9.jpg';
 
 const useStyles = makeStyles((theme) => ({
   background: {
     backgroundImage: `url(${Image})`,
     height: '75vh',
     width: '110%',
-    backgroundPosition: '70% 70%',
+    backgroundPosition: '10% 10%',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     marginTop: '-70px',
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: '2',
     position: 'relative',
     backgroundColor: 'none',
-    marginTop: '70px',
+    marginTop: '15%',
   },
   textField: {
     '& .MuiTextField-root': {
@@ -66,8 +66,9 @@ export default function Home() {
           justify='space-evenly'
           alignItems='center'
         >
-          <h1 className={classes.text}>Home Page</h1>
-          <GuideSearch />
+          <div className={classes.text}>
+            <GuideSearch />
+          </div>
         </Grid>
       </div>
     </React.Fragment>

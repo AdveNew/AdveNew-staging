@@ -35,14 +35,18 @@ async function generateData() {
       datetime.setMinutes(Math.floor((Math.random() * 1.5)) * 30); // on the hour, or half hour
       const newBooking = {
         id: j,
-        startDate: datetime.setHours(hour),
-        endDate: datetime.setHours(hour + (Math.floor((Math.random() * 3) + 1))),
-        guide: Faker.Name.firstName(),
-        price: Faker.Number.between(75, 280),
+        accommodations: 'None',
         booked: Faker.Random.element([-2, -1, 0, 1]),
-        customerName: Faker.Name.name(), // eventually tie to customer schema
+        cancellationHours: Faker.Random.element([24, 48, 72, 96]),
+        customerId: Faker.Number.between(1, customerSeed),
+        endDate: datetime.setHours(hour + (Math.floor((Math.random() * 3) + 1))),
         experience: Faker.Random.element(['Beginner', 'Novice', 'Advanced', 'Pro', 'Expert']),
+        guide: Faker.Name.firstName(),
+        location: Faker.Address.city().concat(', ').concat(Faker.Address.state()),
         notes: Faker.Matz.quote(),
+        price: Faker.Number.between(25, 100) * 4,
+        groupSize: Faker.Number.between(1, 6),
+        startDate: datetime.setHours(hour),
       };
       // add each generated booking to array (for db)
       calendar.push(newBooking);
@@ -75,7 +79,7 @@ async function generateData() {
       storeId: i,
       name: `${Faker.Name.firstName().concat("'s")} ${Faker.Team.sport().replace(/\b./g, (a) => a.toUpperCase())} ${Faker.Company.suffix()}`,
       logo: Faker.Company.logo(),
-      phrase: Faker.Hipster.sentences(3).join(' '),
+      details: Faker.Hipster.sentences(3).join(' '),
       phoneNumber: Faker.Random.element(['303-', '720-']).concat(Faker.PhoneNumber.exchangeCode().concat('-').concat(Faker.PhoneNumber.subscriberNumber())),
       emailAddress: Faker.Internet.email(),
       websiteUrl: Faker.Internet.url(),
@@ -89,13 +93,15 @@ async function generateData() {
 
   // generate some customers (users on website)
   const customers = [];
-  for (let i = 0; i < customerSeed; i += 1) {
+  for (let i = 1; i <= customerSeed; i += 1) {
     // for all of customer info
     const customerAll = {
-      name: Faker.Name.name(),
+      customerId: i,
       avatar: Faker.Avatar.image(),
-      phoneNumber: Faker.PhoneNumber.cellPhone(),
       emailAddress: Faker.Internet.freeEmail(),
+      location: Faker.Address.state(),
+      name: Faker.Name.name(),
+      phoneNumber: Faker.Random.element(['303-', '720-']).concat(Faker.PhoneNumber.exchangeCode().concat('-').concat(Faker.PhoneNumber.subscriberNumber())),
     };
     // add each customer data created to array (for db)
     customers.push(customerAll);
@@ -103,12 +109,12 @@ async function generateData() {
 
   // add all generated data to the 'Store' schema
   await db.Store.insertMany(stores)
-    .then(() => console.log(`  🌱  Created ${stores.length} new seeds, planted into 'Store' schema.`))
+    .then(() => console.log(`  🌱  Created ${stores.length} new 'Store' seeds, planted into 'Store' schema.`))
     .catch((err) => console.error(`  ❌  Error seeding data to Store schema: ${err.message}.`));
 
   // add all generated data to the 'Customer' schema
   await db.Customer.insertMany(customers)
-    .then(() => console.log(`  🌱  Created ${stores.length} new seeds, planted into 'Customer' schema.`))
+    .then(() => console.log(`  🌱  Created ${stores.length} new 'Customer' seeds, planted into 'Customer' schema.`))
     .catch((err) => console.error(`  ❌  Error seeding data to Customer schema: ${err.message}.`))
     .finally(() => {
       console.log('  👋  Exiting seeder script...');

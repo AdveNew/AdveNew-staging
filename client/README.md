@@ -4,11 +4,17 @@ The front end framework is built on ReactJS. All components should be added to t
 #### Bundle data
  Refer to [main README](../README.md) for how to create the bundle.js file.
 
-### Helpful Resources:
-1. Material UI
-    1. [Icons](https://material-ui.com/components/material-icons/)
+### Helpful Resources (Used in Components):
+1. [Material UI](https://material-ui.com/)
+  1. [Icons](https://material-ui.com/components/material-icons/)
+  2. [Picker](https://material-ui-pickers.dev/) - Removed this for now, had some issues with compatibility 
+    - Install the picker with: `npm i @material-ui/pickers`
+    - If using picker, you'll need to:
+      1. Add a date utility `npm i @date-io/date-fns@1.3.13 date-fns`
+      2. Add `import DateFnsUtils from '@date-io/date-fns';` to component, and 
+      3. Wrap date feature in `<MuiPickersUtilsProvider utils={DateFnsUtils}> ... </MuiPickersUtilsProvider>`
 
-#### Calendar Resources
+#### Calendar Resources (For current calendar)
   1. [React](https://reactjs.org/)
   2. [React Hooks](https://reactjs.org/docs/hooks-intro.html)
   3. [Material UI](https://material-ui.com/)
@@ -18,7 +24,7 @@ The front end framework is built on ReactJS. All components should be added to t
     - [subref #1](https://js.devexpress.com/Documentation/Guide/Widgets/Scheduler/Appointments/Customize_Appointment_Tooltip/)
     - [subref #2](https://js.devexpress.com/Demos/WidgetsGallery/Demo/Scheduler/LimitAppointmentCountPerCell/React/Dark/)
 
-  ##### Some potential other calendar alternatives: 
+  ##### Some calendar alternatives: 
   1. [Instructure small widget-like calendar](https://instructure.design/#Calendar) - as seen on Canvas 
   2. [syncfusion](https://www.syncfusion.com/react-ui-components/react-scheduler) - 2/5
   3. [kendo](https://www.telerik.com/kendo-react-ui/components/scheduler/) - 3/5

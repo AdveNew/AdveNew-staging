@@ -38,3 +38,4 @@ The front end framework is built on ReactJS. All components should be added to t
   11. [Amelia](https://wpamelia.com/) - ?
   12. [vcalendar](https://vcalendar.io/i18n.html) - ? - used on canvas
   13. [Semantic UI Calendar](https://www.npmjs.com/package/semantic-ui-calendar-react) [Demo](https://codepen.io/nijin39/pen/JbQBXM)
+  14. [wpamelia](https://wpamelia.com/open-source-scheduling-software/) - recommended from Fallyn (Telect)

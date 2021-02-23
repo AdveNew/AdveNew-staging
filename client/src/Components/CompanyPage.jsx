@@ -14,8 +14,6 @@ export default function CompanyPage(props) {
   const [calendarRequest] = useState(props.store.calendar_request);
   const [loading, setLoading] = useState(true);
 
-  console.log(props.store);
-
   useEffect(() => {
     setLoading(false);
   }, [0]);
@@ -30,16 +28,17 @@ export default function CompanyPage(props) {
     );
   }
   return (
-    <>
+    <div>
       <Grid
         container
         direction='row'
         justify='space-evenly'
         alignItems='center'
+        style={{ marginTop: '50px' }}
       >
         <CompanyInfo store={store} />
         <CustomCalendar calendar={calendar} requests={calendarRequest} />
       </Grid>
-    </>
+    </div>
   );
 }

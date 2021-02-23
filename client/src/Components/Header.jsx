@@ -22,8 +22,11 @@ import * as SVG from './svgFiles.jsx';
 import logo from '../../dist/logo.png';
 
 const useStyles = makeStyles((theme) => ({
-  grow: {
-    flexGrow: 0,
+  headerOptions: {
+    flexGrow: 1,
+    marginRight: theme.spacing(2),
+    textAlign: 'center',
+    backgroundColor: 'transparent',
   },
   logo: {
     height: 40,
@@ -31,17 +34,6 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
-  },
-  title: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
-  },
-  headerOptions: {
-    flexGrow: 1,
-    marginRight: theme.spacing(2),
-    textAlign: 'center',
   },
   sectionDesktop: {
     display: 'none',
@@ -55,20 +47,16 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  title: {
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+    },
+  },
+  toolbar: {
+    minHeight: '80',
+  },
 }));
-
-function ElevationScroll(props) {
-  const { children } = props;
-  const trigger = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 1,
-  });
-
-  return React.cloneElement(children, {
-    elevation: trigger ? 4 : 0,
-    color: trigger ? 'default' : 'transparent',
-  });
-}
 
 export default function Header() {
   const classes = useStyles();
@@ -94,6 +82,18 @@ export default function Header() {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+
+  function ElevationScroll({ children }) {
+    const trigger = useScrollTrigger({
+      disableHysteresis: true,
+      threshold: 1,
+    });
+
+    return React.cloneElement(children, {
+      elevation: trigger ? 1 : 0,
+      color: trigger ? 'default' : 'transparent',
+    });
+  }
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -155,8 +155,8 @@ export default function Header() {
   return (
     <div className={classes.grow}>
       <ElevationScroll>
-        <AppBar position='fixed' color='transparent' elevation={0}>
-          <Toolbar>
+        <AppBar position='fixed' color='transparent !important' elevation='0'>
+          <Toolbar className={classes.toolbar}>
             <IconButton
               edge='start'
               className={classes.menuButton}

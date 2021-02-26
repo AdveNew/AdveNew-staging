@@ -66,25 +66,25 @@ const client = {
   },
 };
 
-const server = {
-  mode: 'development',
-  entry: './server/index.js',
-  target: 'node',
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'server.js',
-  },
-  module: {
-    rules: [
-      { test: /\.(js|jsx)$/, use: 'babel-loader' },
-      { test: /\.css$/, use: 'css-loader' },
-    ],
-  },
-  plugins: [
-    new webpack.DefinePlugin({
-      __isBrowser__: 'false',
-    }),
-  ],
-};
+// const server = {
+//   mode: 'development',
+//   entry: './server/index.js',
+//   target: 'node',
+//   output: {
+//     path: path.resolve(__dirname, 'dist'),
+//     filename: 'server.js',
+//   },
+//   module: {
+//     rules: [
+//       { test: /\.(js|jsx)$/, use: 'babel-loader' },
+//       { test: /\.css$/, use: 'css-loader' },
+//     ],
+//   },
+//   plugins: [
+//     new webpack.DefinePlugin({
+//       __isBrowser__: 'false',
+//     }),
+//   ],
+// };
 
-module.exports = [client, server];
+module.exports = [client];

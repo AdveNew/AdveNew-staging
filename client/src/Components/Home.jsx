@@ -9,6 +9,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import GuideSearch from './GuideSearch.jsx';
 import Image from '../../dist/background9.jpg';
+import Jacob from './jacob.jsx';
 
 const useStyles = makeStyles((theme) => ({
   background: {
@@ -68,6 +69,7 @@ export default function Home() {
         >
           <div className={classes.text}>
             <GuideSearch />
+            <Jacob />
           </div>
         </Grid>
       </div>

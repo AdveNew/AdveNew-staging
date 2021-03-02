@@ -4,7 +4,7 @@
 ### Requirements
 Install: 
 - npm >=6.14.8 (check with `npm -v`)
-- MongoDB >=4.2.7 (check with `mongo -version`)
+- MongoDB >=[4.4.x](https://mongoosejs.com/docs/compatibility.html) (check with `mongo -version`)
 
 ### Development
 Once repo is cloned/pulled, run the following command in the root directory of the project (where `package.json` is)

@@ -4,6 +4,8 @@ package-lock.json
 
 bundle.js
 server.js
+test.html
+dist/background*
 
 LICENSE
 .env

@@ -7,7 +7,7 @@ import {
   TextField,
   IconButton,
 } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
+import { DataGrid } from '@material-ui/data-grid';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function GuideSearch() {
+export default function Home() {
   const classes = useStyles();
   const [loading, setLoading] = useState(true);
   const [startDate, setStartDate] = useState(new Date());

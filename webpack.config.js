@@ -41,12 +41,13 @@ const client = {
         test: /\.jsx?/,
         include: SRC_DIR,
         use: 'babel-loader',
+        exclude: /node_modules/,
       },
-      // {
-      //   test: /\.(sass|less|css)$/,
-      //   include: SRC_DIR,
-      //   use: ['style-loader', 'css-loader', 'less-loader'],
-      // },
+      {
+        test: /\.(sass|less|css)$/,
+        include: SRC_DIR,
+        use: ['style-loader', 'css-loader', 'less-loader'],
+      },
       {
         test: /\.css$/,
         use: [
@@ -54,9 +55,13 @@ const client = {
           { loader: 'css-loader' }],
       },
       {
-        test: /\.(jpg|JPG|jpeg|png|gif|mp3|svg|ttf|woff2|woff|eot)$/gi,
+        test: /\.(jpe?g|JPG|png|gif|mp3|svg|ttf|woff2|woff|eot)(\?[a-z0-9=.]+)?$/gi,
         use: [
-          { loader: 'url-loader' }],
+          {
+            loader: 'url-loader',
+            options: { limit: 8192 },
+          },
+        ],
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2)$/,
@@ -65,26 +70,5 @@ const client = {
     ],
   },
 };
-
-// const server = {
-//   mode: 'development',
-//   entry: './server/index.js',
-//   target: 'node',
-//   output: {
-//     path: path.resolve(__dirname, 'dist'),
-//     filename: 'server.js',
-//   },
-//   module: {
-//     rules: [
-//       { test: /\.(js|jsx)$/, use: 'babel-loader' },
-//       { test: /\.css$/, use: 'css-loader' },
-//     ],
-//   },
-//   plugins: [
-//     new webpack.DefinePlugin({
-//       __isBrowser__: 'false',
-//     }),
-//   ],
-// };
 
 module.exports = [client];

@@ -1,5 +1,6 @@
 /* eslint-disable import/extensions */
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import {
   CircularProgress,
   Backdrop,
@@ -32,16 +33,22 @@ const useStyles = makeStyles((theme) => ({
 export default function GuideSearch() {
   const classes = useStyles();
   const [loading, setLoading] = useState(true);
+  const [location, setLocation] = useState('');
   const [startDate, setStartDate] = useState(new Date());
   const [startVisDate, setStartVisDate] = useState();
   const [endDate, setEndDate] = useState(new Date());
   const [endVisDate, setEndVisDate] = useState();
+  const [groupSize, setGroupSize] = useState(0);
 
   useEffect(() => {
     setLoading(false);
     setStartVisDate(`${startDate.getFullYear()}-${(startDate.getMonth() > 8) ? (startDate.getMonth() + 1) : (`0${startDate.getMonth() + 1}`)}-${(startDate.getDate() > 9) ? startDate.getDate() : (`0${startDate.getDate()}`)}`);
     setEndVisDate(`${endDate.getFullYear()}-${(endDate.getMonth() > 8) ? (endDate.getMonth() + 1) : (`0${endDate.getMonth() + 1}`)}-${(endDate.getDate() > 9) ? endDate.getDate() : (`0${endDate.getDate()}`)}`);
   }, [0]);
+
+  const handleLocationChange = (local) => {
+    setLocation(local.target.value);
+  };
 
   const handleStartDateChange = (date) => {
     setStartDate(new Date(date.target.value));
@@ -50,6 +57,12 @@ export default function GuideSearch() {
   const handleEndDateChange = (date) => {
     setEndDate(date.target.value);
   };
+
+  const handleGroupSizeChange = (size) => {
+    setGroupSize(size.target.value);
+  };
+
+  const Results = (props) => <Link to='/results' {...props} />;
 
   if (loading) {
     return (
@@ -65,6 +78,7 @@ export default function GuideSearch() {
       <FormControl variant='filled'>
         <TextField
           label='Location'
+          onChange={handleLocationChange}
           margin='normal'
           InputLabelProps={{
             shrink: true,
@@ -76,8 +90,8 @@ export default function GuideSearch() {
         <TextField
           type='date'
           label='Start Date'
-          defaultValue={startVisDate}
           onChange={handleStartDateChange}
+          defaultValue={startVisDate}
           margin='normal'
           InputLabelProps={{
             shrink: true,
@@ -89,8 +103,8 @@ export default function GuideSearch() {
         <TextField
           type='date'
           label='End Date'
-          defaultValue={endVisDate}
           onChange={handleEndDateChange}
+          defaultValue={endVisDate}
           margin='normal'
           InputLabelProps={{
             shrink: true,
@@ -101,6 +115,7 @@ export default function GuideSearch() {
       <FormControl variant='filled'>
         <TextField
           label='Group Size'
+          nChange={handleGroupSizeChange}
           margin='normal'
           InputLabelProps={{
             shrink: true,
@@ -108,8 +123,8 @@ export default function GuideSearch() {
           variant='filled'
         />
       </FormControl>
-      <FormControl className='searchIcon'>
-        <IconButton color='inherit'>
+      <FormControl color='inherit' className='searchIcon' component={Results}>
+        <IconButton>
           <SearchIcon />
         </IconButton>
       </FormControl>

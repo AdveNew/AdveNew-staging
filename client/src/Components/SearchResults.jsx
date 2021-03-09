@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Home() {
+export default function SearchResults() {
   const classes = useStyles();
   const [loading, setLoading] = useState(true);
   const [startDate, setStartDate] = useState(new Date());
@@ -61,58 +61,6 @@ export default function Home() {
     );
   }
   return (
-    <form className={classes.textField} noValidate autoComplete='off'>
-      <FormControl variant='filled'>
-        <TextField
-          label='Location'
-          margin='normal'
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant='filled'
-        />
-      </FormControl>
-      <FormControl variant='filled'>
-        <TextField
-          type='date'
-          label='Start Date'
-          defaultValue={startVisDate}
-          onChange={handleStartDateChange}
-          margin='normal'
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant='filled'
-        />
-      </FormControl>
-      <FormControl variant='filled'>
-        <TextField
-          type='date'
-          label='End Date'
-          defaultValue={endVisDate}
-          onChange={handleEndDateChange}
-          margin='normal'
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant='filled'
-        />
-      </FormControl>
-      <FormControl variant='filled'>
-        <TextField
-          label='Group Size'
-          margin='normal'
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant='filled'
-        />
-      </FormControl>
-      <FormControl className='searchIcon'>
-        <IconButton color='inherit'>
-          <SearchIcon />
-        </IconButton>
-      </FormControl>
-    </form>
+    <h1>RESULTS</h1>
   );
 }

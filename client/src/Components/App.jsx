@@ -43,8 +43,7 @@ export default function App() {
     );
   }
   return (
-    // eslint-disable-next-line react/jsx-fragments
-    <React.Fragment>
+    <div>
       <Header />
       <Grid
         container
@@ -60,47 +59,6 @@ export default function App() {
         </Switch>
       </Grid>
       <Footer store={store} />
-    </React.Fragment>
+    </div>
   );
 }
-
-// class App extends React.Component {
-//   constructor(props) {
-//     super(props);
-
-//     this.state = {
-//       store: [],
-//       loading: true,
-//     };
-//   }
-
-//   componentDidMount() {
-//     const storeId = Math.floor(Math.random() * 100 + 1);
-//     axios.get('api/calendar', {
-//       params: {
-//         storeId,
-//       },
-//     })
-//       .then((res) => {
-//         this.setState({
-//           store: res.data.store,
-//           loading: false,
-//         });
-//       })
-//       .catch((err) => console.error(err.message));
-//   }
-
-//   render() {
-//     if (this.state.loading) {
-//       return <h1>Loading data...</h1>;
-//     }
-//     return (
-//       <div className='body'>
-//         <h2>Company Name: {this.state.store.name}</h2>
-//         <div className='custom-calendar'>
-//           <CustomCalendar store={this.state.store} />
-//         </div>
-//       </div>
-//     );
-//   }
-// }

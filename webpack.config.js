@@ -14,10 +14,12 @@ const client = {
     path: DIST_DIR,
     publicPath: '/',
   },
+  devtool: 'source-map',
   plugins: [
     new Dotenv(),
     new webpack.DefinePlugin({
       __isBrowser__: 'true',
+      filename: '[file].map',
     }),
   ],
   devServer: {
@@ -38,34 +40,25 @@ const client = {
   module: {
     rules: [
       {
-        test: /\.jsx?/,
+        test: /\.(js$|jsx)?/,
         include: SRC_DIR,
-        use: 'babel-loader',
+        enforce: 'pre',
+        use: ['babel-loader', 'source-map-loader'],
         exclude: /node_modules/,
       },
       {
         test: /\.(sass|less|css)$/,
         include: SRC_DIR,
-        use: ['style-loader', 'css-loader', 'less-loader'],
+        use: ['style-loader!css-loader', 'less-loader'],
       },
       {
-        test: /\.css$/,
-        use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader' }],
-      },
-      {
-        test: /\.(jpe?g|JPG|png|gif|mp3|svg|ttf|woff2|woff|eot)(\?[a-z0-9=.]+)?$/gi,
+        test: /\.(jpe?g|JPG|png|gif|mp3|svg|ttf|woff2|woff|eot)(\?[a-z0-9=.]+)?$/,
         use: [
           {
-            loader: 'url-loader',
+            loader: 'url-loader?name=[name].[ext]',
             options: { limit: 8192 },
           },
         ],
-      },
-      {
-        test: /\.(eot|svg|ttf|woff|woff2)$/,
-        use: 'url-loader?name=[name].[ext]',
       },
     ],
   },

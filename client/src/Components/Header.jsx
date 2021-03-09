@@ -167,17 +167,17 @@ export default function Header() {
             </IconButton>
             <img src={logo} alt='AdveNew' className={classes.logo} />
             <div> {SVG.advenewLogo} </div>
-            <Typography className={classes.title} variant='h6' noWrap>
+            <Typography className={classes.title} variant='h6'>
               AdveNew
             </Typography>
             <div className={classes.headerOptions}>
-              <Button variant='contained' size='small' color='secondary' startIcon={<SearchIcon />} noWrap style={{ marginRight: '20px' }}>
+              <Button variant='contained' size='small' color='secondary' startIcon={<SearchIcon />} style={{ marginRight: '20px' }}>
                 Find a Guide
               </Button>
-              <Button variant='contained' size='small' color='default' startIcon={<EventIcon />} noWrap style={{ marginRight: '20px' }}>
+              <Button variant='contained' size='small' color='default' startIcon={<EventIcon />} style={{ marginRight: '20px' }}>
                 Calendar
               </Button>
-              <Button variant='contained' size='small' color='default' startIcon={<SearchIcon />} noWrap>
+              <Button variant='contained' size='small' color='default' startIcon={<SearchIcon />}>
                 Search Shops
               </Button>
             </div>

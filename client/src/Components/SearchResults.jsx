@@ -3,9 +3,6 @@ import React, { useState, useEffect } from 'react';
 import {
   CircularProgress,
   Backdrop,
-  FormControl,
-  TextField,
-  IconButton,
 } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
 import { makeStyles } from '@material-ui/core/styles';
@@ -29,13 +26,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SearchResults() {
+export default function SearchResults(props) {
   const classes = useStyles();
   const [loading, setLoading] = useState(true);
   const [startDate, setStartDate] = useState(new Date());
   const [startVisDate, setStartVisDate] = useState();
   const [endDate, setEndDate] = useState(new Date());
   const [endVisDate, setEndVisDate] = useState();
+
+  console.log(props);
 
   useEffect(() => {
     setLoading(false);

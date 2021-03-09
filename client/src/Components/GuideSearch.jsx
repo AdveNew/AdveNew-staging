@@ -62,7 +62,7 @@ export default function GuideSearch() {
     setGroupSize(size.target.value);
   };
 
-  const Results = (props) => <Link to='/results' {...props} />;
+  const Results = () => <Link to='/results' />;
 
   if (loading) {
     return (
@@ -115,7 +115,7 @@ export default function GuideSearch() {
       <FormControl variant='filled'>
         <TextField
           label='Group Size'
-          nChange={handleGroupSizeChange}
+          onChange={handleGroupSizeChange}
           margin='normal'
           InputLabelProps={{
             shrink: true,
@@ -123,7 +123,7 @@ export default function GuideSearch() {
           variant='filled'
         />
       </FormControl>
-      <FormControl color='inherit' className='searchIcon' component={Results}>
+      <FormControl color='primary' className='searchIcon'>
         <IconButton>
           <SearchIcon />
         </IconButton>

@@ -1,54 +1,67 @@
 /* eslint-disable import/extensions */
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
   CircularProgress,
   Backdrop,
+  Container,
 } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  textField: {
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: '25ch',
-      backgroundColor: 'white',
-      borderBottom: 0,
-    },
-  },
-  searchIcon: {
-    '& > span': {
-      margin: theme.spacing(1),
-      backgroundColor: 'antiquewhite',
-      borderRadius: '50px',
-      fill: 'red',
-    },
+  resultGrid: {
+    backgroundColor: 'white',
+    borderBottom: 0,
+    flexGrow: 1,
+    float: 'left',
+    height: 'auto',
+    marginTop: '50px',
+    minHeight: '600px',
+    maxHeight: '2000px',
+    maxWidth: '60%',
+    padding: '10px',
   },
 }));
 
 export default function SearchResults(props) {
   const classes = useStyles();
   const [loading, setLoading] = useState(true);
-  const [startDate, setStartDate] = useState(new Date());
-  const [startVisDate, setStartVisDate] = useState();
-  const [endDate, setEndDate] = useState(new Date());
-  const [endVisDate, setEndVisDate] = useState();
+  const [location] = useState('');
+  const [startDate] = useState(new Date());
+  const [endDate] = useState(new Date());
+  const [groupSize] = useState(0);
+  const [rows, setRows] = useState([{
+    id: 1, name: 'test', location: 'there', startDate: new Date(), size: 2,
+  }]);
 
-  console.log(props);
+  const columns = [
+    { field: 'name', headerName: 'Name' },
+    { field: 'location', headerName: 'Location' },
+    {
+      field: 'startDate', headerName: 'Date', type: 'date',
+    },
+    {
+      field: 'size', headerName: 'GroupSize', type: 'number',
+    },
+  ];
 
   useEffect(() => {
     setLoading(false);
-    setStartVisDate(`${startDate.getFullYear()}-${(startDate.getMonth() > 8) ? (startDate.getMonth() + 1) : (`0${startDate.getMonth() + 1}`)}-${(startDate.getDate() > 9) ? startDate.getDate() : (`0${startDate.getDate()}`)}`);
-    setEndVisDate(`${endDate.getFullYear()}-${(endDate.getMonth() > 8) ? (endDate.getMonth() + 1) : (`0${endDate.getMonth() + 1}`)}-${(endDate.getDate() > 9) ? endDate.getDate() : (`0${endDate.getDate()}`)}`);
+    // axios.get('api/calendar', {
+    //   params: {
+    //     location,
+    //     startDate,
+    //     endDate,
+    //     groupSize,
+    //   },
+    // })
+    //   .then((res) => {
+    //     setRows(res.data.store);
+    //     setLoading(false);
+    //   })
+    //   .catch((err) => console.error(err.message));
   }, [0]);
-
-  const handleStartDateChange = (date) => {
-    setStartDate(new Date(date.target.value));
-  };
-
-  const handleEndDateChange = (date) => {
-    setEndDate(date.target.value);
-  };
 
   if (loading) {
     return (
@@ -60,6 +73,6 @@ export default function SearchResults(props) {
     );
   }
   return (
-    <h1>RESULTS</h1>
+    <DataGrid className={classes.resultGrid} rows={rows} columns={columns} />
   );
 }

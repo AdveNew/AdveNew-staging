@@ -1,5 +1,6 @@
 /* eslint-disable import/extensions */
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import AppBar from '@material-ui/core/AppBar';
@@ -52,6 +53,8 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
+    textDecoration: 'inherit',
+    color: 'inherit',
   },
   toolbar: {
     minHeight: '80',
@@ -62,6 +65,7 @@ export default function Header() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  const [buttonState, setButtonState] = useState(1);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -82,6 +86,10 @@ export default function Header() {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+
+  const handleButtonClick = useCallback((data) => {
+    setButtonState(data);
+  }, []);
 
   function ElevationScroll({ children }) {
     const trigger = useScrollTrigger({
@@ -167,17 +175,17 @@ export default function Header() {
             </IconButton>
             <img src={logo} alt='AdveNew' className={classes.logo} />
             <div> {SVG.advenewLogo} </div>
-            <Typography className={classes.title} variant='h6'>
+            <Typography className={classes.title} variant='h6' component={Link} to='/'>
               AdveNew
             </Typography>
             <div className={classes.headerOptions}>
-              <Button variant='contained' size='small' color='secondary' startIcon={<SearchIcon />} style={{ marginRight: '20px' }}>
+              <Button variant='contained' size='medium' onClick={() => { handleButtonClick(1); }} color={buttonState === 1 ? 'secondary' : 'default'} startIcon={<SearchIcon />} style={{ marginRight: '20px' }} component={Link} to='/'>
                 Find a Guide
               </Button>
-              <Button variant='contained' size='small' color='default' startIcon={<EventIcon />} style={{ marginRight: '20px' }}>
+              <Button variant='contained' size='medium' onClick={() => { handleButtonClick(2); }} color={buttonState === 2 ? 'secondary' : 'default'} startIcon={<EventIcon />} style={{ marginRight: '20px' }} component={Link} to='/c1'>
                 Calendar
               </Button>
-              <Button variant='contained' size='small' color='default' startIcon={<SearchIcon />}>
+              <Button variant='contained' size='medium' onClick={() => { handleButtonClick(3); }} color={buttonState === 3 ? 'secondary' : 'default'} startIcon={<SearchIcon />}>
                 Search Shops
               </Button>
             </div>

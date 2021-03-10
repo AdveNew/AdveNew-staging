@@ -54,7 +54,7 @@ export default function App() {
         <Switch>
           <Route path='/' component={Home} exact />
           <Route path='/c1' component={() => <CompanyPage store={store} isAuthed />} />
-          <Route path='/results' component={() => <SearchResults />} />
+          <Route path='/results' component={() => <SearchResults location startDate endDate size />} />
           <Route component={NotFound} />
         </Switch>
       </Grid>

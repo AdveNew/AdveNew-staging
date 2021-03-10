@@ -59,7 +59,7 @@ export default function Home() {
   return (
     // eslint-disable-next-line react/jsx-fragments
     <React.Fragment>
-      <div className={classes.background}>
+      <div className={classes.background} disableGutters>
         <Grid
           container
           direction='column'

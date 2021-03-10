@@ -1,5 +1,7 @@
 /* eslint-disable import/extensions */
-import React, { useState, useEffect } from 'react';
+import React, {
+  useState, useEffect, useMemo, forwardRef,
+} from 'react';
 import { Link } from 'react-router-dom';
 import {
   CircularProgress,
@@ -21,11 +23,12 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   searchIcon: {
-    '& > span': {
-      margin: theme.spacing(1),
-      backgroundColor: 'antiquewhite',
+    '& .MuiIconButton-root': {
+      backgroundColor: '#dc004e',
       borderRadius: '50px',
-      fill: 'red',
+      color: 'white',
+      margin: theme.spacing(1),
+      textDecoration: 'inherit',
     },
   },
 }));
@@ -62,7 +65,22 @@ export default function GuideSearch() {
     setGroupSize(size.target.value);
   };
 
-  const Results = () => <Link to='/results' />;
+  // const searchLink = useMemo(
+  //   () => forwardRef((props, ref) => (
+  //     <Link
+  //       ref={ref}
+  //       to={{
+  //         pathname: '/results',
+  //         state: {
+  //           location: { location },
+  //           startDate: { startDate },
+  //           endDate: { endDate },
+  //           size: { groupSize },
+  //         },
+  //       }}
+  //     />
+  //   )),
+  // );
 
   if (loading) {
     return (
@@ -123,8 +141,8 @@ export default function GuideSearch() {
           variant='filled'
         />
       </FormControl>
-      <FormControl color='primary' className='searchIcon'>
-        <IconButton>
+      <FormControl props={startDate} className={classes.searchIcon} component={Link} to='/results'>
+        <IconButton aria-label='search'>
           <SearchIcon />
         </IconButton>
       </FormControl>

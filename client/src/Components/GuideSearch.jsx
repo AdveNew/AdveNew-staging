@@ -3,6 +3,7 @@ import React, {
   useState, useEffect, useMemo, forwardRef,
 } from 'react';
 import { Link } from 'react-router-dom';
+import { endOfDay, startOfDay, lightFormat, parseISO } from 'date-fns';
 import {
   CircularProgress,
   Backdrop,
@@ -45,8 +46,8 @@ export default function GuideSearch() {
 
   useEffect(() => {
     setLoading(false);
-    setStartVisDate(`${startDate.getFullYear()}-${(startDate.getMonth() > 8) ? (startDate.getMonth() + 1) : (`0${startDate.getMonth() + 1}`)}-${(startDate.getDate() > 9) ? startDate.getDate() : (`0${startDate.getDate()}`)}`);
-    setEndVisDate(`${endDate.getFullYear()}-${(endDate.getMonth() > 8) ? (endDate.getMonth() + 1) : (`0${endDate.getMonth() + 1}`)}-${(endDate.getDate() > 9) ? endDate.getDate() : (`0${endDate.getDate()}`)}`);
+    setStartVisDate(lightFormat(startDate, 'yyyy-MM-dd'));
+    setEndVisDate(lightFormat(endDate, 'yyyy-MM-dd'));
   }, [0]);
 
   const handleLocationChange = (local) => {
@@ -54,11 +55,17 @@ export default function GuideSearch() {
   };
 
   const handleStartDateChange = (date) => {
-    setStartDate(new Date(date.target.value));
+    setStartDate(startOfDay(parseISO(date.target.value)));
   };
 
   const handleEndDateChange = (date) => {
-    setEndDate(date.target.value);
+    setEndDate(endOfDay(parseISO(date.target.value)));
+    console.log(endDate);
+    if (endDate < startDate) {
+      console.log('End date before start date, please change');
+      setEndDate(endOfDay(startDate));
+      console.log(endDate);
+    }
   };
 
   const handleGroupSizeChange = (size) => {

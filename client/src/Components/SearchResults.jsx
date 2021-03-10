@@ -27,40 +27,46 @@ const useStyles = makeStyles((theme) => ({
 export default function SearchResults(props) {
   const classes = useStyles();
   const [loading, setLoading] = useState(true);
-  const [location] = useState('');
+  const [location] = useState('New Ewald, New York');
   const [startDate] = useState(new Date());
   const [endDate] = useState(new Date());
-  const [groupSize] = useState(0);
+  const [groupSize] = useState(1);
   const [rows, setRows] = useState([{
-    id: 1, name: 'test', location: 'there', startDate: new Date(), size: 2,
+    id: 1, name: 'error', location: 'error', startDate: new Date(), size: -1,
   }]);
 
   const columns = [
-    { field: 'name', headerName: 'Name' },
+    { field: 'guide', headerName: 'Guide\'s Name' },
     { field: 'location', headerName: 'Location' },
     {
       field: 'startDate', headerName: 'Date', type: 'date',
     },
     {
-      field: 'size', headerName: 'GroupSize', type: 'number',
+      field: 'groupSize', headerName: 'Group Size', type: 'number',
+    },
+    {
+      field: 'experience', headerName: 'Experience',
     },
   ];
 
   useEffect(() => {
-    setLoading(false);
-    // axios.get('api/calendar', {
-    //   params: {
-    //     location,
-    //     startDate,
-    //     endDate,
-    //     groupSize,
-    //   },
-    // })
-    //   .then((res) => {
-    //     setRows(res.data.store);
-    //     setLoading(false);
-    //   })
-    //   .catch((err) => console.error(err.message));
+    axios.get('api/search', {
+      params: {
+        location,
+        startDate,
+        endDate,
+        size: groupSize,
+      },
+    })
+      .then((res) => {
+        console.log(res.data.searchResults);
+        setRows(res.data.searchResults.calendar);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(`Error: ${err.message}`);
+        setLoading(false);
+      });
   }, [0]);
 
   if (loading) {

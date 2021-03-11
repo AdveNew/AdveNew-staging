@@ -92,10 +92,10 @@ export default function GuideSearch(props) {
           label='Location'
           onChange={handleLocationChange}
           margin='normal'
+          variant='filled'
           InputLabelProps={{
             shrink: true,
           }}
-          variant='filled'
         />
       </FormControl>
       <FormControl variant='filled'>
@@ -105,10 +105,10 @@ export default function GuideSearch(props) {
           onChange={handleStartDateChange}
           defaultValue={startVisDate}
           margin='normal'
+          variant='filled'
           InputLabelProps={{
             shrink: true,
           }}
-          variant='filled'
         />
       </FormControl>
       <FormControl variant='filled'>
@@ -118,10 +118,10 @@ export default function GuideSearch(props) {
           onChange={handleEndDateChange}
           defaultValue={endVisDate}
           margin='normal'
+          variant='filled'
           InputLabelProps={{
             shrink: true,
           }}
-          variant='filled'
         />
       </FormControl>
       <FormControl variant='filled'>
@@ -129,10 +129,10 @@ export default function GuideSearch(props) {
           label='Group Size'
           onChange={handleGroupSizeChange}
           margin='normal'
+          variant='filled'
           InputLabelProps={{
             shrink: true,
           }}
-          variant='filled'
         />
       </FormControl>
       <FormControl

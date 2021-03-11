@@ -83,7 +83,7 @@ export default function SearchResults(props) {
   }
   return (
     <div style={{ flexGrow: 1 }}>
-      <DataGrid autoHeight className={classes.resultGrid} rows={rows} columns={columns} />
+      <DataGrid className={classes.resultGrid} rows={rows} columns={columns} />
     </div>
   );
 }

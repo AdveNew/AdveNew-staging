@@ -12,6 +12,7 @@ import CompanyPage from './CompanyPage.jsx';
 import Home from './Home.jsx';
 import Footer from './Footer.jsx';
 import NotFound from './NotFound.jsx';
+import SignIn from './Login.jsx';
 
 export default function App() {
   const [store, setStore] = useState([]);
@@ -54,6 +55,7 @@ export default function App() {
         <Switch>
           <Route path='/' component={Home} exact />
           <Route path='/c1' component={() => <CompanyPage store={store} isAuthed />} />
+          <Route path='/login' component={SignIn} />
           <Route component={NotFound} />
         </Switch>
       </Grid>

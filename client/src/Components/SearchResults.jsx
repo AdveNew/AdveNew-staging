@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
     marginTop: '50px',
     minHeight: '600px',
     maxHeight: '2000px',
-    maxWidth: '60%',
+    maxWidth: '100%',
     padding: '10px',
   },
 }));
@@ -28,25 +28,25 @@ export default function SearchResults(props) {
   const [location] = useState(props.location);
   const [startDate] = useState(props.startDate);
   const [endDate] = useState(props.endDate);
-  const [groupSize] = useState(props.groupSize);
+  const [groupSize] = useState(props.groupSize || 1);
   const [rows, setRows] = useState([{
     id: 1, name: 'error', location: 'error', startDate: new Date(), size: -1,
   }]);
 
   const columns = [
-    { field: 'guide', headerName: 'Guide\'s Name', flex: 1 },
+    { field: 'guide', headerName: 'Guide\'s Name', flex: 0.8 },
     { field: 'location', headerName: 'Location', flex: 1 },
     {
       field: 'startDate', headerName: 'Date', type: 'dateTime', flex: 1,
     },
-    { field: 'groupSize', headerName: 'Group Size', flex: 0.6 },
+    { field: 'groupSize', headerName: 'Group Size', flex: 0.8 },
     { field: 'experience', headerName: 'Experience', flex: 0.8 },
     {
       field: 'book',
       headerName: 'Book',
       flex: 0.6,
-      renderCell: () => (
-        <Payment price='100' />
+      renderCell: (e) => (
+        <Payment guideName={e.row.guide} price={e.row.price} />
       ),
     },
   ];
@@ -61,6 +61,7 @@ export default function SearchResults(props) {
       },
     })
       .then((res) => {
+        console.log(res.data.results);
         setRows(res.data.results);
         setLoading(false);
       })
@@ -81,7 +82,7 @@ export default function SearchResults(props) {
   }
   return (
     <div style={{ flexGrow: 1 }}>
-      <DataGrid className={classes.resultGrid} rows={rows} columns={columns} />
+      <DataGrid className={classes.resultGrid} key={rows.id} rows={rows} columns={columns} />
     </div>
   );
 }

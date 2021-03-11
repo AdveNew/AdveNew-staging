@@ -34,7 +34,7 @@ async function generateData() {
       const hour = Math.floor((Math.random() * 7) + 8); // hours 0800 - 1500 (odd, I know)
       datetime.setMinutes(Math.floor((Math.random() * 1.5)) * 30); // on the hour, or half hour
       const newBooking = {
-        id: j,
+        id: j * Math.floor(Math.random() * storeSeed * 3939),
         accommodations: 'None',
         booked: Faker.Random.element([-2, -1, 0, 1]),
         cancellationHours: Faker.Random.element([24, 48, 72, 96]),

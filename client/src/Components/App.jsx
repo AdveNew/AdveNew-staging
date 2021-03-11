@@ -19,7 +19,7 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [location, setLocation] = useState('Virginia');
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date(new Date().getTime() + (10 * 24 * 3600000)));
   const [groupSize, setGroupSize] = useState(0);
 
   // get a random company for now

@@ -2,7 +2,7 @@
 const { Faker } = require('fakergem');
 const db = require('./index.js');
 
-const storeSeed = 100;
+const storeSeed = 1000;
 const customerSeed = 100;
 
 // delete the previous data from Store schema so as to not overload it
@@ -115,7 +115,7 @@ async function generateData() {
 
   // add all generated data to the 'Customer' schema
   await db.Customer.insertMany(customers)
-    .then(() => console.log(`  🌱  Created ${stores.length} new 'Customer' seeds, planted into 'Customer' schema.`))
+    .then(() => console.log(`  🌱  Created ${customers.length} new 'Customer' seeds, planted into 'Customer' schema.`))
     .catch((err) => console.error(`  ❌  Error seeding data to Customer schema: ${err.message}.`))
     .finally(() => {
       console.log('  👋  Exiting seed script...');

@@ -13,7 +13,7 @@ ENV PATH /app/node_modules/.bin:$PATH
 # install app dependencies
 COPY package.json ./
 COPY package-lock.json ./
-# add the app
+# add the app (copy contents over)
 COPY . /src/app
 
 RUN npm install

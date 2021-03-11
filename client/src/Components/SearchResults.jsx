@@ -4,10 +4,10 @@ import axios from 'axios';
 import {
   CircularProgress,
   Backdrop,
-  Button,
 } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
 import { makeStyles } from '@material-ui/core/styles';
+import Payment from './Payment.jsx';
 
 const useStyles = makeStyles(() => ({
   resultGrid: {
@@ -43,12 +43,10 @@ export default function SearchResults(props) {
     { field: 'experience', headerName: 'Experience', flex: 0.8 },
     {
       field: 'book',
-      headerName: 'Booking',
+      headerName: 'Book',
       flex: 0.6,
       renderCell: () => (
-        <Button variant='contained' color='primary' size='small'>
-          Book
-        </Button>
+        <Payment price='100' />
       ),
     },
   ];

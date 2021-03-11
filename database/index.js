@@ -25,11 +25,11 @@ const storeSchema = new mongoose.Schema({
       customerId: Number,
       endDate: Date,
       experience: String,
+      groupSize: Number,
       guide: String,
       location: String,
       notes: String,
       price: Number,
-      groupSize: Number,
       startDate: Date, // stores both data and time
     },
   ],

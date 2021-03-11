@@ -24,7 +24,7 @@ const getSearchData = (req, res) => {
     } else {
       console.log('  ✓  Store data retrieved from database.');
       res.json({
-        searchResults: results,
+        results,
       });
     }
   });

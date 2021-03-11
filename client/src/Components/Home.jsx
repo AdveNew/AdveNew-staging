@@ -4,7 +4,6 @@ import {
   CircularProgress,
   Backdrop,
   Grid,
-  gutterBottom,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import GuideSearch from './GuideSearch.jsx';
@@ -22,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
     zIndex: '0',
   },
   text: {
-    gutterBottom,
     zIndex: '2',
     position: 'relative',
     backgroundColor: 'none',

@@ -1,9 +1,11 @@
 /* eslint-disable import/extensions */
 import React, {
-  useState, useEffect, useMemo, forwardRef,
+  useState, useEffect, useMemo, forwardRef, createRef,
 } from 'react';
 import { Link } from 'react-router-dom';
-import { endOfDay, startOfDay, lightFormat, parseISO } from 'date-fns';
+import {
+  endOfDay, startOfDay, lightFormat, parseISO,
+} from 'date-fns';
 import {
   CircularProgress,
   Backdrop,
@@ -13,6 +15,7 @@ import {
 } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { makeStyles } from '@material-ui/core/styles';
+import SearchResults from './SearchResults.jsx';
 
 const useStyles = makeStyles((theme) => ({
   textField: {
@@ -72,22 +75,24 @@ export default function GuideSearch() {
     setGroupSize(size.target.value);
   };
 
-  // const searchLink = useMemo(
-  //   () => forwardRef((props, ref) => (
-  //     <Link
-  //       ref={ref}
-  //       to={{
-  //         pathname: '/results',
-  //         state: {
-  //           location: { location },
-  //           startDate: { startDate },
-  //           endDate: { endDate },
-  //           size: { groupSize },
-  //         },
-  //       }}
-  //     />
-  //   )),
-  // );
+  const searchLink = useMemo(
+    () => forwardRef((props, ref) => (
+      <Link
+        ref={ref}
+        to={{
+          pathname: '/results',
+          state: {
+            location: { location },
+            startDate: { startDate },
+            endDate: { endDate },
+            size: { groupSize },
+          },
+        }}
+      />
+    )),
+  );
+
+  const ref = createRef();
 
   if (loading) {
     return (
@@ -148,8 +153,13 @@ export default function GuideSearch() {
           variant='filled'
         />
       </FormControl>
-      <FormControl props={startDate} className={classes.searchIcon} component={Link} to='/results'>
-        <IconButton aria-label='search'>
+      <FormControl
+        props={startDate}
+        className={classes.searchIcon}
+        ref={ref}
+        component={searchLink}
+      >
+        <IconButton aria-label='search for guides'>
           <SearchIcon />
         </IconButton>
       </FormControl>

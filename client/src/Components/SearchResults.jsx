@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function SearchResults() {
+export default function SearchResults(props) {
   const classes = useStyles();
   const [loading, setLoading] = useState(true);
   const [location] = useState('Colorado');
@@ -33,18 +33,20 @@ export default function SearchResults() {
     id: 1, name: 'error', location: 'error', startDate: new Date(), size: -1,
   }]);
 
+  console.log(props);
+
   const columns = [
     { field: 'guide', headerName: 'Guide\'s Name', flex: 1 },
     { field: 'location', headerName: 'Location', flex: 1 },
     {
       field: 'startDate', headerName: 'Date', type: 'dateTime', flex: 1,
     },
-    { field: 'groupSize', headerName: 'Group Size', flex: 1 },
-    { field: 'experience', headerName: 'Experience', flex: 1 },
+    { field: 'groupSize', headerName: 'Group Size', flex: 0.6 },
+    { field: 'experience', headerName: 'Experience', flex: 0.8 },
     {
       field: 'book',
       headerName: 'Booking',
-      flex: 1,
+      flex: 0.6,
       renderCell: () => (
         <Button variant='contained' color='primary' size='small'>
           Book
@@ -63,8 +65,8 @@ export default function SearchResults() {
       },
     })
       .then((res) => {
-        console.log(res.data.searchResults);
-        setRows(res.data.searchResults);
+        console.log(res.data.results);
+        setRows(res.data.results);
         setLoading(false);
       })
       .catch((err) => {

@@ -3,6 +3,7 @@ node_modules
 package-lock.json
 
 bundle.js
+bundle.js.map
 server.js
 test.html
 dist/background*

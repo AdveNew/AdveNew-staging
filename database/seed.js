@@ -42,7 +42,8 @@ async function generateData() {
         endDate: datetime.setHours(hour + (Math.floor((Math.random() * 3) + 1))),
         experience: Faker.Random.element(['Beginner', 'Novice', 'Advanced', 'Pro', 'Expert']),
         guide: Faker.Name.firstName(),
-        location: Faker.Address.city().concat(', ').concat(Faker.Address.state()),
+        // location: Faker.Address.city().concat(', ').concat(Faker.Address.state()),
+        location: Faker.Address.state(),
         notes: Faker.Matz.quote(),
         price: Faker.Number.between(25, 100) * 4,
         groupSize: Faker.Number.between(1, 6),
@@ -117,7 +118,7 @@ async function generateData() {
     .then(() => console.log(`  🌱  Created ${stores.length} new 'Customer' seeds, planted into 'Customer' schema.`))
     .catch((err) => console.error(`  ❌  Error seeding data to Customer schema: ${err.message}.`))
     .finally(() => {
-      console.log('  👋  Exiting seeder script...');
+      console.log('  👋  Exiting seed script...');
       process.exit();
     });
 }

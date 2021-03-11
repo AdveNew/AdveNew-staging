@@ -1,4 +1,3 @@
-const format = require('date-fns/lightFormat');
 const db = require('../../database/index.js');
 
 const getCalendarData = (storeId, callback) => {
@@ -14,21 +13,27 @@ const getCalendarData = (storeId, callback) => {
 
 const getSearchData = (location, startDate, endDate, size, callback) => {
   const booked = 0;
-  const searchData = [];
-  console.log(format(new Date(endDate), 'yyyy-MM-dd'));
-  const query = db.Store.find({
+  const query = db.Store.find().where({
     'calendar.booked': booked,
     'calendar.location': location,
-    'calendar.startDate': { $lte: startDate },
-    'calendar.endDate': { $lte: endDate },
+    'calendar.startDate': { $gte: startDate, $lte: endDate },
+    'calendar.endDate': { $gte: startDate, $lte: endDate },
     'calendar.groupSize': { $gte: size },
   });
   query.exec((err, results) => {
     if (err) {
       callback(err);
     } else {
-      console.log(results);
-      callback(null, results);
+      const resultData = results.map((result) => (
+        result.calendar.filter((booking) => (
+          booking.location === location
+          && booking.groupSize > size
+          && booking.startDate >= new Date(startDate)
+          && booking.endDate <= new Date(endDate)
+          && booking.booked === booked
+        ))
+      )).flat();
+      callback(null, resultData);
     }
   });
 };

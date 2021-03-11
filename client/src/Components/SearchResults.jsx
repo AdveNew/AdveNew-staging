@@ -4,18 +4,16 @@ import axios from 'axios';
 import {
   CircularProgress,
   Backdrop,
-  Container,
+  Button,
 } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   resultGrid: {
     backgroundColor: 'white',
     borderBottom: 0,
-    flexGrow: 1,
-    float: 'left',
-    height: 'auto',
+    display: 'flex',
     marginTop: '50px',
     minHeight: '600px',
     maxHeight: '2000px',
@@ -24,28 +22,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SearchResults(props) {
+export default function SearchResults() {
   const classes = useStyles();
   const [loading, setLoading] = useState(true);
-  const [location] = useState('New Ewald, New York');
-  const [startDate] = useState(new Date());
-  const [endDate] = useState(new Date());
+  const [location] = useState('Colorado');
+  const [startDate] = useState(new Date('2021-1-16'));
+  const [endDate] = useState(new Date('2021-04-15'));
   const [groupSize] = useState(1);
   const [rows, setRows] = useState([{
     id: 1, name: 'error', location: 'error', startDate: new Date(), size: -1,
   }]);
 
   const columns = [
-    { field: 'guide', headerName: 'Guide\'s Name' },
-    { field: 'location', headerName: 'Location' },
+    { field: 'guide', headerName: 'Guide\'s Name', flex: 1 },
+    { field: 'location', headerName: 'Location', flex: 1 },
     {
-      field: 'startDate', headerName: 'Date', type: 'date',
+      field: 'startDate', headerName: 'Date', type: 'dateTime', flex: 1,
     },
+    { field: 'groupSize', headerName: 'Group Size', flex: 1 },
+    { field: 'experience', headerName: 'Experience', flex: 1 },
     {
-      field: 'groupSize', headerName: 'Group Size', type: 'number',
-    },
-    {
-      field: 'experience', headerName: 'Experience',
+      field: 'book',
+      headerName: 'Booking',
+      flex: 1,
+      renderCell: () => (
+        <Button variant='contained' color='primary' size='small'>
+          Book
+        </Button>
+      ),
     },
   ];
 
@@ -60,7 +64,7 @@ export default function SearchResults(props) {
     })
       .then((res) => {
         console.log(res.data.searchResults);
-        setRows(res.data.searchResults.calendar);
+        setRows(res.data.searchResults);
         setLoading(false);
       })
       .catch((err) => {
@@ -79,6 +83,8 @@ export default function SearchResults(props) {
     );
   }
   return (
-    <DataGrid className={classes.resultGrid} rows={rows} columns={columns} />
+    <div style={{ flexGrow: 1 }}>
+      <DataGrid autoHeight className={classes.resultGrid} rows={rows} columns={columns} />
+    </div>
   );
 }

@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Home() {
+export default function Home(props) {
   const classes = useStyles();
   const [loading, setLoading] = useState(true);
 
@@ -45,7 +45,6 @@ export default function Home() {
   }, [0]);
 
   if (loading) {
-    // return (<h1>Loading data...</h1>);
     return (
       <div className='loading'>
         <Backdrop open>
@@ -65,7 +64,7 @@ export default function Home() {
           alignItems='center'
         >
           <div className={classes.text}>
-            <GuideSearch />
+            <GuideSearch changeSearchParams={props.searchParams} />
           </div>
         </Grid>
       </div>

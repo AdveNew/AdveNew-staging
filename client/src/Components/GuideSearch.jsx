@@ -1,7 +1,5 @@
 /* eslint-disable import/extensions */
-import React, {
-  useState, useEffect, useMemo, forwardRef, createRef,
-} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   endOfDay, startOfDay, lightFormat, parseISO,
@@ -15,7 +13,6 @@ import {
 } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { makeStyles } from '@material-ui/core/styles';
-import SearchResults from './SearchResults.jsx';
 
 const useStyles = makeStyles((theme) => ({
   textField: {
@@ -37,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function GuideSearch() {
+export default function GuideSearch(props) {
   const classes = useStyles();
   const [loading, setLoading] = useState(true);
   const [location, setLocation] = useState('');
@@ -75,24 +72,9 @@ export default function GuideSearch() {
     setGroupSize(size.target.value);
   };
 
-  const searchLink = useMemo(
-    () => forwardRef((props, ref) => (
-      <Link
-        ref={ref}
-        to={{
-          pathname: '/results',
-          state: {
-            location: { location },
-            startDate: { startDate },
-            endDate: { endDate },
-            size: { groupSize },
-          },
-        }}
-      />
-    )),
-  );
-
-  const ref = createRef();
+  const submitFormChanges = () => {
+    props.changeSearchParams(location, startDate, endDate, groupSize);
+  };
 
   if (loading) {
     return (
@@ -154,10 +136,10 @@ export default function GuideSearch() {
         />
       </FormControl>
       <FormControl
-        props={startDate}
         className={classes.searchIcon}
-        ref={ref}
-        component={searchLink}
+        onClick={submitFormChanges}
+        component={Link}
+        to='/results'
       >
         <IconButton aria-label='search for guides'>
           <SearchIcon />

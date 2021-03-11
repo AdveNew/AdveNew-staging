@@ -17,6 +17,10 @@ import NotFound from './NotFound.jsx';
 export default function App() {
   const [store, setStore] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [location, setLocation] = useState('Virginia');
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [groupSize, setGroupSize] = useState(0);
 
   // get a random company for now
   const storeId = Math.floor(Math.random() * 100 + 1);
@@ -32,6 +36,13 @@ export default function App() {
       })
       .catch((err) => console.error(err.message));
   }, [0]);
+
+  const handleStateChanges = (l, s, e, g) => {
+    setLocation(l);
+    setStartDate(s);
+    setEndDate(e);
+    setGroupSize(g);
+  };
 
   if (loading) {
     return (
@@ -52,9 +63,9 @@ export default function App() {
         alignItems='center'
       >
         <Switch>
-          <Route path='/' component={Home} exact />
+          <Route path='/' component={() => <Home searchParams={handleStateChanges} />} exact />
           <Route path='/c1' component={() => <CompanyPage store={store} isAuthed />} />
-          <Route path='/results' component={() => <SearchResults location startDate endDate size />} />
+          <Route path='/results' component={() => <SearchResults location={location} startDate={startDate} endDate={endDate} groupSize={groupSize} />} />
           <Route component={NotFound} />
         </Switch>
       </Grid>

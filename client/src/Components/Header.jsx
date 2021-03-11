@@ -19,7 +19,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Tooltip from '@material-ui/core/Tooltip/Tooltip.js';
 import Typography from '@material-ui/core/Typography';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
-import advenewLogo from './svgFiles.jsx';
 import logo from '../../dist/logo.png';
 
 const useStyles = makeStyles((theme) => ({
@@ -174,7 +173,6 @@ export default function Header() {
               <MenuIcon />
             </IconButton>
             <img src={logo} alt='AdveNew' className={classes.logo} />
-            <div> {advenewLogo} </div>
             <Typography className={classes.title} variant='h6' component={Link} to='/'>
               AdveNew
             </Typography>

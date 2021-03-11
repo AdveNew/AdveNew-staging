@@ -25,15 +25,13 @@ const useStyles = makeStyles(() => ({
 export default function SearchResults(props) {
   const classes = useStyles();
   const [loading, setLoading] = useState(true);
-  const [location] = useState('Colorado');
-  const [startDate] = useState(new Date('2021-1-16'));
-  const [endDate] = useState(new Date('2021-04-15'));
-  const [groupSize] = useState(1);
+  const [location] = useState(props.location);
+  const [startDate] = useState(props.startDate);
+  const [endDate] = useState(props.endDate);
+  const [groupSize] = useState(props.groupSize);
   const [rows, setRows] = useState([{
     id: 1, name: 'error', location: 'error', startDate: new Date(), size: -1,
   }]);
-
-  console.log(props);
 
   const columns = [
     { field: 'guide', headerName: 'Guide\'s Name', flex: 1 },
@@ -65,7 +63,6 @@ export default function SearchResults(props) {
       },
     })
       .then((res) => {
-        console.log(res.data.results);
         setRows(res.data.results);
         setLoading(false);
       })

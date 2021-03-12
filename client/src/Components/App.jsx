@@ -12,7 +12,10 @@ import CompanyPage from './CompanyPage.jsx';
 import Home from './Home.jsx';
 import Footer from './Footer.jsx';
 import NotFound from './NotFound.jsx';
-import SignIn from './Login.jsx';
+import Signup from './Signup.jsx';
+import Login from './Login2.jsx';
+
+// import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 export default function App() {
   const [store, setStore] = useState([]);
@@ -55,7 +58,8 @@ export default function App() {
         <Switch>
           <Route path='/' component={Home} exact />
           <Route path='/c1' component={() => <CompanyPage store={store} isAuthed />} />
-          <Route path='/login' component={SignIn} />
+          <Route path='/login2' component={Login} />
+          <Route path='/signup' component={Signup} />
           <Route component={NotFound} />
         </Switch>
       </Grid>

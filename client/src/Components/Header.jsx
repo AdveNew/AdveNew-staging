@@ -5,6 +5,11 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import AppBar from '@material-ui/core/AppBar';
 import Badge from '@material-ui/core/Badge';
 import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import EventIcon from '@material-ui/icons/Event';
 import IconButton from '@material-ui/core/IconButton';
 import MailIcon from '@material-ui/icons/Mail';
@@ -14,6 +19,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import SearchIcon from '@material-ui/icons/Search';
+import TextField from '@material-ui/core/TextField';
 import Toolbar from '@material-ui/core/Toolbar';
 import Tooltip from '@material-ui/core/Tooltip/Tooltip.js';
 import Typography from '@material-ui/core/Typography';
@@ -65,6 +71,10 @@ export default function Header() {
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  // const [open, setOpen] = React.useState(false);
+  const [openLogin, setOpenLogin] = React.useState(false);
+  const [openSignup, setOpenSignup] = React.useState(false);
+
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -81,6 +91,22 @@ export default function Header() {
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const handleLoginClickOpen = () => {
+    setOpenLogin(true);
+  };
+
+  const handleLoginClose = () => {
+    setOpenLogin(false);
+  };
+  
+  const handleSignupClickOpen = () => {
+    setOpenSignup(true);
+  };
+
+  const handleSignupClose = () => {
+    setOpenSignup(false);
   };
 
   function ElevationScroll({ children }) {
@@ -108,6 +134,8 @@ export default function Header() {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleLoginClickOpen}>Log In</MenuItem>
+      <MenuItem onClick={handleSignupClickOpen}>Sign Up</MenuItem>
     </Menu>
   );
 
@@ -219,11 +247,149 @@ export default function Header() {
                 <MoreIcon />
               </IconButton>
             </div>
+            <div>
+              {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+                Open form dialog
+              </Button> */}
+              <Dialog open={openLogin} onClose={handleLoginClose} aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">Log In</DialogTitle>
+                <DialogContent>
+                  {/* <DialogContentText>
+                    Log In
+                  </DialogContentText> */}
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    id="email"
+                    label="Email Address"
+                    type="email"
+                    fullWidth
+                  />
+                  <TextField
+                    margin="dense"
+                    id="password"
+                    label="Password"
+                    type="password"
+                    fullWidth
+                  />
+                 </DialogContent>
+                 <DialogActions>
+                  <Button onClick={handleLoginClose} color="primary">
+                    Cancel
+                  </Button>
+                  <Button onClick={handleLoginClose} color="primary">
+                    Log In
+                  </Button>
+                 </DialogActions>
+              </Dialog>
+            </div>
+            <div>
+              {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+                Open form dialog
+              </Button> */}
+              <Dialog open={openSignup} onClose={handleSignupClose} aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">Sign Up</DialogTitle>
+                <DialogContent>
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    id="firstName"
+                    label="First Name"
+                    type="text"
+                    fullWidth
+                    required
+                  />
+                  <TextField
+                    margin="dense"
+                    id="lastName"
+                    label="Last Name"
+                    type="text"
+                    fullWidth
+                    required
+                  />
+                  <TextField
+                    margin="dense"
+                    id="email"
+                    label="Email Address"
+                    type="email"
+                    fullWidth
+                    required
+                  />
+                  <TextField
+                    margin="dense"
+                    id="password"
+                    label="Password"
+                    type="password"
+                    fullWidth
+                    required
+                  />
+                  <TextField
+                    margin="dense"
+                    id="repassword"
+                    label="Re-enter Password"
+                    type="password"
+                    fullWidth
+                    required
+                  />
+                 </DialogContent>
+                 <DialogActions>
+                  <Button onClick={handleSignupClose} color="primary">
+                    Cancel
+                  </Button>
+                  <Button onClick={handleSignupClose} color="primary">
+                    Register
+                  </Button>
+                 </DialogActions>
+              </Dialog>
+            </div>
           </Toolbar>
         </AppBar>
       </ElevationScroll>
       {renderMobileMenu}
       {renderMenu}
+    </div>
+  );
+}
+
+function FormDialog() {
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  return (
+    <div>
+      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+        Open form dialog
+      </Button>
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            To subscribe to this website, please enter your email address here. We will send updates
+            occasionally.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Email Address"
+            type="email"
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleClose} color="primary">
+            Subscribe
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }

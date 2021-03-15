@@ -2,21 +2,21 @@
 FROM node:12-alpine
 # FROM node:14-slim
 
-RUN mkdir -p /src/app
+# RUN mkdir -p /src/app
 
 # set working directory
-WORKDIR /src/app
+WORKDIR /
 
 # add node modules bin to $PATH
 # ENV PATH /app/node_modules/.bin:$PATH
 
 # install app dependencies
 COPY package.json ./
-# COPY package-lock.json ./
 # add the app (copy contents over)
-COPY . /src/app
+COPY . /
 
 RUN npm install
+RUN npm run build
 
 # # what port the container will show the outside world
 EXPOSE 3000

@@ -2,7 +2,7 @@
 const { Faker } = require('fakergem');
 const db = require('./index.js');
 
-const storeSeed = 1000;
+const storeSeed = 100;
 const customerSeed = 100;
 
 // delete the previous data from Store schema so as to not overload it

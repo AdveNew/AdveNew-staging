@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 // Server Discover and Monitoring engine, for advenew database
 // ? If not local, change `localhost` to `database` or IP location of database
-mongoose.connect('mongodb://database/advenew', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost/advenew', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('[ [ Connected to database. ] ]'))
   .catch((err) => console.error('Error connecting to database', err));
 
@@ -44,8 +44,16 @@ const customerSchema = new mongoose.Schema({
   phoneNumber: String,
 });
 
+const guideSchema = new mongoose.Schema({
+  guideId: Number,
+  avatar: String,
+  name: String,
+  password: String,
+});
+
 // compiling schema into a model
 const Store = mongoose.model('Store', storeSchema);
 const Customer = mongoose.model('Customer', customerSchema);
+const Guide = mongoose.model('Guide', guideSchema);
 
-module.exports = { Store, Customer };
+module.exports = { Store, Customer, Guide };

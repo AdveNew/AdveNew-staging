@@ -18,6 +18,6 @@ services:
   seed:
     build: .
     command: npm run seed
-  webpack:
-    build: .
-    command: npm run build
+  # webpack:
+  #   build: .
+  #   command: npm run build

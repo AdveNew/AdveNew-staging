@@ -10,3 +10,6 @@ dist/background*
 
 LICENSE
 .env
+
+# AWS PEM KEY
+prim.pem

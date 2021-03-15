@@ -8,7 +8,7 @@ RUN mkdir -p /src/app
 WORKDIR /src/app
 
 # add node modules bin to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
+# ENV PATH /app/node_modules/.bin:$PATH
 
 # install app dependencies
 COPY package.json ./

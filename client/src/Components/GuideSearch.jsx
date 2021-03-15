@@ -32,15 +32,24 @@ const useStyles = makeStyles((theme) => ({
       textDecoration: 'inherit',
     },
   },
+  searchIconError: {
+    '& .MuiIconButton-root': {
+      backgroundColor: 'grey',
+      borderRadius: '50px',
+      color: 'white',
+      margin: theme.spacing(1),
+      textDecoration: 'inherit',
+    },
+  },
 }));
 
 export default function GuideSearch(props) {
   const classes = useStyles();
   const [loading, setLoading] = useState(true);
   const [location, setLocation] = useState('');
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(startOfDay(new Date()));
   const [startVisDate, setStartVisDate] = useState();
-  const [endDate, setEndDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(endOfDay(new Date()));
   const [endVisDate, setEndVisDate] = useState();
   const [groupSize, setGroupSize] = useState(0);
 
@@ -60,12 +69,6 @@ export default function GuideSearch(props) {
 
   const handleEndDateChange = (date) => {
     setEndDate(endOfDay(parseISO(date.target.value)));
-    console.log(endDate);
-    if (endDate < startDate) {
-      console.log('End date before start date, please change');
-      setEndDate(endOfDay(startDate));
-      console.log(endDate);
-    }
   };
 
   const handleGroupSizeChange = (size) => {
@@ -89,6 +92,7 @@ export default function GuideSearch(props) {
     <form className={classes.textField} noValidate autoComplete='off'>
       <FormControl variant='filled'>
         <TextField
+          required
           label='Location'
           onChange={handleLocationChange}
           margin='normal'
@@ -100,6 +104,7 @@ export default function GuideSearch(props) {
       </FormControl>
       <FormControl variant='filled'>
         <TextField
+          required
           type='date'
           label='Start Date'
           onChange={handleStartDateChange}
@@ -112,17 +117,36 @@ export default function GuideSearch(props) {
         />
       </FormControl>
       <FormControl variant='filled'>
-        <TextField
-          type='date'
-          label='End Date'
-          onChange={handleEndDateChange}
-          defaultValue={endVisDate}
-          margin='normal'
-          variant='filled'
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
+        {endDate < startDate
+          ? (
+            <TextField
+              required
+              error
+              type='date'
+              label='End Date'
+              onChange={handleEndDateChange}
+              defaultValue={endVisDate}
+              margin='normal'
+              variant='filled'
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          )
+          : (
+            <TextField
+              required
+              type='date'
+              label='End Date'
+              onChange={handleEndDateChange}
+              defaultValue={endVisDate}
+              margin='normal'
+              variant='filled'
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          )}
       </FormControl>
       <FormControl variant='filled'>
         <TextField
@@ -135,16 +159,26 @@ export default function GuideSearch(props) {
           }}
         />
       </FormControl>
-      <FormControl
-        className={classes.searchIcon}
-        onClick={submitFormChanges}
-        component={Link}
-        to='/results'
-      >
-        <IconButton aria-label='search for guides'>
-          <SearchIcon />
-        </IconButton>
-      </FormControl>
+      {(endDate > startDate && location !== '')
+        ? (
+          <FormControl
+            className={classes.searchIcon}
+            onClick={submitFormChanges}
+            component={Link}
+            to='/results'
+          >
+            <IconButton aria-label='search for guides'>
+              <SearchIcon />
+            </IconButton>
+          </FormControl>
+        )
+        : (
+          <FormControl className={classes.searchIconError}>
+            <IconButton aria-label='unable to search for guides'>
+              <SearchIcon />
+            </IconButton>
+          </FormControl>
+        )}
     </form>
   );
 }

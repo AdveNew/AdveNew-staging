@@ -15,9 +15,9 @@ services:
   database:
     image: mongo:latest
 
-  webpack:
-    build: .
-    command: npm run build
+  # webpack:
+  #   build: .
+  #   command: npm run build
   seed:
     build: .
     command: npm run seed

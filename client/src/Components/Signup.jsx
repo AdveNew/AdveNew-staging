@@ -8,62 +8,61 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 
 export default function Signup(props) {
-
   const { open, onClose } = props;
 
-  return(
+  return (
     <form>
       <div>
-        <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title">Sign Up</DialogTitle>
+        <Dialog open={open} onClose={onClose} aria-labelledby='form-dialog-title'>
+          <DialogTitle id='form-dialog-title'>Sign Up</DialogTitle>
           <DialogContent>
             <TextField
               autoFocus
-              margin="dense"
-              id="firstName"
-              label="First Name"
-              type="text"
+              margin='dense'
+              id='firstName'
+              label='First Name'
+              type='text'
               fullWidth
               required
             />
             <TextField
-              margin="dense"
-              id="lastName"
-              label="Last Name"
-              type="text"
+              margin='dense'
+              id='lastName'
+              label='Last Name'
+              type='text'
               fullWidth
               required
             />
             <TextField
-              margin="dense"
-              id="email"
-              label="Email Address"
-              type="email"
+              margin='dense'
+              id='email'
+              label='Email Address'
+              type='email'
               fullWidth
               required
             />
             <TextField
-              margin="dense"
-              id="password"
-              label="Password"
-              type="password"
+              margin='dense'
+              id='password'
+              label='Password'
+              type='password'
               fullWidth
               required
             />
             <TextField
-              margin="dense"
-              id="repassword"
-              label="Re-enter Password"
-              type="password"
+              margin='dense'
+              id='repassword'
+              label='Re-enter Password'
+              type='password'
               fullWidth
               required
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={onClose} color="primary">
+            <Button onClick={onClose} color='primary'>
               Cancel
             </Button>
-            <Button onClick={onClose} color="primary">
+            <Button onClick={onClose} color='primary'>
               Register
             </Button>
           </DialogActions>

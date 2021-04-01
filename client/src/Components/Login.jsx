@@ -8,41 +8,40 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 
 export default function Login(props) {
-  
   const { open, onClose } = props;
 
   return (
     <form>
       <div>
-        <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title">Log In</DialogTitle>
+        <Dialog open={open} onClose={onClose} aria-labelledby='form-dialog-title'>
+          <DialogTitle id='form-dialog-title'>Log In</DialogTitle>
           <DialogContent>
             <TextField
               autoFocus
-              margin="dense"
-              id="email"
-              label="Email Address"
-              type="email"
+              margin='dense'
+              id='email'
+              label='Email Address'
+              type='email'
               fullWidth
             />
             <TextField
-              margin="dense"
-              id="password"
-              label="Password"
-              type="password"
+              margin='dense'
+              id='password'
+              label='Password'
+              type='password'
               fullWidth
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={onClose} color="primary">
+            <Button onClick={onClose} color='primary'>
               Cancel
             </Button>
-            <Button onClick={onClose} color="primary">
-              Log In 
+            <Button onClick={onClose} color='primary'>
+              Log In
             </Button>
           </DialogActions>
         </Dialog>
-      </div>  
+      </div>
     </form>
   );
 }

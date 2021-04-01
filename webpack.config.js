@@ -14,10 +14,12 @@ const client = {
     path: DIST_DIR,
     publicPath: '/',
   },
+  devtool: 'source-map',
   plugins: [
     new Dotenv(),
     new webpack.DefinePlugin({
       __isBrowser__: 'true',
+      filename: '[file].map',
     }),
   ],
   devServer: {
@@ -38,53 +40,28 @@ const client = {
   module: {
     rules: [
       {
-        test: /\.jsx?/,
+        test: /\.(js$|jsx)?/,
         include: SRC_DIR,
-        use: 'babel-loader',
+        enforce: 'pre',
+        use: ['babel-loader', 'source-map-loader'],
+        exclude: /node_modules/,
       },
-      // {
-      //   test: /\.(sass|less|css)$/,
-      //   include: SRC_DIR,
-      //   use: ['style-loader', 'css-loader', 'less-loader'],
-      // },
       {
-        test: /\.css$/,
+        test: /\.(sass|less|css)$/,
+        include: SRC_DIR,
+        use: ['style-loader!css-loader', 'less-loader'],
+      },
+      {
+        test: /\.(jpe?g|JPG|png|gif|mp3|svg|ttf|woff2|woff|eot)(\?[a-z0-9=.]+)?$/,
         use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader' }],
-      },
-      {
-        test: /\.(jpg|JPG|jpeg|png|gif|mp3|svg|ttf|woff2|woff|eot)$/gi,
-        use: [
-          { loader: 'url-loader' }],
-      },
-      {
-        test: /\.(eot|svg|ttf|woff|woff2)$/,
-        use: 'url-loader?name=[name].[ext]',
+          {
+            loader: 'url-loader?name=[name].[ext]',
+            options: { limit: 8192 },
+          },
+        ],
       },
     ],
   },
 };
-
-// const server = {
-//   mode: 'development',
-//   entry: './server/index.js',
-//   target: 'node',
-//   output: {
-//     path: path.resolve(__dirname, 'dist'),
-//     filename: 'server.js',
-//   },
-//   module: {
-//     rules: [
-//       { test: /\.(js|jsx)$/, use: 'babel-loader' },
-//       { test: /\.css$/, use: 'css-loader' },
-//     ],
-//   },
-//   plugins: [
-//     new webpack.DefinePlugin({
-//       __isBrowser__: 'false',
-//     }),
-//   ],
-// };
 
 module.exports = [client];

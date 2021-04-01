@@ -8,8 +8,9 @@ import axios from 'axios';
 
 // Components
 import Header from './Header.jsx';
-import CompanyPage from './CompanyPage.jsx';
 import Home from './Home.jsx';
+import SearchResults from './SearchResults.jsx';
+import CompanyPage from './CompanyPage.jsx';
 import Footer from './Footer.jsx';
 import NotFound from './NotFound.jsx';
 import Signup from './Signup.jsx';
@@ -20,6 +21,10 @@ import Login from './Login2.jsx';
 export default function App() {
   const [store, setStore] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [location, setLocation] = useState('Virginia');
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date(new Date().getTime() + (10 * 24 * 3600000)));
+  const [groupSize, setGroupSize] = useState(0);
 
   // get a random company for now
   const storeId = Math.floor(Math.random() * 100 + 1);
@@ -36,6 +41,13 @@ export default function App() {
       .catch((err) => console.error(err.message));
   }, [0]);
 
+  const handleStateChanges = (l, s, e, g) => {
+    setLocation(l);
+    setStartDate(s);
+    setEndDate(e);
+    setGroupSize(g);
+  };
+
   if (loading) {
     return (
       <div className='loading'>
@@ -46,8 +58,7 @@ export default function App() {
     );
   }
   return (
-    // eslint-disable-next-line react/jsx-fragments
-    <React.Fragment>
+    <div>
       <Header />
       <Grid
         container
@@ -56,55 +67,13 @@ export default function App() {
         alignItems='center'
       >
         <Switch>
-          <Route path='/' component={Home} exact />
+          <Route path='/' component={() => <Home searchParams={handleStateChanges} />} exact />
           <Route path='/c1' component={() => <CompanyPage store={store} isAuthed />} />
-          <Route path='/login2' component={Login} />
-          <Route path='/signup' component={Signup} />
+          <Route path='/results' component={() => <SearchResults location={location} startDate={startDate} endDate={endDate} groupSize={groupSize} />} />
           <Route component={NotFound} />
         </Switch>
       </Grid>
       <Footer store={store} />
-    </React.Fragment>
+    </div>
   );
 }
-
-// class App extends React.Component {
-//   constructor(props) {
-//     super(props);
-
-//     this.state = {
-//       store: [],
-//       loading: true,
-//     };
-//   }
-
-//   componentDidMount() {
-//     const storeId = Math.floor(Math.random() * 100 + 1);
-//     axios.get('api/calendar', {
-//       params: {
-//         storeId,
-//       },
-//     })
-//       .then((res) => {
-//         this.setState({
-//           store: res.data.store,
-//           loading: false,
-//         });
-//       })
-//       .catch((err) => console.error(err.message));
-//   }
-
-//   render() {
-//     if (this.state.loading) {
-//       return <h1>Loading data...</h1>;
-//     }
-//     return (
-//       <div className='body'>
-//         <h2>Company Name: {this.state.store.name}</h2>
-//         <div className='custom-calendar'>
-//           <CustomCalendar store={this.state.store} />
-//         </div>
-//       </div>
-//     );
-//   }
-// }

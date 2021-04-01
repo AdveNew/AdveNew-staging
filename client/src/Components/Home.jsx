@@ -4,12 +4,10 @@ import {
   CircularProgress,
   Backdrop,
   Grid,
-  gutterBottom,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import GuideSearch from './GuideSearch.jsx';
 import Image from '../../dist/background9.jpg';
-import Jacob from './jacob.jsx';
 
 const useStyles = makeStyles((theme) => ({
   background: {
@@ -23,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
     zIndex: '0',
   },
   text: {
-    gutterBottom,
     zIndex: '2',
     position: 'relative',
     backgroundColor: 'none',
@@ -39,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Home() {
+export default function Home(props) {
   const classes = useStyles();
   const [loading, setLoading] = useState(true);
 
@@ -48,7 +45,6 @@ export default function Home() {
   }, [0]);
 
   if (loading) {
-    // return (<h1>Loading data...</h1>);
     return (
       <div className='loading'>
         <Backdrop open>
@@ -68,8 +64,7 @@ export default function Home() {
           alignItems='center'
         >
           <div className={classes.text}>
-            <GuideSearch />
-            <Jacob />
+            <GuideSearch changeSearchParams={props.searchParams} />
           </div>
         </Grid>
       </div>

@@ -1,7 +1,7 @@
 /* eslint-disable import/extensions */
 import React, { useState, useEffect } from 'react';
 import { CircularProgress, Backdrop } from '@material-ui/core';
-/* eslint-disable import/extensions */
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
@@ -28,31 +28,6 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-// export default function Footer() {
-//   const [loading, setLoading] = useState(true);
-
-//   useEffect(() => {
-//     setLoading(false);
-//   }, [0]);
-
-//   if (loading) {
-//     // return (<h1>Loading data...</h1>);
-//     return (
-//       <div className='loading'>
-//         <Backdrop open>
-//           <CircularProgress color='inherit' />
-//         </Backdrop>
-//       </div>
-//     );
-//   }
-//   return (
-//     // eslint-disable-next-line react/jsx-fragments
-//     <React.Fragment>
-//       Footer Goodness Holder
-//     </React.Fragment>
-//   );
-// }
-
 export default function Footer(props) {
   const classes = useStyles();
   const [loading, setLoading] = useState(true);
@@ -78,11 +53,11 @@ export default function Footer(props) {
       <AppBar position='fixed' color='default' className={classes.footer}>
         <Toolbar>
           <Grid container justify='space-evenly' alignItems='center'>
-            <Tooltip title='Calendar' placement='top'>
-              <IconButton><TodayIcon /></IconButton>
-            </Tooltip>
-            <Tooltip title='Home' placement='top'>
+            <Tooltip title='Home' placement='top' component={Link} to='/'>
               <IconButton><HomeIcon /></IconButton>
+            </Tooltip>
+            <Tooltip title='Calendar' placement='top' component={Link} to='/c1'>
+              <IconButton><TodayIcon /></IconButton>
             </Tooltip>
             <Tooltip title='Nearby' placement='top'>
               <IconButton><LocationOnIcon /></IconButton>
@@ -94,7 +69,7 @@ export default function Footer(props) {
               <IconButton
                 label='Email'
               // eslint-disable-next-line no-return-assign
-                onClick={() => window.location.href = 'mailto:customercare@advenew.com?subject=Hello AdveNew'}
+                onClick={() => window.location.href = 'mailto:customercare@advenew.com?subject=Hey AdveNew'}
               >
                 <MailOutlineIcon />
               </IconButton>

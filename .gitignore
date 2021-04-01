@@ -3,7 +3,14 @@ node_modules
 package-lock.json
 
 bundle.js
+bundle.js.map
+bundle.js.LICENSE.txt
 server.js
+test.html
+dist/background*
 
 LICENSE
 .env
+
+# AWS PEM KEY
+prim.pem

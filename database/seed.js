@@ -34,7 +34,7 @@ async function generateData() {
       const hour = Math.floor((Math.random() * 7) + 8); // hours 0800 - 1500 (odd, I know)
       datetime.setMinutes(Math.floor((Math.random() * 1.5)) * 30); // on the hour, or half hour
       const newBooking = {
-        id: j,
+        id: j * Math.floor(Math.random() * storeSeed * 3939),
         accommodations: 'None',
         booked: Faker.Random.element([-2, -1, 0, 1]),
         cancellationHours: Faker.Random.element([24, 48, 72, 96]),
@@ -42,7 +42,8 @@ async function generateData() {
         endDate: datetime.setHours(hour + (Math.floor((Math.random() * 3) + 1))),
         experience: Faker.Random.element(['Beginner', 'Novice', 'Advanced', 'Pro', 'Expert']),
         guide: Faker.Name.firstName(),
-        location: Faker.Address.city().concat(', ').concat(Faker.Address.state()),
+        // location: Faker.Address.city().concat(', ').concat(Faker.Address.state()),
+        location: Faker.Address.state(),
         notes: Faker.Matz.quote(),
         price: Faker.Number.between(25, 100) * 4,
         groupSize: Faker.Number.between(1, 6),
@@ -114,10 +115,10 @@ async function generateData() {
 
   // add all generated data to the 'Customer' schema
   await db.Customer.insertMany(customers)
-    .then(() => console.log(`  🌱  Created ${stores.length} new 'Customer' seeds, planted into 'Customer' schema.`))
+    .then(() => console.log(`  🌱  Created ${customers.length} new 'Customer' seeds, planted into 'Customer' schema.`))
     .catch((err) => console.error(`  ❌  Error seeding data to Customer schema: ${err.message}.`))
     .finally(() => {
-      console.log('  👋  Exiting seeder script...');
+      console.log('  👋  Exiting seed script...');
       process.exit();
     });
 }

@@ -25,11 +25,11 @@ const storeSchema = new mongoose.Schema({
       customerId: Number,
       endDate: Date,
       experience: String,
+      groupSize: Number,
       guide: String,
       location: String,
       notes: String,
       price: Number,
-      groupSize: Number,
       startDate: Date, // stores both data and time
     },
   ],
@@ -44,8 +44,16 @@ const customerSchema = new mongoose.Schema({
   phoneNumber: String,
 });
 
+const guideSchema = new mongoose.Schema({
+  guideId: Number,
+  avatar: String,
+  name: String,
+  password: String,
+});
+
 // compiling schema into a model
 const Store = mongoose.model('Store', storeSchema);
 const Customer = mongoose.model('Customer', customerSchema);
+const Guide = mongoose.model('Guide', guideSchema);
 
-module.exports = { Store, Customer };
+module.exports = { Store, Customer, Guide };

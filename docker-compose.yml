@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - 'database'
+    # app running on port 3000, direct to HTTP (80/8080) port
+    ports:
+      - '80:3000'
+
+  # create database image
+  database:
+    image: mongo:latest
+
+  # webpack:
+  #   build: .
+  #   command: npm run build
+  seed:
+    build: .
+    command: npm run seed

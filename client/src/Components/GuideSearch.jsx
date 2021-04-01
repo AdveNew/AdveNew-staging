@@ -1,5 +1,9 @@
 /* eslint-disable import/extensions */
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import {
+  endOfDay, startOfDay, lightFormat, parseISO,
+} from 'date-fns';
 import {
   CircularProgress,
   Backdrop,
@@ -20,35 +24,59 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   searchIcon: {
-    '& > span': {
-      margin: theme.spacing(1),
-      backgroundColor: 'antiquewhite',
+    '& .MuiIconButton-root': {
+      backgroundColor: '#dc004e',
       borderRadius: '50px',
-      fill: 'red',
+      color: 'white',
+      margin: theme.spacing(1),
+      textDecoration: 'inherit',
+    },
+  },
+  searchIconError: {
+    '& .MuiIconButton-root': {
+      backgroundColor: 'grey',
+      borderRadius: '50px',
+      color: 'white',
+      margin: theme.spacing(1),
+      textDecoration: 'inherit',
     },
   },
 }));
 
-export default function Home() {
+export default function GuideSearch(props) {
   const classes = useStyles();
   const [loading, setLoading] = useState(true);
-  const [startDate, setStartDate] = useState(new Date());
+  const [location, setLocation] = useState('');
+  const [startDate, setStartDate] = useState(startOfDay(new Date()));
   const [startVisDate, setStartVisDate] = useState();
-  const [endDate, setEndDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(endOfDay(new Date()));
   const [endVisDate, setEndVisDate] = useState();
+  const [groupSize, setGroupSize] = useState(0);
 
   useEffect(() => {
     setLoading(false);
-    setStartVisDate(`${startDate.getFullYear()}-${(startDate.getMonth() > 8) ? (startDate.getMonth() + 1) : (`0${startDate.getMonth() + 1}`)}-${(startDate.getDate() > 9) ? startDate.getDate() : (`0${startDate.getDate()}`)}`);
-    setEndVisDate(`${endDate.getFullYear()}-${(endDate.getMonth() > 8) ? (endDate.getMonth() + 1) : (`0${endDate.getMonth() + 1}`)}-${(endDate.getDate() > 9) ? endDate.getDate() : (`0${endDate.getDate()}`)}`);
+    setStartVisDate(lightFormat(startDate, 'yyyy-MM-dd'));
+    setEndVisDate(lightFormat(endDate, 'yyyy-MM-dd'));
   }, [0]);
 
+  const handleLocationChange = (local) => {
+    setLocation(local.target.value);
+  };
+
   const handleStartDateChange = (date) => {
-    setStartDate(new Date(date.target.value));
+    setStartDate(startOfDay(parseISO(date.target.value)));
   };
 
   const handleEndDateChange = (date) => {
-    setEndDate(date.target.value);
+    setEndDate(endOfDay(parseISO(date.target.value)));
+  };
+
+  const handleGroupSizeChange = (size) => {
+    setGroupSize(size.target.value);
+  };
+
+  const submitFormChanges = () => {
+    props.changeSearchParams(location, startDate, endDate, groupSize);
   };
 
   if (loading) {
@@ -64,55 +92,93 @@ export default function Home() {
     <form className={classes.textField} noValidate autoComplete='off'>
       <FormControl variant='filled'>
         <TextField
+          required
           label='Location'
+          onChange={handleLocationChange}
           margin='normal'
+          variant='filled'
           InputLabelProps={{
             shrink: true,
           }}
-          variant='filled'
         />
       </FormControl>
       <FormControl variant='filled'>
         <TextField
+          required
           type='date'
           label='Start Date'
-          defaultValue={startVisDate}
           onChange={handleStartDateChange}
+          defaultValue={startVisDate}
           margin='normal'
+          variant='filled'
           InputLabelProps={{
             shrink: true,
           }}
-          variant='filled'
         />
       </FormControl>
       <FormControl variant='filled'>
-        <TextField
-          type='date'
-          label='End Date'
-          defaultValue={endVisDate}
-          onChange={handleEndDateChange}
-          margin='normal'
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant='filled'
-        />
+        {endDate < startDate
+          ? (
+            <TextField
+              required
+              error
+              type='date'
+              label='End Date'
+              onChange={handleEndDateChange}
+              defaultValue={endVisDate}
+              margin='normal'
+              variant='filled'
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          )
+          : (
+            <TextField
+              required
+              type='date'
+              label='End Date'
+              onChange={handleEndDateChange}
+              defaultValue={endVisDate}
+              margin='normal'
+              variant='filled'
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          )}
       </FormControl>
       <FormControl variant='filled'>
         <TextField
           label='Group Size'
+          onChange={handleGroupSizeChange}
           margin='normal'
+          variant='filled'
           InputLabelProps={{
             shrink: true,
           }}
-          variant='filled'
         />
       </FormControl>
-      <FormControl className='searchIcon'>
-        <IconButton color='inherit'>
-          <SearchIcon />
-        </IconButton>
-      </FormControl>
+      {(endDate > startDate && location !== '')
+        ? (
+          <FormControl
+            className={classes.searchIcon}
+            onClick={submitFormChanges}
+            component={Link}
+            to='/results'
+          >
+            <IconButton aria-label='search for guides'>
+              <SearchIcon />
+            </IconButton>
+          </FormControl>
+        )
+        : (
+          <FormControl className={classes.searchIconError}>
+            <IconButton aria-label='unable to search for guides'>
+              <SearchIcon />
+            </IconButton>
+          </FormControl>
+        )}
     </form>
   );
 }

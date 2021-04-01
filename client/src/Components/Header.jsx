@@ -24,8 +24,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Tooltip from '@material-ui/core/Tooltip/Tooltip.js';
 import Typography from '@material-ui/core/Typography';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
-import * as SVG from './svgFiles.jsx';
 import logo from '../../dist/logo.png';
+import Login from './Login.jsx';
+import Signup from './Signup.jsx';
 
 const useStyles = makeStyles((theme) => ({
   headerOptions: {
@@ -74,6 +75,8 @@ export default function Header() {
   // const [open, setOpen] = React.useState(false);
   const [openLogin, setOpenLogin] = React.useState(false);
   const [openSignup, setOpenSignup] = React.useState(false);
+
+  const loginDialog = false;
 
 
   const handleProfileMenuOpen = (event) => {
@@ -194,7 +197,7 @@ export default function Header() {
               <MenuIcon />
             </IconButton>
             <img src={logo} alt='AdveNew' className={classes.logo} />
-            <div> {SVG.advenewLogo} </div>
+            {/* <div> {SVG.advenewLogo} </div> */}
             <Typography className={classes.title} variant='h6' noWrap>
               AdveNew
             </Typography>
@@ -247,101 +250,10 @@ export default function Header() {
                 <MoreIcon />
               </IconButton>
             </div>
-            <div>
-              {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-                Open form dialog
-              </Button> */}
-              <Dialog open={openLogin} onClose={handleLoginClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Log In</DialogTitle>
-                <DialogContent>
-                  {/* <DialogContentText>
-                    Log In
-                  </DialogContentText> */}
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    id="email"
-                    label="Email Address"
-                    type="email"
-                    fullWidth
-                  />
-                  <TextField
-                    margin="dense"
-                    id="password"
-                    label="Password"
-                    type="password"
-                    fullWidth
-                  />
-                 </DialogContent>
-                 <DialogActions>
-                  <Button onClick={handleLoginClose} color="primary">
-                    Cancel
-                  </Button>
-                  <Button onClick={handleLoginClose} color="primary">
-                    Log In
-                  </Button>
-                 </DialogActions>
-              </Dialog>
-            </div>
-            <div>
-              {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-                Open form dialog
-              </Button> */}
-              <Dialog open={openSignup} onClose={handleSignupClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Sign Up</DialogTitle>
-                <DialogContent>
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    id="firstName"
-                    label="First Name"
-                    type="text"
-                    fullWidth
-                    required
-                  />
-                  <TextField
-                    margin="dense"
-                    id="lastName"
-                    label="Last Name"
-                    type="text"
-                    fullWidth
-                    required
-                  />
-                  <TextField
-                    margin="dense"
-                    id="email"
-                    label="Email Address"
-                    type="email"
-                    fullWidth
-                    required
-                  />
-                  <TextField
-                    margin="dense"
-                    id="password"
-                    label="Password"
-                    type="password"
-                    fullWidth
-                    required
-                  />
-                  <TextField
-                    margin="dense"
-                    id="repassword"
-                    label="Re-enter Password"
-                    type="password"
-                    fullWidth
-                    required
-                  />
-                 </DialogContent>
-                 <DialogActions>
-                  <Button onClick={handleSignupClose} color="primary">
-                    Cancel
-                  </Button>
-                  <Button onClick={handleSignupClose} color="primary">
-                    Register
-                  </Button>
-                 </DialogActions>
-              </Dialog>
-            </div>
+            {handleLoginClickOpen}
+            <Login open = {openLogin} onClose = {handleLoginClose}/>
+            {handleSignupClickOpen}
+            <Signup open = {openSignup} onClose = {handleSignupClose}/>
           </Toolbar>
         </AppBar>
       </ElevationScroll>

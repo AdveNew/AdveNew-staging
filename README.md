@@ -4,7 +4,7 @@
 ### Requirements
 Install: 
 - npm >=6.14.8 (check with `npm -v`)
-- MongoDB >=4.2.7 (check with `mongo -version`)
+- MongoDB >=[4.4.x](https://mongoosejs.com/docs/compatibility.html) (check with `mongo -version`)
 
 ### Development
 Once repo is cloned/pulled, run the following command in the root directory of the project (where `package.json` is)
@@ -24,6 +24,16 @@ To get the server up and running, run any combination of 1 even and 1 odd comman
 - [Server Readme](/server/README.md)
 - [Database Readme](/database/README.md)
 - [Client (Front end) Readme](/client/README.md)
+
+### useful git commands
+1. `git status` see file changes, current branch
+2. `git branch -b <BRANCH>` creates and switches to specific branch
+2. `git add <FILES>` add files to commit/push (if all, just substitute `.` for `<FILES>`)
+3. `git commit -m "<MESSAGE>"` stage added files with a meaningful message (ie 'added hashing for user passwords')
+4. `git push origin <BRANCH>` push files to desired branch (avoid pushing straight to main, unless meaning to)
+5. `git fetch origin main` before starting a new branch, this will bring in any changes to local main branch
+5. `git remote update origin --prune` remove any deleted branches and pull in any branches created
+8. `git branch -a` see all branches
 
 ### Demo v0.1.02 (2/19)
 ![V1](demo/v1_2-29_homepage.png)

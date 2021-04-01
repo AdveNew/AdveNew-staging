@@ -1,96 +1,143 @@
 /* eslint-disable import/extensions */
-import React, { useState, useEffect } from 'react';
-import {
-  CircularProgress,
-  Backdrop,
-  Grid,
-  gutterBottom,
-} from '@material-ui/core';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import GuideSearch from './GuideSearch.jsx';
-import Image from '../../dist/background9.jpg';
-import Jacob from './jacob.jsx';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import AppBar from '@material-ui/core/AppBar';
+import Badge from '@material-ui/core/Badge';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import EventIcon from '@material-ui/icons/Event';
+import IconButton from '@material-ui/core/IconButton';
+import MailIcon from '@material-ui/icons/Mail';
+import Menu from '@material-ui/core/Menu';
+import MenuIcon from '@material-ui/icons/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import MoreIcon from '@material-ui/icons/MoreVert';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import SearchIcon from '@material-ui/icons/Search';
+import TextField from '@material-ui/core/TextField';
+import Toolbar from '@material-ui/core/Toolbar';
+import Tooltip from '@material-ui/core/Tooltip/Tooltip.js';
+import Typography from '@material-ui/core/Typography';
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import logo from '../../dist/logo.png';
 
 const useStyles = makeStyles((theme) => ({
-  background: {
-    backgroundImage: `url(${Image})`,
-    height: '75vh',
-    width: '110%',
-    backgroundPosition: '10% 10%',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    marginTop: '-70px',
-    zIndex: '0',
+  headerOptions: {
+    flexGrow: 1,
+    marginRight: theme.spacing(2),
+    textAlign: 'center',
+    backgroundColor: 'transparent',
   },
-  text: {
-    gutterBottom,
-    zIndex: '2',
-    position: 'relative',
-    backgroundColor: 'none',
-    marginTop: '15%',
+  logo: {
+    height: 40,
+    marginRight: theme.spacing(1),
   },
-  textField: {
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: '30ch',
-      backgroundColor: 'white',
-      flex: 1,
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  sectionDesktop: {
+    display: 'none',
+    [theme.breakpoints.up('md')]: {
+      display: 'flex',
     },
+  },
+  sectionMobile: {
+    display: 'flex',
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+  },
+  title: {
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+    },
+  },
+  toolbar: {
+    minHeight: '80',
   },
 }));
 
-export default function Signup() {
+export default function Signup(props) {
+
   const classes = useStyles();
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    setLoading(false);
-  }, [0]);
+  const { open, onClose } = props;
 
-  if (loading) {
-    // return (<h1>Loading data...</h1>);
-    return (
-      <div className='loading'>
-        <Backdrop open>
-          <CircularProgress color='inherit' />
-        </Backdrop>
-      </div>
-    );
-  }
-  return (
-    // eslint-disable-next-line react/jsx-fragments
-    <React.Fragment>
+  const handleSignupClickOpen = () => {
+    setOpenSignup(true);
+  };
+
+  const handleSignupClose = () => {
+    setOpenSignup(false);
+  };
+
+  return(
+    <form>
       <div>
-        <Grid
-          container
-          direction='column'
-          justify='space-evenly'
-          alignItems='center'
-        >
-          <div className={classes.text}>
-            <form>
-                <h3>Register</h3>
-                <label>First Name</label>
-                <div>
-                    <input className={classes.textField} type="text" placeholder="First name"/>
-                </div>
-                <label>Last Name</label>
-                <div>
-                    <input className={classes.textField} type="text" placeholder="Last name"/>
-                </div>
-                <label>Email</label>
-                <div>
-                    <input className={classes.textField} type="email" placeholder="Enter email"/>
-                </div>
-                <label>Password</label>
-                <div>
-                    <input className={classes.textField} type="password" placeholder="Enter password"/>
-                </div>
-                <button type="submit">Register</button>
-            </form>
-          </div>
-        </Grid>
+        {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+          Open form dialog
+        </Button> */}
+        <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
+          <DialogTitle id="form-dialog-title">Sign Up</DialogTitle>
+          <DialogContent>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="firstName"
+              label="First Name"
+              type="text"
+              fullWidth
+              required
+            />
+            <TextField
+              margin="dense"
+              id="lastName"
+              label="Last Name"
+              type="text"
+              fullWidth
+              required
+            />
+            <TextField
+              margin="dense"
+              id="email"
+              label="Email Address"
+              type="email"
+              fullWidth
+              required
+            />
+            <TextField
+              margin="dense"
+              id="password"
+              label="Password"
+              type="password"
+              fullWidth
+              required
+            />
+            <TextField
+              margin="dense"
+              id="repassword"
+              label="Re-enter Password"
+              type="password"
+              fullWidth
+              required
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleSignupClose} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleSignupClose} color="primary">
+              Register
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
-    </React.Fragment>
+    </form>
   );
 }

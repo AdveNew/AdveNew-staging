@@ -70,9 +70,6 @@ export default function Header() {
   const [openLogin, setOpenLogin] = React.useState(false);
   const [openSignup, setOpenSignup] = React.useState(false);
 
-  const loginDialog = false;
-
-
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -97,7 +94,7 @@ export default function Header() {
   const handleLoginClose = () => {
     setOpenLogin(false);
   };
-  
+
   const handleSignupClickOpen = () => {
     setOpenSignup(true);
   };
@@ -245,9 +242,9 @@ export default function Header() {
               </IconButton>
             </div>
             {handleLoginClickOpen}
-            <Login open = {openLogin} onClose = {handleLoginClose}/>
+            <Login open={openLogin} onClose={handleLoginClose} />
             {handleSignupClickOpen}
-            <Signup open = {openSignup} onClose = {handleSignupClose}/>
+            <Signup open={openSignup} onClose={handleSignupClose} />
           </Toolbar>
         </AppBar>
       </ElevationScroll>

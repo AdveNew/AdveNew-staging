@@ -26,6 +26,7 @@ To get the server up and running, run any combination of 1 even and 1 odd comman
 - [Client (Front end) Readme](/client/README.md)
 
 ### Testing
+To run current unit tests: `npm test`  
 - [Jest](https://jestjs.io/) - a Javascript test runner
 - [Enzyme](https://enzymejs.github.io/enzyme/) (a JS test utility for React), with [unofficial adapter for React 17](https://www.npmjs.com/package/@wojtekmaj/enzyme-adapter-react-17) - runs in conjunction with Jest, to test React Components
 - [CircleCI](https://circleci.com/docs/) - automated testing for continuous integration

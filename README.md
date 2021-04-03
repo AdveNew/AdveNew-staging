@@ -25,6 +25,11 @@ To get the server up and running, run any combination of 1 even and 1 odd comman
 - [Database Readme](/database/README.md)
 - [Client (Front end) Readme](/client/README.md)
 
+### Testing
+- [Jest](https://jestjs.io/) - a Javascript test runner
+- [Enzyme](https://enzymejs.github.io/enzyme/) (a JS test utility for React), with [unofficial adapter for React 17](https://www.npmjs.com/package/@wojtekmaj/enzyme-adapter-react-17)
+- [CircleCI](https://circleci.com/docs/) - automated testing for continuous integration
+
 ### useful git commands
 1. `git status` see file changes, current branch
 2. `git branch -b <BRANCH>` creates and switches to specific branch

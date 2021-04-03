@@ -4,6 +4,7 @@ module.exports = {
     commonjs: true,
     node: true,
     es2020: true,
+    jest: true,
   },
   extends: [
     'plugin:react/recommended',

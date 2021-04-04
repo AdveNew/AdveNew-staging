@@ -1,5 +1,5 @@
 # AdveNew-v1
-> Web Application for our customers to connect with listed guides.
+![CircleCI](https://circleci.com/gh/AdveNew/AdveNew-staging.svg?style=shield&circle-token=8543a35d430a5dfe87b29e4b9eaf203d84e8bd7f)
 
 ### Requirements
 Install: 
@@ -19,6 +19,7 @@ To get the server up and running, run any combination of 1 even and 1 odd comman
 3. `npm run start-dev`: starts express server, watches for updates
 4. `npm run build-dev`: creates a bundle of any react code to serve up, rebundles on any save within client/src directory
 5. To help with quicker development, use the cmd `npm run dev` to get the server and webpack going together.
+6. `npm run test`: runs any jest tests
 
 ### Sub Readme's
 - [Server Readme](/server/README.md)

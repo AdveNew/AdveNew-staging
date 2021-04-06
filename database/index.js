@@ -15,6 +15,7 @@ const storeSchema = new mongoose.Schema({
   logo: String,
   name: String,
   phoneNumber: String,
+  password: String,
   websiteUrl: String,
   calendar: [
     {
@@ -35,25 +36,29 @@ const storeSchema = new mongoose.Schema({
   ],
 });
 
+const guideSchema = new mongoose.Schema({
+  guideId: Number,
+  avatar: String,
+  emailAddress: String,
+  location: String,
+  name: String,
+  password: String,
+  phoneNumber: String,
+});
+
 const customerSchema = new mongoose.Schema({
   customerId: Number,
   avatar: String,
   emailAddress: String,
   location: String,
   name: String,
-  phoneNumber: String,
-});
-
-const guideSchema = new mongoose.Schema({
-  guideId: Number,
-  avatar: String,
-  name: String,
   password: String,
+  phoneNumber: String,
 });
 
 // compiling schema into a model
 const Store = mongoose.model('Store', storeSchema);
-const Customer = mongoose.model('Customer', customerSchema);
 const Guide = mongoose.model('Guide', guideSchema);
+const Customer = mongoose.model('Customer', customerSchema);
 
-module.exports = { Store, Customer, Guide };
+module.exports = { Store, Guide, Customer };

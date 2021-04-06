@@ -3,6 +3,7 @@ const { Faker } = require('fakergem');
 const db = require('./index.js');
 
 const storeSeed = 100;
+const guideSeed = 100;
 const customerSeed = 100;
 
 // delete the previous data from Store schema so as to not overload it
@@ -10,6 +11,11 @@ async function clearDatabase() {
   await db.Store.deleteMany()
     .then((data) => console.log(`  🗑️   'Store' schema cleared    - Deleted ${data.deletedCount} entries.`))
     .catch((err) => console.error(`  ❌  Unable to clear Store schema, error: ${err.message}.`));
+
+  // delete the previous data from Guide scehma so as to not overload it (fresh)
+  await db.Guide.deleteMany()
+    .then((data) => console.log(`  🗑️   'Guide' schema cleared    - Deleted ${data.deletedCount} entries.`))
+    .catch((err) => console.error(`  ❌  Unable to clear Guide schema, error: ${err.message}.`));
 
   // delete the previous data from Customer schema so as to not overload it
   await db.Customer.deleteMany()
@@ -76,7 +82,7 @@ async function generateData() {
     // }
 
     // for all of store info
-    const storeAll = {
+    const store = {
       storeId: i,
       name: `${Faker.Name.firstName().concat("'s")} ${Faker.Team.sport().replace(/\b./g, (a) => a.toUpperCase())} ${Faker.Company.suffix()}`,
       logo: Faker.Company.logo(),
@@ -89,14 +95,30 @@ async function generateData() {
       // calendar_request: customBookings,
     };
     // add each store data created to array (for db)
-    stores.push(storeAll);
+    stores.push(store);
+  }
+
+  // generate some guide data (guides on website)
+  const guides = [];
+  for (let i = 1; i <= guideSeed; i += 1) {
+    // for all of customer info
+    const guide = {
+      guideId: i,
+      avatar: Faker.Avatar.image(),
+      emailAddress: Faker.Internet.freeEmail(),
+      location: Faker.Address.state(),
+      name: Faker.Name.name(),
+      phoneNumber: Faker.Random.element(['303-', '720-']).concat(Faker.PhoneNumber.exchangeCode().concat('-').concat(Faker.PhoneNumber.subscriberNumber())),
+    };
+    // add each customer data created to array (for db)
+    guides.push(guide);
   }
 
   // generate some customers (users on website)
   const customers = [];
   for (let i = 1; i <= customerSeed; i += 1) {
     // for all of customer info
-    const customerAll = {
+    const customer = {
       customerId: i,
       avatar: Faker.Avatar.image(),
       emailAddress: Faker.Internet.freeEmail(),
@@ -105,13 +127,17 @@ async function generateData() {
       phoneNumber: Faker.Random.element(['303-', '720-']).concat(Faker.PhoneNumber.exchangeCode().concat('-').concat(Faker.PhoneNumber.subscriberNumber())),
     };
     // add each customer data created to array (for db)
-    customers.push(customerAll);
+    customers.push(customer);
   }
 
   // add all generated data to the 'Store' schema
   await db.Store.insertMany(stores)
     .then(() => console.log(`  🌱  Created ${stores.length} new 'Store' seeds, planted into 'Store' schema.`))
     .catch((err) => console.error(`  ❌  Error seeding data to Store schema: ${err.message}.`));
+
+  await db.Guide.insertMany(guides)
+    .then(() => console.log(`  🌱  Created ${guides.length} new 'Guide' seeds, planted into 'Guide' schema.`))
+    .catch((err) => console.error(`  ❌  Error seeding data to Guide schema: ${err.message}.`));
 
   // add all generated data to the 'Customer' schema
   await db.Customer.insertMany(customers)

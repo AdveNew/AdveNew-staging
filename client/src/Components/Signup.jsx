@@ -1,22 +1,25 @@
 /* eslint-disable import/extensions */
-import React, { useState, useRef } from 'react';
+import React, { useState} from 'react';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 export default function Signup(props) {
 
   const { open, onClose } = props;
-  // const passRef = useRef();
-  // const passConfirmRef = useRef();
   const [pass, setPass] = useState('');
   const [confirmPass, setConfirmPass] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [signupType, setSignupType] = useState('Customer');
 
   const passChange = (pass) => {
     setPass(pass.target.value);
@@ -38,12 +41,24 @@ export default function Signup(props) {
     setEmail(emailVal.target.value);
   };
 
+  const changeSignup = (event) => {
+    setSignupType(event.target.value);
+  };
+
+  
   return(
     <form>
       <div>
         <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
           <DialogTitle id="form-dialog-title">Sign Up</DialogTitle>
           <DialogContent>
+            <Grid container justify="center">
+              <RadioGroup aria-label="selectSignup" name="signup" value={signupType} onChange={changeSignup} row>
+                <FormControlLabel value="Customer" control={<Radio />} label="Customer" />
+                <FormControlLabel value="Guide" control={<Radio />} label="Guide" />
+                <FormControlLabel value="Shop" control={<Radio />} label="Shop" />
+              </RadioGroup>
+            </Grid>
             <TextField
               autoFocus
               margin="dense"

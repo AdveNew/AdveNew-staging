@@ -18,6 +18,7 @@ export default function Signup(props) {
   const [confirmPass, setConfirmPass] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [shopName, setShopName] = useState('');
   const [email, setEmail] = useState('');
   const [signupType, setSignupType] = useState('Customer');
 
@@ -36,6 +37,10 @@ export default function Signup(props) {
   const lastNameChange = (lastVal) => {
     setLastName(lastVal.target.value);
   };
+
+  const shopNameChange = (shopVal) => {
+    setShopName(shopVal.target.value);
+  }
 
   const emailChange = (emailVal) => {
     setEmail(emailVal.target.value);
@@ -59,7 +64,44 @@ export default function Signup(props) {
                 <FormControlLabel value="Shop" control={<Radio />} label="Shop" />
               </RadioGroup>
             </Grid>
-            <TextField
+            {(signupType == "Shop")
+              ? (
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="shopName"
+                  label="Shop Name"
+                  type="text"
+                  onChange={shopNameChange}
+                  fullWidth
+                  required
+                />
+              )
+              : (
+                <div>
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    id="firstName"
+                    label="First Name"
+                    type="text"
+                    onChange={firstNameChange}
+                    fullWidth
+                    required
+                  />
+                  <TextField
+                    margin="dense"
+                    id="lastName"
+                    label="Last Name"
+                    type="text"
+                    onChange={lastNameChange}
+                    fullWidth
+                    required
+                  />
+                </div>
+              )
+            }
+            {/* <TextField
               autoFocus
               margin="dense"
               id="firstName"
@@ -77,7 +119,7 @@ export default function Signup(props) {
               onChange={lastNameChange}
               fullWidth
               required
-            />
+            /> */}
             <TextField
               margin="dense"
               id="email"
@@ -115,8 +157,8 @@ export default function Signup(props) {
             {(pass !== '' 
             && confirmPass !== '' 
             && pass == confirmPass 
-            && firstName !== '' 
-            && lastName !== '' 
+            && (firstName !== '' && lastName !== '' 
+            || shopName !== '')
             && email !== '')
               ? (
                 <Button onClick={onClose}>

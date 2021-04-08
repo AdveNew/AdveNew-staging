@@ -11,6 +11,8 @@ import Header from './Header.jsx';
 import Home from './Home.jsx';
 import SearchResults from './SearchResults.jsx';
 import CompanyPage from './CompanyPage.jsx';
+import SearchShops from './SearchShops.jsx'
+import DisplayGuideShop from './DisplayGuideShop.jsx'
 import Footer from './Footer.jsx';
 import NotFound from './NotFound.jsx';
 
@@ -65,6 +67,9 @@ export default function App() {
         <Switch>
           <Route path='/' component={() => <Home searchParams={handleStateChanges} />} exact />
           <Route path='/c1' component={() => <CompanyPage store={store} isAuthed />} />
+          <Route path='/searchShops' component={() => <SearchShops store={store} isAuthed />} />
+          <Route path='/displayGuideShop' component={() => <DisplayGuideShop store={store} isAuthed />} />
+
           <Route path='/results' component={() => <SearchResults location={location} startDate={startDate} endDate={endDate} groupSize={groupSize} />} />
           <Route component={NotFound} />
         </Switch>

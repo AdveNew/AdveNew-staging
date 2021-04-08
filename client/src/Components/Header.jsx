@@ -183,7 +183,7 @@ export default function Header() {
               <Button variant='contained' size='medium' onClick={() => { handleButtonClick(2); }} color={buttonState === 2 ? 'secondary' : 'default'} startIcon={<EventIcon />} style={{ marginRight: '20px' }} component={Link} to='/c1'>
                 Calendar
               </Button>
-              <Button variant='contained' size='medium' onClick={() => { handleButtonClick(3); }} color={buttonState === 3 ? 'secondary' : 'default'} startIcon={<SearchIcon />}>
+              <Button variant='contained' size='medium' onClick={() => { handleButtonClick(3); }} color={buttonState === 3 ? 'secondary' : 'default'} startIcon={<SearchIcon />} component={Link} to='/searchShops' >
                 Search Shops
               </Button>
             </div>

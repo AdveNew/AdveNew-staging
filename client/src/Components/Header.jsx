@@ -193,13 +193,13 @@ export default function Header() {
               AdveNew
             </Typography>
             <div className={classes.headerOptions}>
-              <Button variant='contained' size='small' color='secondary' startIcon={<SearchIcon />} noWrap style={{ marginRight: '20px' }}>
+              <Button variant='contained' size='medium' onClick={() => handleButtonState(1)} color={buttonState === 1 ? 'secondary' : 'default'} startIcon={<SearchIcon />} style={{ marginRight: '20px' }} component={Link} to='/'>
                 Find a Guide
               </Button>
-              <Button variant='contained' size='small' color='default' startIcon={<EventIcon />} noWrap style={{ marginRight: '20px' }}>
+              <Button variant='contained' size='medium' onClick={() => handleButtonState(2)} color={buttonState === 2 ? 'secondary' : 'default'} startIcon={<EventIcon />} style={{ marginRight: '20px' }} component={Link} to='/shop'>
                 Calendar
               </Button>
-              <Button variant='contained' size='small' color='default' startIcon={<SearchIcon />} noWrap>
+              <Button variant='contained' size='medium' onClick={() => handleButtonState(3)} color={buttonState === 3 ? 'secondary' : 'default'} startIcon={<SearchIcon />}>
                 Search Shops
               </Button>
             </div>

@@ -1,5 +1,6 @@
 /* eslint-disable import/extensions */
 import React, { useState} from 'react';
+import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Dialog from '@material-ui/core/Dialog';
@@ -50,7 +51,19 @@ export default function Signup(props) {
     setSignupType(event.target.value);
   };
 
-  
+  const submitDB = () => {
+    axios.post('api/signup', {
+      params: {
+        name: `${firstName} ${lastName}`,
+      },
+    })
+      .then((res) => {
+        setStore(res.data.store);
+        setLoading(false);
+      })
+      .catch((err) => console.error(err.message));
+  }
+
   return(
     <form>
       <div>
@@ -101,25 +114,6 @@ export default function Signup(props) {
                 </div>
               )
             }
-            {/* <TextField
-              autoFocus
-              margin="dense"
-              id="firstName"
-              label="First Name"
-              type="text"
-              onChange={firstNameChange}
-              fullWidth
-              required
-            />
-            <TextField
-              margin="dense"
-              id="lastName"
-              label="Last Name"
-              type="text"
-              onChange={lastNameChange}
-              fullWidth
-              required
-            /> */}
             <TextField
               margin="dense"
               id="email"
@@ -134,7 +128,6 @@ export default function Signup(props) {
               id="password"
               label="Password"
               type="password"
-              // inputRef={passRef}
               onChange={passChange}
               fullWidth
               required
@@ -144,7 +137,6 @@ export default function Signup(props) {
               id="repassword"
               label="Re-enter Password"
               type="password"
-              // inputRef={passConfirmRef}
               onChange={confirmPassChange}
               fullWidth
               required
@@ -154,14 +146,14 @@ export default function Signup(props) {
             <Button onClick={onClose} color="primary">
               Cancel
             </Button>
-            {(pass !== '' 
-            && confirmPass !== '' 
-            && pass == confirmPass 
-            && (firstName !== '' && lastName !== '' 
+            {(pass !== ''
+            && confirmPass !== ''
+            && pass == confirmPass
+            && (firstName !== '' && lastName !== ''
             || shopName !== '')
             && email !== '')
               ? (
-                <Button onClick={onClose}>
+                <Button onClick={onClose} onSubmit={submitDB}>
                   Register
                 </Button>
               )

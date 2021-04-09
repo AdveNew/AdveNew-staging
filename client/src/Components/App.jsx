@@ -19,8 +19,9 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [location, setLocation] = useState('Virginia');
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date(new Date().getTime() + (10 * 24 * 3600000)));
+  const [endDate, setEndDate] = useState(new Date(new Date().getTime() + (10 * 864e5)));
   const [groupSize, setGroupSize] = useState(0);
+  const [buttonState, setButtonState] = useState(1);
 
   // get a random company for now
   const storeId = Math.floor(Math.random() * 100 + 1);
@@ -44,6 +45,10 @@ export default function App() {
     setGroupSize(g);
   };
 
+  const handleButtonStateChange = (b) => {
+    setButtonState(b);
+  };
+
   if (loading) {
     return (
       <div className='loading'>
@@ -55,7 +60,7 @@ export default function App() {
   }
   return (
     <div>
-      <Header />
+      <Header sb={handleButtonStateChange} bs={buttonState} />
       <Grid
         container
         direction='row'
@@ -64,12 +69,12 @@ export default function App() {
       >
         <Switch>
           <Route path='/' component={() => <Home searchParams={handleStateChanges} />} exact />
-          <Route path='/c1' component={() => <CompanyPage store={store} isAuthed />} />
+          <Route path='/shop' component={() => <CompanyPage store={store} isAuthed />} />
           <Route path='/results' component={() => <SearchResults location={location} startDate={startDate} endDate={endDate} groupSize={groupSize} />} />
           <Route component={NotFound} />
         </Switch>
       </Grid>
-      <Footer store={store} />
+      <Footer store={store} bs={buttonState} setButtonState={handleButtonStateChange} />
     </div>
   );
 }

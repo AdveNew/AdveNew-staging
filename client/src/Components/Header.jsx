@@ -1,6 +1,5 @@
 /* eslint-disable import/extensions */
-import React, { useState, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import AppBar from '@material-ui/core/AppBar';
@@ -20,6 +19,8 @@ import Tooltip from '@material-ui/core/Tooltip/Tooltip.js';
 import Typography from '@material-ui/core/Typography';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import logo from '../../dist/logo.png';
+import Login from './Login.jsx';
+import Signup from './Signup.jsx';
 
 const useStyles = makeStyles((theme) => ({
   headerOptions: {
@@ -52,8 +53,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
-    textDecoration: 'inherit',
-    color: 'inherit',
   },
   toolbar: {
     minHeight: '80',
@@ -64,10 +63,12 @@ export default function Header() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-  const [buttonState, setButtonState] = useState(1);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  // const [open, setOpen] = React.useState(false);
+  const [openLogin, setOpenLogin] = React.useState(false);
+  const [openSignup, setOpenSignup] = React.useState(false);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -86,9 +87,21 @@ export default function Header() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  const handleButtonClick = useCallback((data) => {
-    setButtonState(data);
-  }, []);
+  const handleLoginClickOpen = () => {
+    setOpenLogin(true);
+  };
+
+  const handleLoginClose = () => {
+    setOpenLogin(false);
+  };
+
+  const handleSignupClickOpen = () => {
+    setOpenSignup(true);
+  };
+
+  const handleSignupClose = () => {
+    setOpenSignup(false);
+  };
 
   function ElevationScroll({ children }) {
     const trigger = useScrollTrigger({
@@ -115,6 +128,8 @@ export default function Header() {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleLoginClickOpen}>Log In</MenuItem>
+      <MenuItem onClick={handleSignupClickOpen}>Sign Up</MenuItem>
     </Menu>
   );
 
@@ -173,17 +188,18 @@ export default function Header() {
               <MenuIcon />
             </IconButton>
             <img src={logo} alt='AdveNew' className={classes.logo} />
-            <Typography className={classes.title} variant='h6' component={Link} to='/'>
+            {/* <div> {SVG.advenewLogo} </div> */}
+            <Typography className={classes.title} variant='h6' noWrap>
               AdveNew
             </Typography>
             <div className={classes.headerOptions}>
-              <Button variant='contained' size='medium' onClick={() => { handleButtonClick(1); }} color={buttonState === 1 ? 'secondary' : 'default'} startIcon={<SearchIcon />} style={{ marginRight: '20px' }} component={Link} to='/'>
+              <Button variant='contained' size='small' color='secondary' startIcon={<SearchIcon />} noWrap style={{ marginRight: '20px' }}>
                 Find a Guide
               </Button>
-              <Button variant='contained' size='medium' onClick={() => { handleButtonClick(2); }} color={buttonState === 2 ? 'secondary' : 'default'} startIcon={<EventIcon />} style={{ marginRight: '20px' }} component={Link} to='/c1'>
+              <Button variant='contained' size='small' color='default' startIcon={<EventIcon />} noWrap style={{ marginRight: '20px' }}>
                 Calendar
               </Button>
-              <Button variant='contained' size='medium' onClick={() => { handleButtonClick(3); }} color={buttonState === 3 ? 'secondary' : 'default'} startIcon={<SearchIcon />}>
+              <Button variant='contained' size='small' color='default' startIcon={<SearchIcon />} noWrap>
                 Search Shops
               </Button>
             </div>
@@ -225,6 +241,10 @@ export default function Header() {
                 <MoreIcon />
               </IconButton>
             </div>
+            {handleLoginClickOpen}
+            <Login open={openLogin} onClose={handleLoginClose} />
+            {handleSignupClickOpen}
+            <Signup open={openSignup} onClose={handleSignupClose} />
           </Toolbar>
         </AppBar>
       </ElevationScroll>

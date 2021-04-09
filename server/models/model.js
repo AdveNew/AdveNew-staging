@@ -12,7 +12,7 @@ const getCalendarData = (storeId, callback) => {
 };
 
 const getSearchData = (location, startDate, endDate, size, callback) => {
-  const booked = 0;
+  const booked = 0; // 0 = available
   const query = db.Store.find().where({
     'calendar.booked': booked,
     'calendar.location': location,

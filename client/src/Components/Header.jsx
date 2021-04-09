@@ -177,13 +177,13 @@ export default function Header() {
               AdveNew
             </Typography>
             <div className={classes.headerOptions}>
-              <Button variant='contained' size='medium' onClick={() => { handleButtonClick(1); }} color={buttonState === 1 ? 'secondary' : 'default'} startIcon={<SearchIcon />} style={{ marginRight: '20px' }} component={Link} to='/'>
+              <Button variant='contained' size='medium' onClick={() => handleButtonState(1)} color={buttonState === 1 ? 'secondary' : 'default'} startIcon={<SearchIcon />} style={{ marginRight: '20px' }} component={Link} to='/'>
                 Find a Guide
               </Button>
-              <Button variant='contained' size='medium' onClick={() => { handleButtonClick(2); }} color={buttonState === 2 ? 'secondary' : 'default'} startIcon={<EventIcon />} style={{ marginRight: '20px' }} component={Link} to='/c1'>
+              <Button variant='contained' size='medium' onClick={() => handleButtonState(2)} color={buttonState === 2 ? 'secondary' : 'default'} startIcon={<EventIcon />} style={{ marginRight: '20px' }} component={Link} to='/shop'>
                 Calendar
               </Button>
-              <Button variant='contained' size='medium' onClick={() => { handleButtonClick(3); }} color={buttonState === 3 ? 'secondary' : 'default'} startIcon={<SearchIcon />}>
+              <Button variant='contained' size='medium' onClick={() => handleButtonState(3)} color={buttonState === 3 ? 'secondary' : 'default'} startIcon={<SearchIcon />}>
                 Search Shops
               </Button>
             </div>

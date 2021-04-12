@@ -42,7 +42,7 @@
     "devextreme": "^20.2.6",
     "devextreme-react": "^20.2.6",
     "express": "^4.17.1",
-    "jquery": "^1.9.1",
+    "jquery": "^3.6.0",
     "mongoose": "^5.11.15",
     "morgan": "^1.10.0",
     "node": "^15.0.1",

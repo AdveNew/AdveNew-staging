@@ -23,8 +23,8 @@ export default function App() {
   const [groupSize, setGroupSize] = useState(0);
   const [buttonState, setButtonState] = useState(1);
 
-  // get a random company for now
-  const storeId = Math.floor(Math.random() * 100 + 1);
+  // get first store for now
+  const storeId = 1;
   useEffect(() => {
     axios.get('api/calendar', {
       params: {

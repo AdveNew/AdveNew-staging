@@ -2,9 +2,9 @@
 const { Faker } = require('fakergem');
 const db = require('./index.js');
 
-const storeSeed = 100;
-const guideSeed = 100;
-const customerSeed = 100;
+const storeSeed = 4;
+const guideSeed = 10;
+const customerSeed = 10;
 
 // delete the previous data from Store schema so as to not overload it
 async function clearDatabase() {
@@ -24,8 +24,11 @@ async function clearDatabase() {
 }
 
 async function generateData() {
-  /* ************ seed data for 100 stores ************ */
+  /* ************ seed data for 4 stores ************ */
   const stores = [];
+  const shopNames = ["Yogi's Goldfish Emporium", "Scott's Ole Tackle", "George's Fly Fishing Unlimited", "Josh's Fishing Tackle"];
+  const shopWebsites = ['https://www.golfish.emp', 'https://www.oletackle.com', 'https://www.flyfishingulim.com', 'https://www.fishtackle.com'];
+  const shopEmails = ['yogi@golfish.emp', 'scott@oletackle.com', 'george@flyfishingulim.com', 'josh@fishtackle.com'];
   for (let i = 1; i <= storeSeed; i += 1) {
     // make some calendar bookings for each store
     const calendar = [];
@@ -59,40 +62,18 @@ async function generateData() {
       calendar.push(newBooking);
     }
 
-    // // make some custom bookings requests
-    // const customBookings = [];
-    // const numberOfCustomerBookings = Math.floor((Math.random() * 11) + 20); // 20-30
-    // for (let j = 0; j < numberOfCustomerBookings; j += 1) {
-    //   // creates dates 4 months forward
-    //   const datetime = Faker.Time.forward(90, Faker.Time.DAY);
-    //   const hour = Math.floor((Math.random() * 7) + 8); // hours 0800 - 1500 (odd, I know)
-    //   datetime.setMinutes(Math.floor((Math.random() * 1.5)) * 30); // on the hour, or half hour
-    //   const newBooking = {
-    //     startDate: datetime.setHours(hour),
-    //     endDate: datetime.setHours(hour + (Math.floor((Math.random() * 3) + 1))),
-    //     guide: Faker.Name.firstName(),
-    //     price: Faker.Number.between(75, 280),
-    //     booked: -1,
-    //     customerName: Faker.Name.name(), // eventually tie to customer schema
-    //     experience: Faker.Random.element(['Beginner', 'Novice', 'Advanced', 'Pro', 'Expert']),
-    //     notes: Faker.Matz.quote(),
-    //   };
-    //   // add each generated booking to array (for db)
-    //   customBookings.push(newBooking);
-    // }
-
     // for all of store info
     const store = {
       storeId: i,
-      name: `${Faker.Name.firstName().concat("'s")} ${Faker.Team.sport().replace(/\b./g, (a) => a.toUpperCase())} ${Faker.Company.suffix()}`,
+      name: shopNames[i - 1],
+      // name: `${Faker.Name.firstName().concat("'s")} ${Faker.Team.sport().replace(/\b./g, (a) => a.toUpperCase())} ${Faker.Company.suffix()}`,
       logo: Faker.Company.logo(),
-      details: Faker.Hipster.sentences(3).join(' '),
+      details: Faker.Hipster.sentences(5).join(' '),
       phoneNumber: Faker.Random.element(['303-', '720-']).concat(Faker.PhoneNumber.exchangeCode().concat('-').concat(Faker.PhoneNumber.subscriberNumber())),
-      emailAddress: Faker.Internet.email(),
-      websiteUrl: Faker.Internet.url(),
+      emailAddress: shopEmails[i - 1],
+      websiteUrl: shopWebsites[i - 1],
       hours: '\n     Mon-Fri: '.concat(Faker.Number.between(7, 10)).concat('-').concat(Faker.Number.between(4, 6)).concat('\n     Sat-Sun: '.concat(Faker.Number.between(7, 10)).concat('-').concat(Faker.Number.between(1, 3))),
       calendar,
-      // calendar_request: customBookings,
     };
     // add each store data created to array (for db)
     stores.push(store);

@@ -51,7 +51,6 @@ export default function Signup(props) {
   };
 
   const submitDB = () => {
-    console.log(signupType);
     axios.post('api/signup', {
       params: {
         dbCol: signupType,

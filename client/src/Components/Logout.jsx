@@ -12,6 +12,7 @@ export default function Logout() {
 
   useEffect(() => {
     localStorage.removeItem('user');
+    localStorage.removeItem('user.token');
   }, [0]);
 
   return (

@@ -19,7 +19,6 @@ export default function Login(props) {
   const [pass, setPass] = useState();
 
   const checkLogin = () => {
-    console.log(`ep: ${email} ${pass}`);
     axios.get('api/login', {
       params: {
         dbCol: loginType,
@@ -28,11 +27,11 @@ export default function Login(props) {
       },
     })
       .then((res) => {
-        console.log(res);
-        localStorage.setItem('user', JSON.stringify(res.data.results[0].emailAddress));
+        if (res.data.user) localStorage.setItem('user', JSON.stringify(res.data.user));
+        if (res.data.token) localStorage.setItem('user.token', JSON.stringify(res.data.token));
         onClose();
       })
-      .catch(() => console.error('Login Failed'));
+      .catch((err) => console.error(`Login Failed: ${err}`));
   };
 
   return (

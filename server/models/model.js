@@ -44,7 +44,6 @@ const getLogin = (dbCol, email, password, callback) => {
       db.Customer.find({ emailAddress: email, password },
         (err, results) => {
           console.log(results);
-          console.log(err);
           if (err || results.length === 0) callback(err, null);
           else callback(null, results);
         });

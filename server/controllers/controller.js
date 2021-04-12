@@ -41,7 +41,9 @@ const getLogin = (req, res) => {
     } else {
       console.log('  ✓  User data retrieved from database.');
       res.json({
-        results,
+        user: results[0],
+        // eslint-disable-next-line no-underscore-dangle
+        token: results[0]._id,
       });
     }
   });

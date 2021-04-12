@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header() {
   const classes = useStyles();
-  const isAuthed = (JSON.parse(localStorage.getItem('user')) !== null);
+  const isAuthed = (JSON.parse(localStorage.getItem('user.token')) !== null);
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 

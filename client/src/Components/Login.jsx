@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import Radio from '@material-ui/core/Radio';
@@ -15,8 +16,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 export default function Login(props) {
   const { open, onClose } = props;
   const [loginType, setLoginType] = useState('Customer');
-  const [email, setEmail] = useState();
-  const [pass, setPass] = useState();
+  const [email, setEmail] = useState('');
+  const [pass, setPass] = useState('');
+  const [loginFail, setLoginFail] = useState(false);
 
   const checkLogin = () => {
     axios.get('api/login', {
@@ -29,9 +31,15 @@ export default function Login(props) {
       .then((res) => {
         if (res.data.user) localStorage.setItem('user', JSON.stringify(res.data.user));
         if (res.data.token) localStorage.setItem('user.token', JSON.stringify(res.data.token));
+        setLoginFail(false);
         onClose();
       })
-      .catch((err) => console.error(`Login Failed: ${err}`));
+      .catch((err) => {
+        setLoginFail(true);
+        setEmail('');
+        setPass('');
+        console.error(`Login Failed: ${err}`)
+      });
   };
 
   return (
@@ -47,12 +55,15 @@ export default function Login(props) {
             </RadioGroup>
           </Grid>
           <DialogContent>
+            {loginFail
+            ? (<DialogContentText color='secondary'>Incorrect email and/or password.</DialogContentText>) : null}
             <TextField
               autoFocus
               margin='dense'
               id='email'
               label='Email Address'
               type='email'
+              value={email}
               onChange={(node) => setEmail(node.target.value)}
               fullWidth
             />
@@ -61,6 +72,7 @@ export default function Login(props) {
               id='password'
               label='Password'
               type='password'
+              value={pass}
               onChange={(node) => setPass(node.target.value)}
               fullWidth
             />

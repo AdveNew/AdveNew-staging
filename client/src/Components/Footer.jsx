@@ -59,10 +59,10 @@ export default function Footer(props) {
             <Tooltip title='Calendar' placement='top' component={Link} to='/shop'>
               <IconButton><TodayIcon /></IconButton>
             </Tooltip>
-            <Tooltip title='Nearby' placement='top'>
+            <Tooltip title='Nearby (Coming Soon)' placement='top'>
               <IconButton><LocationOnIcon /></IconButton>
             </Tooltip>
-            <Tooltip title='Edit Calendar' placement='top'>
+            <Tooltip title='Edit Calendar (Coming Soon)' placement='top'>
               <IconButton label='Edit Calendar' value='edit'><EditIcon /></IconButton>
             </Tooltip>
             <Tooltip title='Send Email' placement='top'>
@@ -80,7 +80,7 @@ export default function Footer(props) {
             <Drawer open={drawer} onClose={() => setDrawer(false)}>
               <CompanyInfo store={store} />
             </Drawer>
-            <Tooltip title='More Info' placement='top'>
+            <Tooltip title='More Info (Coming Soon)' placement='top'>
               <IconButton><MoreIcon /></IconButton>
             </Tooltip>
           </Grid>

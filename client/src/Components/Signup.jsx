@@ -74,7 +74,7 @@ export default function Signup(props) {
             <Grid container justify='center'>
               <RadioGroup aria-label='selectSignup' name='signup' value={signupType} onChange={changeSignup} row>
                 <FormControlLabel value='Customer' control={<Radio />} label='Customer' />
-                <FormControlLabel value='Guide' control={<Radio />} label='Guide' />
+                <FormControlLabel disabled value='Guide' control={<Radio />} label='Guide' />
                 <FormControlLabel value='Shop' control={<Radio />} label='Shop' />
               </RadioGroup>
             </Grid>

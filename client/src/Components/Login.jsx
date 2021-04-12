@@ -42,7 +42,7 @@ export default function Login(props) {
           <Grid container justify='center'>
             <RadioGroup aria-label='selectLogin' name='login' value={loginType} onChange={(node) => setLoginType(node.target.value)} row>
               <FormControlLabel value='Customer' control={<Radio />} label='Customer' />
-              <FormControlLabel value='Guide' control={<Radio />} label='Guide' />
+              <FormControlLabel disabled value='Guide' control={<Radio />} label='Guide' />
               <FormControlLabel value='Shop' control={<Radio />} label='Shop' />
             </RadioGroup>
           </Grid>

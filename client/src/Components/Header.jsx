@@ -1,5 +1,6 @@
 /* eslint-disable import/extensions */
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import AppBar from '@material-ui/core/AppBar';
@@ -7,7 +8,6 @@ import Badge from '@material-ui/core/Badge';
 import Button from '@material-ui/core/Button';
 import EventIcon from '@material-ui/icons/Event';
 import IconButton from '@material-ui/core/IconButton';
-import Link from '@material-ui/core/Link';
 import MailIcon from '@material-ui/icons/Mail';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -58,6 +58,8 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
+    textDecoration: 'inherit',
+    color: 'inherit',
   },
   toolbar: {
     minHeight: '80',
@@ -120,7 +122,7 @@ export default function Header() {
       onClose={handleMenuClose}
     >
       {isAuthed ? <MenuItem onClick={handleMenuClose}>Profile</MenuItem> : null}
-      {isAuthed ? <MenuItem onClick={handleMenuClose}>My account</MenuItem> : null}
+      {isAuthed ? <MenuItem onClick={handleMenuClose}>My Trips</MenuItem> : null}
       {!isAuthed
         ? <MenuItem onClick={() => { setOpenLogin(true); handleMenuClose(); }}>Log In</MenuItem>
         : null }
@@ -188,7 +190,7 @@ export default function Header() {
           </IconButton>
           <img src={logo} alt='AdveNew' className={classes.logo} />
           {/* <div> {SVG.advenewLogo} </div> */}
-          <Typography className={classes.title} variant='h6' noWrap>
+          <Typography className={classes.title} variant='h6' component={Link} to='/'>
             AdveNew
           </Typography>
           <div className={classes.headerOptions}>

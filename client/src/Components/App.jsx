@@ -71,6 +71,7 @@ export default function App() {
           <Route path='/' component={() => <Home searchParams={handleStateChanges} />} exact />
           <Route path='/shop' component={() => <CompanyPage store={store} isAuthed />} />
           <Route path='/results' component={() => <SearchResults location={location} startDate={startDate} endDate={endDate} groupSize={groupSize} />} />
+          <Route path='/about' />
           <Route component={NotFound} />
         </Switch>
       </Grid>

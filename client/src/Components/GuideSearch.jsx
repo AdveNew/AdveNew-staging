@@ -103,18 +103,36 @@ export default function GuideSearch(props) {
         />
       </FormControl>
       <FormControl variant='filled'>
-        <TextField
-          required
-          type='date'
-          label='Start Date'
-          onChange={handleStartDateChange}
-          defaultValue={startVisDate}
-          margin='normal'
-          variant='filled'
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
+        {startDate >= startOfDay(new Date())
+          ? (
+            <TextField
+              required
+              type='date'
+              label='Start Date'
+              onChange={handleStartDateChange}
+              defaultValue={startVisDate}
+              margin='normal'
+              variant='filled'
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          ) : (
+            <TextField
+              required
+              type='date'
+              error
+              label='Start Date'
+              onChange={handleStartDateChange}
+              defaultValue={startVisDate}
+              margin='normal'
+              variant='filled'
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          )}
+
       </FormControl>
       <FormControl variant='filled'>
         {endDate < startDate
@@ -159,7 +177,7 @@ export default function GuideSearch(props) {
           }}
         />
       </FormControl>
-      {(endDate > startDate && location !== '')
+      {(endDate > startDate && location !== '' && startDate >= startOfDay(new Date()))
         ? (
           <FormControl
             className={classes.searchIcon}

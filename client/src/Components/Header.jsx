@@ -8,9 +8,9 @@ import Badge from '@material-ui/core/Badge';
 import Button from '@material-ui/core/Button';
 import EventIcon from '@material-ui/icons/Event';
 import IconButton from '@material-ui/core/IconButton';
+import InfoIcon from '@material-ui/icons/Info';
 import MailIcon from '@material-ui/icons/Mail';
 import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -180,14 +180,6 @@ export default function Header() {
       {/* <ElevationScroll> */}
       <AppBar position='fixed' color='transparent' elevation={0}>
         <Toolbar className={classes.toolbar}>
-          <IconButton
-            edge='start'
-            className={classes.menuButton}
-            color='inherit'
-            aria-label='open drawer'
-          >
-            <MenuIcon />
-          </IconButton>
           <img src={logo} alt='AdveNew' className={classes.logo} />
           {/* <div> {SVG.advenewLogo} </div> */}
           <Typography className={classes.title} variant='h6' component={Link} to='/'>
@@ -206,8 +198,8 @@ export default function Header() {
               : null }
             {isAuthed
               ? (
-                <Button variant='contained' size='medium' onClick={() => setButtonState(3)} color={buttonState === 3 ? 'secondary' : 'default'} startIcon={<SearchIcon />}>
-                  Search Shops
+                <Button variant='contained' size='medium' onClick={() => setButtonState(3)} color={buttonState === 3 ? 'secondary' : 'default'} startIcon={<InfoIcon />} component={Link} to='/about'>
+                  About Us
                 </Button>
               )
               : null}

@@ -1,5 +1,6 @@
 /* eslint-disable import/extensions */
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Dialog from '@material-ui/core/Dialog';
@@ -14,9 +15,24 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 export default function Login(props) {
   const { open, onClose } = props;
   const [loginType, setLoginType] = useState('Customer');
+  const [email, setEmail] = useState();
+  const [pass, setPass] = useState();
 
-  const changeLogin = (event) => {
-    setLoginType(event.target.value);
+  const checkLogin = () => {
+    console.log(`ep: ${email} ${pass}`);
+    axios.get('api/login', {
+      params: {
+        dbCol: loginType,
+        email,
+        pass,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        localStorage.setItem('user', JSON.stringify(res.data.results[0].emailAddress));
+        onClose();
+      })
+      .catch(() => console.error('Login Failed'));
   };
 
   return (
@@ -24,11 +40,11 @@ export default function Login(props) {
       <div>
         <Dialog open={open} onClose={onClose} aria-labelledby='form-dialog-title'>
           <DialogTitle id='form-dialog-title'>Log In</DialogTitle>
-          <Grid container justify="center">
-            <RadioGroup aria-label="selectLogin" name="login" value={loginType} onChange={changeLogin} row>
-              <FormControlLabel value="Customer" control={<Radio />} label="Customer" />
-              <FormControlLabel value="Guide" control={<Radio />} label="Guide" />
-              <FormControlLabel value="Shop" control={<Radio />} label="Shop" />
+          <Grid container justify='center'>
+            <RadioGroup aria-label='selectLogin' name='login' value={loginType} onChange={(node) => setLoginType(node.target.value)} row>
+              <FormControlLabel value='Customer' control={<Radio />} label='Customer' />
+              <FormControlLabel value='Guide' control={<Radio />} label='Guide' />
+              <FormControlLabel value='Shop' control={<Radio />} label='Shop' />
             </RadioGroup>
           </Grid>
           <DialogContent>
@@ -38,6 +54,7 @@ export default function Login(props) {
               id='email'
               label='Email Address'
               type='email'
+              onChange={(node) => setEmail(node.target.value)}
               fullWidth
             />
             <TextField
@@ -45,6 +62,7 @@ export default function Login(props) {
               id='password'
               label='Password'
               type='password'
+              onChange={(node) => setPass(node.target.value)}
               fullWidth
             />
           </DialogContent>
@@ -52,7 +70,7 @@ export default function Login(props) {
             <Button onClick={onClose} color='primary'>
               Cancel
             </Button>
-            <Button onClick={onClose} color='primary'>
+            <Button onClick={checkLogin} color='primary'>
               Log In
             </Button>
           </DialogActions>

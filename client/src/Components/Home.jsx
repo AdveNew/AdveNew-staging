@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundPosition: '10% 10%',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    marginTop: '-70px',
+    margin: '-70px -8px 0px -8px',
     zIndex: '0',
   },
   text: {

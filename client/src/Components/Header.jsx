@@ -1,6 +1,5 @@
 /* eslint-disable import/extensions */
-import React, { useState, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import AppBar from '@material-ui/core/AppBar';
@@ -8,6 +7,7 @@ import Badge from '@material-ui/core/Badge';
 import Button from '@material-ui/core/Button';
 import EventIcon from '@material-ui/icons/Event';
 import IconButton from '@material-ui/core/IconButton';
+import Link from '@material-ui/core/Link';
 import MailIcon from '@material-ui/icons/Mail';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -18,10 +18,16 @@ import SearchIcon from '@material-ui/icons/Search';
 import Toolbar from '@material-ui/core/Toolbar';
 import Tooltip from '@material-ui/core/Tooltip/Tooltip.js';
 import Typography from '@material-ui/core/Typography';
-import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+// import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import logo from '../../dist/logo.png';
+import Login from './Login.jsx';
+import Signup from './Signup.jsx';
+import Logout from './Logout.jsx';
 
 const useStyles = makeStyles((theme) => ({
+  grow: {
+    flexGrow: 1,
+  },
   headerOptions: {
     flexGrow: 1,
     marginRight: theme.spacing(2),
@@ -52,8 +58,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
-    textDecoration: 'inherit',
-    color: 'inherit',
   },
   toolbar: {
     minHeight: '80',
@@ -62,12 +66,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header() {
   const classes = useStyles();
+  const isAuthed = (JSON.parse(localStorage.getItem('user.token')) !== null);
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-  const [buttonState, setButtonState] = useState(1);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const [openLogin, setOpenLogin] = useState(false);
+  const [openSignup, setOpenSignup] = useState(false);
+  const [openLogout, setOpenLogout] = useState(false);
+  const [buttonState, setButtonState] = useState(1);
+
+  useEffect(() => setOpenLogout(false));
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -86,21 +96,17 @@ export default function Header() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  const handleButtonClick = useCallback((data) => {
-    setButtonState(data);
-  }, []);
+  // function ElevationScroll({ children }) {
+  //   const trigger = useScrollTrigger({
+  //     // disableHysteresis: true,
+  //     threshold: 0,
+  //   });
 
-  function ElevationScroll({ children }) {
-    const trigger = useScrollTrigger({
-      disableHysteresis: true,
-      threshold: 1,
-    });
-
-    return React.cloneElement(children, {
-      elevation: trigger ? 1 : 0,
-      color: trigger ? 'default' : 'transparent',
-    });
-  }
+  //   return React.cloneElement(children, {
+  //     elevation: trigger ? 1 : 0,
+  //     color: trigger ? 'default' : 'transparent',
+  //   });
+  // }
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -113,15 +119,23 @@ export default function Header() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      {isAuthed ? <MenuItem onClick={handleMenuClose}>Profile</MenuItem> : null}
+      {isAuthed ? <MenuItem onClick={handleMenuClose}>My account</MenuItem> : null}
+      {!isAuthed
+        ? <MenuItem onClick={() => { setOpenLogin(true); handleMenuClose(); }}>Log In</MenuItem>
+        : null }
+      {!isAuthed
+        ? <MenuItem onClick={() => { setOpenSignup(true); handleMenuClose(); }}>Sign Up</MenuItem>
+        : null }
+      {isAuthed
+        ? <MenuItem onClick={() => { setOpenLogout(true); handleMenuClose(); }}>Log Out</MenuItem>
+        : null }
     </Menu>
   );
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Menu
-      anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       id={mobileMenuId}
       keepMounted
@@ -160,74 +174,92 @@ export default function Header() {
   );
 
   return (
-    <div className={classes.grow}>
-      <ElevationScroll>
-        <AppBar position='fixed' color='transparent !important' elevation='0'>
-          <Toolbar className={classes.toolbar}>
+    <div>
+      {/* <ElevationScroll> */}
+      <AppBar position='fixed' color='transparent' elevation={0}>
+        <Toolbar className={classes.toolbar}>
+          <IconButton
+            edge='start'
+            className={classes.menuButton}
+            color='inherit'
+            aria-label='open drawer'
+          >
+            <MenuIcon />
+          </IconButton>
+          <img src={logo} alt='AdveNew' className={classes.logo} />
+          {/* <div> {SVG.advenewLogo} </div> */}
+          <Typography className={classes.title} variant='h6' noWrap>
+            AdveNew
+          </Typography>
+          <div className={classes.headerOptions}>
+            <Button variant='contained' size='medium' onClick={() => setButtonState(1)} color={buttonState === 1 ? 'secondary' : 'default'} startIcon={<SearchIcon />} style={{ marginRight: '20px' }} component={Link} to='/'>
+              Find a Guide
+            </Button>
+            {isAuthed
+              ? (
+                <Button variant='contained' size='medium' onClick={() => setButtonState(2)} color={buttonState === 2 ? 'secondary' : 'default'} startIcon={<EventIcon />} style={{ marginRight: '20px' }} component={Link} to='/shop'>
+                  Calendar
+                </Button>
+              )
+              : null }
+            {isAuthed
+              ? (
+                <Button variant='contained' size='medium' onClick={() => setButtonState(3)} color={buttonState === 3 ? 'secondary' : 'default'} startIcon={<SearchIcon />}>
+                  Search Shops
+                </Button>
+              )
+              : null}
+          </div>
+          {/* <div className={classes.grow} /> */}
+          <div className={classes.sectionDesktop}>
+            {isAuthed
+              ? (
+                <Tooltip title='Messages' placement='bottom'>
+                  <IconButton aria-label='show 4 new mails' color='inherit'>
+                    <Badge badgeContent={4} color='primary'>
+                      <MailIcon />
+                    </Badge>
+                  </IconButton>
+                </Tooltip>
+              ) : null }
+            {isAuthed
+              ? (
+                <Tooltip title='Notifications' placement='bottom'>
+                  <IconButton aria-label='show 17 new notifications' color='inherit'>
+                    <Badge badgeContent={17} color='primary'>
+                      <NotificationsIcon />
+                    </Badge>
+                  </IconButton>
+                </Tooltip>
+              ) : null }
             <IconButton
-              edge='start'
-              className={classes.menuButton}
+              edge='end'
+              aria-label='account of current user'
+              aria-controls={menuId}
+              aria-haspopup='true'
+              onClick={handleProfileMenuOpen}
               color='inherit'
-              aria-label='open drawer'
             >
-              <MenuIcon />
+              <AccountCircle />
             </IconButton>
-            <img src={logo} alt='AdveNew' className={classes.logo} />
-            <Typography className={classes.title} variant='h6' component={Link} to='/'>
-              AdveNew
-            </Typography>
-            <div className={classes.headerOptions}>
-              <Button variant='contained' size='medium' onClick={() => handleButtonState(1)} color={buttonState === 1 ? 'secondary' : 'default'} startIcon={<SearchIcon />} style={{ marginRight: '20px' }} component={Link} to='/'>
-                Find a Guide
-              </Button>
-              <Button variant='contained' size='medium' onClick={() => handleButtonState(2)} color={buttonState === 2 ? 'secondary' : 'default'} startIcon={<EventIcon />} style={{ marginRight: '20px' }} component={Link} to='/shop'>
-                Calendar
-              </Button>
-              <Button variant='contained' size='medium' onClick={() => handleButtonState(3)} color={buttonState === 3 ? 'secondary' : 'default'} startIcon={<SearchIcon />}>
-                Search Shops
-              </Button>
-            </div>
-            <div className={classes.grow} />
-            <div className={classes.sectionDesktop}>
-              <Tooltip title='Messages' placement='bottom'>
-                <IconButton aria-label='show 4 new mails' color='inherit'>
-                  <Badge badgeContent={4} color='primary'>
-                    <MailIcon />
-                  </Badge>
-                </IconButton>
-              </Tooltip>
-              <Tooltip title='Notifications' placement='bottom'>
-                <IconButton aria-label='show 17 new notifications' color='inherit'>
-                  <Badge badgeContent={17} color='primary'>
-                    <NotificationsIcon />
-                  </Badge>
-                </IconButton>
-              </Tooltip>
-              <IconButton
-                edge='end'
-                aria-label='account of current user'
-                aria-controls={menuId}
-                aria-haspopup='true'
-                onClick={handleProfileMenuOpen}
-                color='inherit'
-              >
-                <AccountCircle />
-              </IconButton>
-            </div>
-            <div className={classes.sectionMobile}>
-              <IconButton
-                aria-label='show more'
-                aria-controls={mobileMenuId}
-                aria-haspopup='true'
-                onClick={handleMobileMenuOpen}
-                color='inherit'
-              >
-                <MoreIcon />
-              </IconButton>
-            </div>
-          </Toolbar>
-        </AppBar>
-      </ElevationScroll>
+          </div>
+          <div className={classes.sectionMobile}>
+            <IconButton
+              aria-label='show more'
+              aria-controls={mobileMenuId}
+              aria-haspopup='true'
+              onClick={handleMobileMenuOpen}
+              color='inherit'
+            >
+              <MoreIcon />
+            </IconButton>
+          </div>
+          <Login open={openLogin} onClose={() => setOpenLogin(false)} />
+          <Signup open={openSignup} onClose={() => setOpenSignup(false)} />
+          {openLogout ? <Logout /> : null}
+        </Toolbar>
+      </AppBar>
+      {/* </ElevationScroll> */}
       {renderMobileMenu}
       {renderMenu}
     </div>

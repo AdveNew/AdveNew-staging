@@ -97,6 +97,7 @@ export default function GuideSearch(props) {
           onChange={handleLocationChange}
           margin='normal'
           variant='filled'
+          placeholder='Enter State, i.e. Colorado'
           InputLabelProps={{
             shrink: true,
           }}
@@ -108,7 +109,7 @@ export default function GuideSearch(props) {
             <TextField
               required
               type='date'
-              label='Start Date'
+              label='Start Date Range'
               onChange={handleStartDateChange}
               defaultValue={startVisDate}
               margin='normal'
@@ -122,7 +123,7 @@ export default function GuideSearch(props) {
               required
               type='date'
               error
-              label='Start Date'
+              label='Start Date Range'
               onChange={handleStartDateChange}
               defaultValue={startVisDate}
               margin='normal'
@@ -141,7 +142,7 @@ export default function GuideSearch(props) {
               required
               error
               type='date'
-              label='End Date'
+              label='End Date Range'
               onChange={handleEndDateChange}
               defaultValue={endVisDate}
               margin='normal'
@@ -155,7 +156,7 @@ export default function GuideSearch(props) {
             <TextField
               required
               type='date'
-              label='End Date'
+              label='End Date Range'
               onChange={handleEndDateChange}
               defaultValue={endVisDate}
               margin='normal'

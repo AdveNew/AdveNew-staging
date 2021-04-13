@@ -4,12 +4,15 @@ import axios from 'axios';
 import {
   CircularProgress,
   Backdrop,
+  Button,
+  Drawer,
 } from '@material-ui/core';
 import { format, parseISO } from 'date-fns';
 import { DataGrid, GridOverlay } from '@material-ui/data-grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Payment from './Payment.jsx';
 import GuideSearch from './GuideSearch.jsx';
+import CompanyInfo from './CompanyInfo.jsx';
 
 const useStyles = makeStyles((theme) => ({
   resultGrid: {
@@ -49,13 +52,28 @@ const useStyles = makeStyles((theme) => ({
 export default function SearchResults(props) {
   const classes = useStyles();
   const [loading, setLoading] = useState(true);
+  const [drawer, setDrawer] = useState(false);
   const [location] = useState(props.location);
   const [startDate] = useState(props.startDate);
   const [endDate] = useState(props.endDate);
   const [groupSize] = useState(props.groupSize || 1);
+  const [store, setStore] = useState();
   const [rows, setRows] = useState([{
     id: 1, name: 'error', location: 'error', startDate: new Date(), size: -1,
   }]);
+
+  const gotoShop = (id) => {
+    axios.get('api/shopByCalId', {
+      params: {
+        id,
+      },
+    })
+      .then((res) => {
+        setStore(res.data.store);
+        setDrawer(true);
+      })
+      .catch((err) => console.error(err.message));
+  };
 
   const columns = [
     { field: 'guide', headerName: 'Guide\'s Name', flex: 0.8 },
@@ -68,7 +86,7 @@ export default function SearchResults(props) {
       renderCell: (d) => format(parseISO(d.value), 'EEE MMM-dd'),
     },
     {
-      field: '',
+      field: 'time',
       headerName: 'Time',
       type: 'time',
       flex: 1.4,
@@ -86,6 +104,15 @@ export default function SearchResults(props) {
         <Payment guideName={e.row.guide} price={e.row.price} />
       ),
     },
+    {
+      field: 'shop',
+      headerName: 'Guide Shop',
+      flex: 0.8,
+      renderCell: (id) => (
+        // eslint-disable-next-line no-underscore-dangle
+        <Button onClick={() => gotoShop(id.row._id)}>View</Button>
+      ),
+    },
   ];
 
   useEffect(() => {
@@ -98,7 +125,6 @@ export default function SearchResults(props) {
       },
     })
       .then((res) => {
-        console.log(res.data.results);
         setRows(res.data.results);
       })
       .catch((err) => {
@@ -174,10 +200,17 @@ export default function SearchResults(props) {
         key={rows.id}
         rows={rows}
         columns={columns}
+        sortModel={[{
+          field: 'startDate',
+          sort: 'asc',
+        }]}
         components={{
           NoRowsOverlay: CustomNoRowsOverlay,
         }}
       />
+      <Drawer open={drawer} onClose={() => setDrawer(false)}>
+        <CompanyInfo store={store} />
+      </Drawer>;
     </div>
   );
 }

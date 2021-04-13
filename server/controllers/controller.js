@@ -1,8 +1,22 @@
 const model = require('../models/model.js');
 
 const getCalendarData = (req, res) => {
-  const { storeId } = req.query;
-  model.getCalendarData(storeId, (err, results) => {
+  const { storeName } = req.query;
+  model.getCalendarData(storeName, (err, results) => {
+    if (err) {
+      console.error('  ✗  Unable to get store from database', err);
+    } else {
+      console.log('  ✓  Store data retrieved from database.');
+      res.json({
+        store: results[0],
+      });
+    }
+  });
+};
+
+const getShopByCalId = (req, res) => {
+  const { id } = req.query;
+  model.getShopByCalId(id, (err, results) => {
     if (err) {
       console.error('  ✗  Unable to get store from database', err);
     } else {
@@ -68,6 +82,7 @@ const postSignup = (req, res) => {
 
 module.exports = {
   getCalendarData,
+  getShopByCalId,
   getSearchData,
   getLogin,
   postSignup,

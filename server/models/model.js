@@ -1,7 +1,18 @@
 const db = require('../../database/index.js');
 
-const getCalendarData = (storeId, callback) => {
-  const query = db.Store.find({ storeId });
+const getCalendarData = (storeName, callback) => {
+  const query = db.Store.find({ name: storeName });
+  query.exec((err, results) => {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null, results);
+    }
+  });
+};
+
+const getShopByCalId = (id, callback) => {
+  const query = db.Store.find().where({ 'calendar._id': id });
   query.exec((err, results) => {
     if (err) {
       callback(err);
@@ -103,6 +114,7 @@ const postSignup = (dbCol, name, emailAddress, password, callback) => {
 
 module.exports = {
   getCalendarData,
+  getShopByCalId,
   getSearchData,
   getLogin,
   postSignup,

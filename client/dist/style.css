@@ -9,7 +9,7 @@ body {
   -webkit-font-smoothing: antialiased !important;
   /* background-color: rgb(59, 62, 85); */
   /* background-color: rgb(127, 157, 231); */
-  color: rgb(255, 255, 255);
+  /* color: rgb(255, 255, 255); */
   margin-bottom: 80px !important; /* To handle footer hiding info */
   margin-top: 70px !important; /* To handle fixed header */
 }

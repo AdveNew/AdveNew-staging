@@ -1,6 +1,6 @@
 /* eslint-disable import/extensions */
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import AppBar from '@material-ui/core/AppBar';
@@ -20,6 +20,7 @@ import Tooltip from '@material-ui/core/Tooltip/Tooltip.js';
 import Typography from '@material-ui/core/Typography';
 // import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import logo from '../../dist/logo.png';
+import logoDark from '../../dist/logo_dark.png';
 import Login from './Login.jsx';
 import Signup from './Signup.jsx';
 import Logout from './Logout.jsx';
@@ -53,7 +54,15 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
-  title: {
+  titleLight: {
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+    },
+    textDecoration: 'inherit',
+    color: 'white',
+  },
+  titleDark: {
     display: 'none',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
@@ -69,6 +78,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Header() {
   const classes = useStyles();
   const isAuthed = (JSON.parse(localStorage.getItem('user.token')) !== null);
+  const routeLoc = (useLocation().pathname === '/');
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
@@ -138,6 +148,7 @@ export default function Header() {
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Menu
+      className={routeLoc ? classes.titleLight : classes.titleDark}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       id={mobileMenuId}
       keepMounted
@@ -180,9 +191,9 @@ export default function Header() {
       {/* <ElevationScroll> */}
       <AppBar position='fixed' color='transparent' elevation={0}>
         <Toolbar className={classes.toolbar}>
-          <img src={logo} alt='AdveNew' className={classes.logo} />
+          <img src={routeLoc ? logo : logoDark} alt='AdveNew' className={classes.logo} />
           {/* <div> {SVG.advenewLogo} </div> */}
-          <Typography className={classes.title} variant='h6' component={Link} to='/'>
+          <Typography className={routeLoc ? classes.titleLight : classes.titleDark} variant='h6' component={Link} to='/'>
             AdveNew
           </Typography>
           <div className={classes.headerOptions}>
@@ -209,7 +220,7 @@ export default function Header() {
             {isAuthed
               ? (
                 <Tooltip title='Messages' placement='bottom'>
-                  <IconButton aria-label='show 4 new mails' color='inherit'>
+                  <IconButton aria-label='show 4 new mails' className={routeLoc ? classes.titleLight : classes.titleDark}>
                     <Badge badgeContent={4} color='primary'>
                       <MailIcon />
                     </Badge>
@@ -219,7 +230,7 @@ export default function Header() {
             {isAuthed
               ? (
                 <Tooltip title='Notifications' placement='bottom'>
-                  <IconButton aria-label='show 17 new notifications' color='inherit'>
+                  <IconButton aria-label='show 17 new notifications' className={routeLoc ? classes.titleLight : classes.titleDark}>
                     <Badge badgeContent={17} color='primary'>
                       <NotificationsIcon />
                     </Badge>
@@ -233,6 +244,7 @@ export default function Header() {
               aria-haspopup='true'
               onClick={handleProfileMenuOpen}
               color='inherit'
+              className={routeLoc ? classes.titleLight : classes.titleDark}
             >
               <AccountCircle />
             </IconButton>

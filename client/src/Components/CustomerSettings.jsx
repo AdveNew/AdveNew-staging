@@ -60,7 +60,7 @@ export default function CustomerSettings(props) {
   }
 
   const saveChanges = () => {
-    //save changes to db
+    //save changes to database
     //firstName
     //lastName
     //email

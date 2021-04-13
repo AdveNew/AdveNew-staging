@@ -2,21 +2,24 @@ const mongoose = require('mongoose');
 
 // Server Discover and Monitoring engine, for advenew database
 // ? If not local, change `localhost` to `database` or IP location of database
-mongoose.connect('mongodb://localhost/advenew', { useNewUrlParser: true, useUnifiedTopology: true })
+const uri = 'mongodb://localhost/advenew';
+const options = { useNewUrlParser: true, useUnifiedTopology: true };
+mongoose.connect(uri, options)
   .then(() => console.log('[ [ Connected to database. ] ]'))
   .catch((err) => console.error('Error connecting to database', err));
 
+mongoose.set('autoCreate', true);
+
 // mongoDB creates unique IDs, so not added to schema
 const storeSchema = new mongoose.Schema({
-  storeId: Number,
-  details: String,
-  emailAddress: String,
-  hours: String,
-  logo: String,
-  name: String,
-  phoneNumber: String,
-  password: String,
-  websiteUrl: String,
+  details: { type: String, default: '' },
+  emailAddress: { type: String, default: '' },
+  hours: { type: String, default: '' },
+  logo: { type: String, default: '' },
+  name: { type: String, default: '' },
+  phoneNumber: { type: String, default: '' },
+  password: { type: String, default: 'password' },
+  websiteUrl: { type: String, default: '' },
   calendar: [
     {
       id: Number,
@@ -37,23 +40,21 @@ const storeSchema = new mongoose.Schema({
 });
 
 const guideSchema = new mongoose.Schema({
-  guideId: Number,
-  avatar: String,
-  emailAddress: String,
-  location: String,
-  name: String,
-  password: String,
-  phoneNumber: String,
+  avatar: { type: String, default: '' },
+  emailAddress: { type: String, default: '' },
+  location: { type: String, default: '' },
+  name: { type: String, default: '' },
+  password: { type: String, default: 'password' },
+  phoneNumber: { type: String, default: '' },
 });
 
 const customerSchema = new mongoose.Schema({
-  customerId: Number,
-  avatar: String,
-  emailAddress: String,
-  location: String,
-  name: String,
-  password: String,
-  phoneNumber: String,
+  avatar: { type: String, default: '' },
+  emailAddress: { type: String, default: '' },
+  location: { type: String, default: '' },
+  name: { type: String, default: '' },
+  password: { type: String, default: 'password' },
+  phoneNumber: { type: String, default: '' },
 });
 
 // compiling schema into a model

@@ -64,9 +64,7 @@ async function generateData() {
 
     // for all of store info
     const store = {
-      storeId: i,
       name: shopNames[i - 1],
-      // name: `${Faker.Name.firstName().concat("'s")} ${Faker.Team.sport().replace(/\b./g, (a) => a.toUpperCase())} ${Faker.Company.suffix()}`,
       logo: Faker.Company.logo(),
       details: Faker.Hipster.sentences(5).join(' '),
       phoneNumber: Faker.Random.element(['303-', '720-']).concat(Faker.PhoneNumber.exchangeCode().concat('-').concat(Faker.PhoneNumber.subscriberNumber())),
@@ -84,7 +82,6 @@ async function generateData() {
   for (let i = 1; i <= guideSeed; i += 1) {
     // for all of customer info
     const guide = {
-      guideId: i,
       avatar: Faker.Avatar.image(),
       emailAddress: Faker.Internet.freeEmail(),
       location: Faker.Address.state(),
@@ -100,7 +97,6 @@ async function generateData() {
   for (let i = 1; i <= customerSeed; i += 1) {
     // for all of customer info
     const customer = {
-      customerId: i,
       avatar: Faker.Avatar.image(),
       emailAddress: Faker.Internet.freeEmail(),
       location: Faker.Address.state(),

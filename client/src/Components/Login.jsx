@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -20,12 +20,19 @@ export default function Login(props) {
   const [pass, setPass] = useState('');
   const [loginFail, setLoginFail] = useState(false);
 
+  const closeForm = () => {
+    setLoginFail(false);
+    setEmail('');
+    setPass('');
+    onClose();
+  }
+
   const checkLogin = () => {
     axios.get('api/login', {
       params: {
         dbCol: loginType,
-        email,
-        pass,
+        emailAddress: email,
+        password: pass,
       },
     })
       .then((res) => {
@@ -36,8 +43,6 @@ export default function Login(props) {
       })
       .catch((err) => {
         setLoginFail(true);
-        setEmail('');
-        setPass('');
         console.error(`Login Failed: ${err}`)
       });
   };
@@ -45,7 +50,7 @@ export default function Login(props) {
   return (
     <form>
       <div>
-        <Dialog open={open} onClose={onClose} aria-labelledby='form-dialog-title'>
+        <Dialog open={open} onClose={closeForm} aria-labelledby='form-dialog-title'>
           <DialogTitle id='form-dialog-title'>Log In</DialogTitle>
           <Grid container justify='center'>
             <RadioGroup aria-label='selectLogin' name='login' value={loginType} onChange={(node) => setLoginType(node.target.value)} row>
@@ -78,7 +83,7 @@ export default function Login(props) {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={onClose} color='primary'>
+            <Button onClick={closeForm} color='primary'>
               Cancel
             </Button>
             <Button onClick={checkLogin} color='primary'>

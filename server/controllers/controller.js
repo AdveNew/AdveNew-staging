@@ -32,9 +32,9 @@ const getSearchData = (req, res) => {
 
 const getLogin = (req, res) => {
   const {
-    dbCol, email, password,
+    dbCol, emailAddress, password,
   } = req.query;
-  model.getLogin(dbCol, email, password, (err, results) => {
+  model.getLogin(dbCol, emailAddress, password, (err, results) => {
     if (err || results === null) {
       console.error('  ✗  Unable to get user from database', err);
       res.status(401).send();
@@ -51,9 +51,9 @@ const getLogin = (req, res) => {
 
 const postSignup = (req, res) => {
   const {
-    dbCol, name, email, password,
+    dbCol, name, emailAddress, password,
   } = req.body.params;
-  model.postSignup(dbCol, name, email, password, (err, results) => {
+  model.postSignup(dbCol, name, emailAddress, password, (err, results) => {
     if (err) {
       console.error('  ✗  Unable to store signup to database', err);
       res.status(503).send();

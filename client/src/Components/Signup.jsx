@@ -55,8 +55,8 @@ export default function Signup(props) {
       params: {
         dbCol: signupType,
         name: signupType === 'Shop' ? shopName : `${firstName} ${lastName}`,
-        email,
-        pass,
+        emailAddress: email,
+        password: pass,
       },
     })
       .then(() => {

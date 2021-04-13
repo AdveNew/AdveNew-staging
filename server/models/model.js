@@ -38,10 +38,10 @@ const getSearchData = (location, startDate, endDate, size, callback) => {
   });
 };
 
-const getLogin = (dbCol, email, password, callback) => {
+const getLogin = (dbCol, emailAddress, password, callback) => {
   switch (dbCol) {
     case 'Customer':
-      db.Customer.find({ emailAddress: email, password },
+      db.Customer.find({ emailAddress, password },
         (err, results) => {
           console.log(results);
           if (err || results.length === 0) callback(err, null);
@@ -49,14 +49,14 @@ const getLogin = (dbCol, email, password, callback) => {
         });
       break;
     case 'Shop':
-      db.Store.find({ emailAddress: email, password },
+      db.Store.find({ emailAddress, password },
         (err, results) => {
           if (err || results === null) callback(err);
           else callback(null, results);
         });
       break;
     case 'Guide':
-      db.Guide.find({ emailAddress: email, password },
+      db.Guide.find({ emailAddress, password },
         (err, results) => {
           if (err || results === null) callback(err);
           else callback(null, results);
@@ -67,10 +67,10 @@ const getLogin = (dbCol, email, password, callback) => {
   }
 };
 
-const postSignup = (dbCol, name, email, password, callback) => {
+const postSignup = (dbCol, name, emailAddress, password, callback) => {
   switch (dbCol) {
     case 'Customer':
-      db.Customer.insertMany({ name, emailAddress: email, password },
+      db.Customer.insertMany({ name, emailAddress, password },
         (err, results) => {
           if (err) callback(err);
           else {
@@ -79,7 +79,7 @@ const postSignup = (dbCol, name, email, password, callback) => {
         });
       break;
     case 'Shop':
-      db.Store.insertMany({ name },
+      db.Store.insertMany({ name, emailAddress, password },
         (err, results) => {
           if (err) callback(err);
           else {
@@ -88,7 +88,7 @@ const postSignup = (dbCol, name, email, password, callback) => {
         });
       break;
     case 'Guide':
-      db.Guide.insertMany({ name },
+      db.Guide.insertMany({ name, emailAddress, password },
         (err, results) => {
           if (err) callback(err);
           else {

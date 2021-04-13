@@ -24,11 +24,11 @@ export default function App() {
   const [buttonState, setButtonState] = useState(1);
 
   // get first store for now
-  const storeId = 1;
+  const storeName = "Yogi's Goldfish Emporium";
   useEffect(() => {
     axios.get('api/calendar', {
       params: {
-        storeId,
+        storeName,
       },
     })
       .then((res) => {

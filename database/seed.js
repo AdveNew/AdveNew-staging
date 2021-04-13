@@ -32,7 +32,8 @@ async function generateData() {
   for (let i = 1; i <= storeSeed; i += 1) {
     // make some calendar bookings for each store
     const calendar = [];
-    const numberOfBookings = Math.floor((Math.random() * 31) + 30); // 30 - 60 bookings
+    const numberOfBookings = Math.floor((Math.random() * 101) + 500); // 500 - 600 bookings
+    console.log(` >>> Generating ${numberOfBookings} bookings for ${shopNames[i - 1]}.`);
     for (let j = 1; j <= numberOfBookings; j += 1) {
       // creates dates 3 months forward and 3 months back
       const datetime = Faker.Time.between(

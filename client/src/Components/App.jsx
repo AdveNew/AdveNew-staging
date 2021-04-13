@@ -17,9 +17,9 @@ import NotFound from './NotFound.jsx';
 export default function App() {
   const [store, setStore] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [location, setLocation] = useState('Virginia');
+  const [location, setLocation] = useState('Colorado');
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date(new Date().getTime() + (10 * 864e5)));
+  const [endDate, setEndDate] = useState(new Date(new Date().getTime() + (90 * 864e5)));
   const [groupSize, setGroupSize] = useState(0);
   const [buttonState, setButtonState] = useState(1);
 
@@ -66,11 +66,12 @@ export default function App() {
         direction='row'
         justify='space-evenly'
         alignItems='center'
+        color='primary'
       >
         <Switch>
           <Route path='/' component={() => <Home searchParams={handleStateChanges} />} exact />
           <Route path='/shop' component={() => <CompanyPage store={store} isAuthed />} />
-          <Route path='/results' component={() => <SearchResults location={location} startDate={startDate} endDate={endDate} groupSize={groupSize} />} />
+          <Route path='/results' component={() => <SearchResults location={location} startDate={startDate} endDate={endDate} groupSize={groupSize} searchParams={handleStateChanges} />} />
           <Route path='/about' />
           <Route component={NotFound} />
         </Switch>

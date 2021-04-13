@@ -44,6 +44,7 @@ export default function Signup(props) {
 
   const emailChange = (emailVal) => {
     setEmail(emailVal.target.value);
+    isEmail(emailVal)
   };
 
   const changeSignup = (event) => {
@@ -64,6 +65,17 @@ export default function Signup(props) {
       })
       .catch((err) => console.error(err.message));
   };
+  
+  function isEmail(val) {
+    let regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if(!regEmail.test(val)){
+      return false;
+    }else{
+      return true
+    }
+
+  }
+  
 
   return (
     <form>
@@ -114,6 +126,8 @@ export default function Signup(props) {
                   />
                 </div>
               )}
+            {isEmail(email) 
+            ? (
             <TextField
               margin='dense'
               id='email'
@@ -123,6 +137,16 @@ export default function Signup(props) {
               fullWidth
               required
             />
+            ) : (<TextField
+              margin='dense'
+              id='email'
+              error
+              label='Email Address'
+              type='email'
+              onChange={emailChange}
+              fullWidth
+              required
+            />)}
             <TextField
               margin='dense'
               id='password'
@@ -132,6 +156,8 @@ export default function Signup(props) {
               fullWidth
               required
             />
+            {pass === confirmPass && confirmPass !== ''
+            ?( 
             <TextField
               margin='dense'
               id='repassword'
@@ -140,7 +166,17 @@ export default function Signup(props) {
               onChange={confirmPassChange}
               fullWidth
               required
-            />
+            />) : (
+              <TextField
+              margin='dense'
+              error
+              id='repassword'
+              label='Re-enter Password'
+              type='password'
+              onChange={confirmPassChange}
+              fullWidth
+              required
+            />) }
           </DialogContent>
           <DialogActions>
             <Button onClick={onClose} color='primary'>
@@ -152,6 +188,8 @@ export default function Signup(props) {
             && ((firstName !== '' && lastName !== '')
             || shopName !== '')
             && email !== '')
+            && isEmail(email) == true
+            
               ? (
                 <Button onClick={submitDB}>
                   Register

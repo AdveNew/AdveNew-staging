@@ -13,6 +13,7 @@ The front end framework is built on ReactJS. All components should be added to t
       1. Add a date utility `npm i @date-io/date-fns@1.3.13 date-fns`
       2. Add `import DateFnsUtils from '@date-io/date-fns';` to component, and 
       3. Wrap date feature in `<MuiPickersUtilsProvider utils={DateFnsUtils}> ... </MuiPickersUtilsProvider>`
+2. [Date Functions](https://date-fns.org/docs/Getting-Started)
 
 #### Calendar Resources (For current calendar)
   1. [React](https://reactjs.org/)

@@ -17,3 +17,6 @@ prim.pem
 
 # TESTING
 /coverage
+
+# MacOS
+.DS_Store

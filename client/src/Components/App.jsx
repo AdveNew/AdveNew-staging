@@ -13,6 +13,8 @@ import SearchResults from './SearchResults.jsx';
 import CompanyPage from './CompanyPage.jsx';
 import Footer from './Footer.jsx';
 import NotFound from './NotFound.jsx';
+import CustomerSettings from './CustomerSettings.jsx';
+import CompanySettings from './CompanySettings.jsx';
 
 export default function App() {
   const [store, setStore] = useState([]);
@@ -73,6 +75,8 @@ export default function App() {
           <Route path='/shop' component={() => <CompanyPage store={store} isAuthed />} />
           <Route path='/results' component={() => <SearchResults location={location} startDate={startDate} endDate={endDate} groupSize={groupSize} searchParams={handleStateChanges} />} />
           <Route path='/about' />
+          <Route path='/csettings' component={() => <CustomerSettings />} />
+          <Route path='/compsettings' component={() => <CompanySettings />} />
           <Route component={NotFound} />
         </Switch>
       </Grid>

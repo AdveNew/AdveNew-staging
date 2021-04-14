@@ -22,12 +22,11 @@ const useStyles = makeStyles(() => ({
 export default function Payment(props) {
   const isAuthed = (JSON.parse(localStorage.getItem('user.token')) !== null);
   const customerLoggedIn = (localStorage.getItem('user.loginType') === 'Customer');
+  const [customerEmail] = JSON.parse(localStorage.getItem('user.email'));
   const classes = useStyles();
   const [price] = useState(props.price);
   const [guideName] = useState(props.guideName);
   const [calendarId] = useState(props.calendarId);
-  const [customerEmail] = JSON.parse(localStorage.getItem('user.email'));
-  const PORT = process.env.PORT || 3000;
 
   const handleToken = (token) => {
     axios.post('/payment', {
@@ -37,11 +36,11 @@ export default function Payment(props) {
     })
       .then((data) => {
         if (data.status === 200) {
-          axios.post('/api/updateBooking', {
+          axios.post('api/updateBooking', {
             params: {
               calendarId,
               customerEmail,
-            }
+            },
           })
             .then(() => console.log('Booking updated.'))
             .catch((err) => console.log('Error adding payment to db', err.message));

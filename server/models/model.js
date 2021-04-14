@@ -42,7 +42,6 @@ const getSearchData = (location, startDate, endDate, size, callback) => {
           && booking.startDate >= new Date(startDate)
           && booking.endDate <= new Date(endDate)
           && booking.booked === booked
-          
         ))
       )).flat();
       callback(null, resultData);
@@ -159,12 +158,15 @@ const postShop = (id, name, hours, emailAddress, phoneNumber,
   });
 };
 
-const postUpdateBooking = (calendarId, emailAddress, callback) => {
-  db.Store.where({ 
+const postUpdateBooking = (calendarId, customerEmail, callback) => {
+  db.Store.where({
     'calendar._id': calendarId,
-  }).updateOne({ 
-    'calendar.booked': 1,
-    'calendar.emailAddress': emailAddress,
+  }).updateOne({
+    $set:
+      {
+        'calendar.$.booked': 1,
+        'calendar.$.emailAddress': customerEmail,
+      },
   },
   (err, results) => {
     if (err) callback(err);

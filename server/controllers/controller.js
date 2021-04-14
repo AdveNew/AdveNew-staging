@@ -148,18 +148,20 @@ const postShop = (req, res) => {
     });
 };
 
-
 const postUpdateBooking = (req, res) => {
-  const { calendarId, emailAddress } = req.body.params;
-  model.postUpdateBooking(calendarId, emailAddress, (err, results) => {
-      if (err) {
-        console.error('  ✗  Unable to update booking in database', err);
-        res.status(401).send();
-      } else {
-        console.log(`  ✓  Updated booking ${emailAddress} in database.`);
-        res.status(200).send();
-      }
-    });
+  console.log(req.body.params);
+  const { calendarId, customerEmail } = req.body.params;
+  model.postUpdateBooking(calendarId, customerEmail, (err, results) => {
+    if (err) {
+      console.error('  ✗  Unable to update booking in database', err);
+      res.status(401).send();
+    } else {
+      console.log(`  ✓  Updated booking ${customerEmail} in database.`);
+      res.status(200).json({
+        results,
+      });
+    }
+  });
 };
 
 module.exports = {

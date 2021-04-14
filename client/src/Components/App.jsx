@@ -14,6 +14,7 @@ import Footer from './Footer.jsx';
 import NotFound from './NotFound.jsx';
 import CustomerSettings from './CustomerSettings.jsx';
 import CompanySettings from './CompanySettings.jsx';
+import CustomCalendar from './CustomCalendar.jsx';
 
 export default function App() {
   const isAuthed = (JSON.parse(localStorage.getItem('user.token')) !== null);
@@ -75,6 +76,7 @@ export default function App() {
           <Route path='/' component={() => <Home searchParams={handleStateChanges} />} exact />
           <Route path='/shop' component={() => <CompanyPage store={store} isAuthed />} />
           <Route path='/results' component={() => <SearchResults location={location} startDate={startDate} endDate={endDate} groupSize={groupSize} searchParams={handleStateChanges} />} />
+          <Route path='/calendar' component={() => <CustomCalendar store={store} calendar={store.calendar} isAuthed />} />
           <Route path='/about' />
           {isAuthed && (loginType === 'Customer' || loginType === 'Guide')
             ? <Route path='/profile' component={() => <CustomerSettings />} />

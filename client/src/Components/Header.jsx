@@ -140,7 +140,7 @@ export default function Header() {
             Profile
           </MenuItem>
         ) : null}
-      {isAuthed ? <MenuItem onClick={handleMenuClose}>My Trips</MenuItem> : null}
+      {isAuthed && authType !== 'Shop' ? <MenuItem onClick={handleMenuClose}>My Trips</MenuItem> : null}
       {!isAuthed
         ? <MenuItem onClick={() => { setOpenLogin(true); handleMenuClose(); }}>Log In</MenuItem>
         : null }
@@ -210,7 +210,7 @@ export default function Header() {
             </Button>
             {isAuthed
               ? (
-                <Button variant='contained' size='medium' onClick={() => setButtonState(2)} color={buttonState === 2 ? 'secondary' : 'default'} startIcon={<EventIcon />} style={{ marginRight: '20px' }} component={Link} to='/shop'>
+                <Button variant='contained' size='medium' onClick={() => setButtonState(2)} color={buttonState === 2 ? 'secondary' : 'default'} startIcon={<EventIcon />} style={{ marginRight: '20px' }} component={Link} to='/calendar'>
                   Calendar
                 </Button>
               )

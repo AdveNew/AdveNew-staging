@@ -68,6 +68,7 @@ const useStyles = makeStyles(() => ({
 
 export default function CustomerCalendar(props) {
   const classes = useStyles();
+  const storeName = props.store.name;
   const [storeCalendar] = useState(props.calendar);
   const [calendar, setCalendar] = useState([]);
   const [resources, setResources] = useState([]);
@@ -169,16 +170,14 @@ export default function CustomerCalendar(props) {
 
   return (
     <Container maxWidth='md' style={{ marginTop: '20' }}>
-      <Paper elevation={2}>
+      <Paper elevation={2}> <h2 style={{ textAlign: 'center', paddingTop: '10px' }}>{storeName} Calendar</h2>
         <Paper elevation={1}>
           <Scheduler
             data={calendar}
             defaultCurrentView='Numeric Mode'
             className={classes.calendar}
           >
-            <ViewState
-              defaultCurrentDate={Date()}
-            />
+            <ViewState defaultCurrentDate={Date()} />
             <MonthView />
             <WeekView startDayHour={6} endDayHour={20} />
             <DayView startDayHour={6} endDayHour={20} />

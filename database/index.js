@@ -26,7 +26,7 @@ const storeSchema = new mongoose.Schema({
       accommodations: String,
       booked: Number, // -2, -1, 0, 1
       cancellationHours: Number,
-      customerId: Number,
+      customerEmail: String,
       endDate: Date,
       experience: String,
       groupSize: Number,

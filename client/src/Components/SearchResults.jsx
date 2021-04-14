@@ -89,7 +89,7 @@ export default function SearchResults(props) {
       field: 'time',
       headerName: 'Time',
       type: 'time',
-      flex: 1.4,
+      flex: 1.2,
       renderCell: (s) => (
         format(parseISO(s.row.startDate), 'h:mm a - ').concat(format(parseISO(s.row.endDate), 'h:mm a'))
       ),
@@ -192,7 +192,7 @@ export default function SearchResults(props) {
     );
   }
   return (
-    <div style={{ flexGrow: 1 }}>
+    <div style={{ flexGrow: 1, marginTop: '20px' }}>
       <GuideSearch changeSearchParams={props.searchParams} />
       <DataGrid
         density='compact'

@@ -11,7 +11,6 @@ import CustomCalendar from './CustomCalendar.jsx';
 export default function CompanyPage(props) {
   const [store] = useState(props.store);
   const [calendar] = useState(props.store.calendar);
-  const [calendarRequest] = useState(props.store.calendar_request);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -37,7 +36,7 @@ export default function CompanyPage(props) {
         style={{ marginTop: '50px' }}
       >
         <CompanyInfo store={store} />
-        <CustomCalendar calendar={calendar} requests={calendarRequest} />
+        <CustomCalendar calendar={calendar} />
       </Grid>
     </div>
   );

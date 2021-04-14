@@ -20,6 +20,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function Payment(props) {
+  const isAuthed = (JSON.parse(localStorage.getItem('user.token')) !== null);
+  const customerLoggedIn = (localStorage.getItem('user.loginType') === 'Customer');
   const classes = useStyles();
   const [price] = useState(props.price);
   const [guideName] = useState(props.guideName);
@@ -46,6 +48,7 @@ export default function Payment(props) {
 
   return (
     <StripeCheckout
+      disabled={!isAuthed || !customerLoggedIn}
       name='Payment'
       description={`Paying ${guideName} $${price}. Thank you.`}
       label={`$${price}`}

@@ -56,7 +56,7 @@ export default function Footer(props) {
             <Tooltip title='Home' placement='top' component={Link} to='/'>
               <IconButton><HomeIcon /></IconButton>
             </Tooltip>
-            <Tooltip title='Calendar' placement='top' component={Link} to='/shop'>
+            <Tooltip title='Calendar' placement='top' component={Link} to='/calendar'>
               <IconButton><TodayIcon /></IconButton>
             </Tooltip>
             <Tooltip title='Nearby (Coming Soon)' placement='top'>

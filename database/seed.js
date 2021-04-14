@@ -48,7 +48,7 @@ async function generateData() {
         accommodations: 'None',
         booked: Faker.Random.element([-2, -1, 0, 1]),
         cancellationHours: Faker.Random.element([24, 48, 72, 96]),
-        customerId: Faker.Number.between(1, customerSeed),
+        customerId: Faker.Internet.freeEmail(),
         endDate: datetime.setHours(hour + (Math.floor((Math.random() * 3) + 1))),
         experience: Faker.Random.element(['Beginner', 'Novice', 'Advanced', 'Pro', 'Expert']),
         guide: Faker.Name.firstName(),

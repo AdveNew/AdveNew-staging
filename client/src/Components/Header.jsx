@@ -215,20 +215,16 @@ export default function Header() {
                 </Button>
               )
               : null }
-            {isAuthed && authType === 'Guide'
+            {isAuthed && authType === 'Customer'
               ? (
                 <Button variant='contained' size='medium' onClick={() => setButtonState(2)} color={buttonState === 2 ? 'secondary' : 'default'} startIcon={<EventIcon />} style={{ marginRight: '20px' }}>
                   My Trips
                 </Button>
               )
               : null }
-            {isAuthed
-              ? (
-                <Button variant='contained' size='medium' onClick={() => setButtonState(3)} color={buttonState === 3 ? 'secondary' : 'default'} startIcon={<InfoIcon />} component={Link} to='/about'>
-                  About Us
-                </Button>
-              )
-              : null}
+            <Button variant='contained' size='medium' onClick={() => setButtonState(3)} color={buttonState === 3 ? 'secondary' : 'default'} startIcon={<InfoIcon />} component={Link} to='/about'>
+              About Us
+            </Button>
           </div>
           {/* <div className={classes.grow} /> */}
           <div className={classes.sectionDesktop}>

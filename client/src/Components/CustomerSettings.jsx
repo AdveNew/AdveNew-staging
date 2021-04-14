@@ -94,7 +94,7 @@ export default function CustomerSettings() {
         name: `${firstName} ${lastName}`,
         emailAddress: email,
         phoneNumber: phone,
-        password: pass,
+        password: pass === '' ? oldPassCheck : pass,
       },
     })
       .then(() => {

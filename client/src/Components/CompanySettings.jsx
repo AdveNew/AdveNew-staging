@@ -82,7 +82,7 @@ export default function CustomerSettings() {
         phoneNumber: phone,
         websiteUrl: url,
         details,
-        password: pass,
+        password: pass === '' ? oldPassCheck : pass,
       },
     })
       .then(() => {

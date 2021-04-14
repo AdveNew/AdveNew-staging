@@ -208,10 +208,17 @@ export default function Header() {
             <Button variant='contained' size='medium' onClick={() => setButtonState(1)} color={buttonState === 1 ? 'secondary' : 'default'} startIcon={<SearchIcon />} style={{ marginRight: '20px' }} component={Link} to='/'>
               Find a Guide
             </Button>
-            {isAuthed
+            {isAuthed && authType === 'Shop'
               ? (
                 <Button variant='contained' size='medium' onClick={() => setButtonState(2)} color={buttonState === 2 ? 'secondary' : 'default'} startIcon={<EventIcon />} style={{ marginRight: '20px' }} component={Link} to='/calendar'>
                   Calendar
+                </Button>
+              )
+              : null }
+            {isAuthed && authType === 'Guide'
+              ? (
+                <Button variant='contained' size='medium' onClick={() => setButtonState(2)} color={buttonState === 2 ? 'secondary' : 'default'} startIcon={<EventIcon />} style={{ marginRight: '20px' }}>
+                  My Trips
                 </Button>
               )
               : null }

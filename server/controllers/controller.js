@@ -149,7 +149,6 @@ const postShop = (req, res) => {
 };
 
 const postUpdateBooking = (req, res) => {
-  console.log(req.body.params);
   const { calendarId, customerEmail } = req.body.params;
   model.postUpdateBooking(calendarId, customerEmail, (err, results) => {
     if (err) {

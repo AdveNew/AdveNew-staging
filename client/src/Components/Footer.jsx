@@ -56,7 +56,7 @@ export default function Footer(props) {
             <Tooltip title='Home' placement='top' component={Link} to='/'>
               <IconButton><HomeIcon /></IconButton>
             </Tooltip>
-            <Tooltip title='Calendar' placement='top' component={Link} to='/calendar'>
+            <Tooltip title='Calendar (Coming Soon)' placement='top'>
               <IconButton><TodayIcon /></IconButton>
             </Tooltip>
             <Tooltip title='Nearby (Coming Soon)' placement='top'>
@@ -74,10 +74,10 @@ export default function Footer(props) {
                 <MailOutlineIcon />
               </IconButton>
             </Tooltip>
-            <Tooltip title='Company Info' placement='top'>
+            <Tooltip title='Company Info (Coming Soon)' placement='top'>
               <IconButton onClick={() => setDrawer(true)}><InfoIcon /></IconButton>
             </Tooltip>
-            <Drawer open={drawer} onClose={() => setDrawer(false)}>
+            <Drawer open={false} onClose={() => setDrawer(false)}>
               <CompanyInfo store={store} />
             </Drawer>
             <Tooltip title='More Info (Coming Soon)' placement='top'>

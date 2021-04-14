@@ -15,6 +15,7 @@ export default function Logout(props) {
     localStorage.removeItem('user');
     localStorage.removeItem('user.token');
     localStorage.removeItem('user.loginType');
+    localStorage.removeItem('user.email');
     onClose();
   };
 

@@ -55,6 +55,7 @@ const customerSchema = new mongoose.Schema({
   name: { type: String, default: '' },
   password: { type: String, default: 'password' },
   phoneNumber: { type: String, default: '' },
+  
 });
 
 // compiling schema into a model

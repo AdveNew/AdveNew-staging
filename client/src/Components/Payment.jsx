@@ -25,22 +25,26 @@ export default function Payment(props) {
   const classes = useStyles();
   const [price] = useState(props.price);
   const [guideName] = useState(props.guideName);
+  const [calendarId] = useState(props.calendarId);
+  const [customerEmail] = JSON.parse(localStorage.getItem('user.email'));
   const PORT = process.env.PORT || 3000;
 
   const handleToken = (token) => {
-    axios.post(`http://localhost:${PORT}/payment`, {
+    axios.post('/payment', {
       price,
       guideName,
       token,
     })
       .then((data) => {
         if (data.status === 200) {
-          // axios.post(`http://localhost:${PORT}/addpayment`, {
-          //   price,
-          //   guideName,
-          // })
-          //   .catch((err) => console.log('Error adding payment to db', err.message));
-          console.log('Payment complete');
+          axios.post('/api/updateBooking', {
+            params: {
+              calendarId,
+              customerEmail,
+            }
+          })
+            .then(() => console.log('Booking updated.'))
+            .catch((err) => console.log('Error adding payment to db', err.message));
         } else console.log('error completing payment using stripe');
       })
       .catch((err) => console.log('Failed to post payment', err));

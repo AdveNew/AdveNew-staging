@@ -100,9 +100,10 @@ export default function SearchResults(props) {
       field: 'book',
       headerName: 'Book',
       flex: 0.6,
-      renderCell: (e) => (
-        <Payment guideName={e.row.guide} price={e.row.price} />
-      ),
+      renderCell: (e) => {
+        // eslint-disable-next-line no-underscore-dangle
+        return <Payment guideName={e.row.guide} price={e.row.price} calendarId={e.row._id} />
+      },
     },
     {
       field: 'shop',

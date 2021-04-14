@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
 const cors = require('cors');
-const stripe = require('stripe')(process.env.STRIPE_PUBLIC);
+const stripe = require('stripe')('sk_test_51ITi5uEQVMlmkh1VYfO6W8EQZRlV6QFRx9ZuJzM03ZFydcAPxO1LS7ms333SE1qkvZbyXF4JmqIiHemQGIuBxxCn00eLSxhjPL');
 
 const router = require('./routes/route.js');
 

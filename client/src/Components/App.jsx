@@ -1,9 +1,8 @@
-/* eslint-disable import/extensions */
 import React, { useState, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Grid from '@material-ui/core/Grid';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Backdrop from '@material-ui/core/Backdrop';
+import Grid from '@material-ui/core/Grid/Grid.js';
+import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress.js';
+import Backdrop from '@material-ui/core/Backdrop/Backdrop.js';
 import axios from 'axios';
 
 // Components
@@ -17,6 +16,8 @@ import CustomerSettings from './CustomerSettings.jsx';
 import CompanySettings from './CompanySettings.jsx';
 
 export default function App() {
+  const isAuthed = (JSON.parse(localStorage.getItem('user.token')) !== null);
+  const loginType = localStorage.getItem('user.loginType');
   const [store, setStore] = useState([]);
   const [loading, setLoading] = useState(true);
   const [location, setLocation] = useState('Colorado');
@@ -75,8 +76,12 @@ export default function App() {
           <Route path='/shop' component={() => <CompanyPage store={store} isAuthed />} />
           <Route path='/results' component={() => <SearchResults location={location} startDate={startDate} endDate={endDate} groupSize={groupSize} searchParams={handleStateChanges} />} />
           <Route path='/about' />
-          <Route path='/csettings' component={() => <CustomerSettings />} />
-          <Route path='/compsettings' component={() => <CompanySettings />} />
+          {isAuthed && (loginType === 'Customer' || loginType === 'Guide')
+            ? <Route path='/profile' component={() => <CustomerSettings />} />
+            : null}
+          {isAuthed && (loginType === 'Shop')
+            ? <Route path='/company_profile' component={() => <CompanySettings />} />
+            : null}
           <Route component={NotFound} />
         </Switch>
       </Grid>

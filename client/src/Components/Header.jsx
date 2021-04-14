@@ -78,6 +78,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Header() {
   const classes = useStyles();
   const isAuthed = (JSON.parse(localStorage.getItem('user.token')) !== null);
+  const authType = localStorage.getItem('user.loginType');
   const routeLoc = (useLocation().pathname === '/');
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -131,7 +132,16 @@ export default function Header() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {isAuthed ? <MenuItem onClick={handleMenuClose}>Profile</MenuItem> : null}
+      {isAuthed
+        ? (
+          <MenuItem
+            onClick={handleMenuClose}
+            component={Link}
+            to={authType === 'Shop' ? '/company_profile' : '/profile'}
+          >
+            Profile
+          </MenuItem>
+        ) : null}
       {isAuthed ? <MenuItem onClick={handleMenuClose}>My Trips</MenuItem> : null}
       {!isAuthed
         ? <MenuItem onClick={() => { setOpenLogin(true); handleMenuClose(); }}>Log In</MenuItem>

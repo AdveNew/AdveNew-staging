@@ -36,8 +36,9 @@ export default function Login(props) {
       },
     })
       .then((res) => {
-        if (res.data.user) localStorage.setItem('user', JSON.stringify(res.data.user));
+        if (res.data.user) localStorage.setItem('user', JSON.stringify(res.data.user.name));
         if (res.data.token) localStorage.setItem('user.token', JSON.stringify(res.data.token));
+        if (loginType) localStorage.setItem('user.loginType', loginType);
         setLoginFail(false);
         onClose();
       })

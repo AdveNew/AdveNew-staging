@@ -30,16 +30,18 @@ export default function Payment(props) {
       price,
       guideName,
       token,
-    });
-    // .then((data) => {
-    //   if (data.status === 200) {
-    //     axios.post(`http://localhost:${PORT}/addpayment`, {
-    //       price,
-    //       guideName,
-    //     })
-    //       .catch((err) => console.log('Error adding payment to db', err.message));
-    //   } else console.log('error completing payment using stripe');
-    // });
+    })
+      .then((data) => {
+        if (data.status === 200) {
+          // axios.post(`http://localhost:${PORT}/addpayment`, {
+          //   price,
+          //   guideName,
+          // })
+          //   .catch((err) => console.log('Error adding payment to db', err.message));
+          console.log('Payment complete');
+        } else console.log('error completing payment using stripe');
+      })
+      .catch((err) => console.log('Failed to post payment', err));
   };
 
   return (

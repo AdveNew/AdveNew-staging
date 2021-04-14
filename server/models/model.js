@@ -54,7 +54,6 @@ const getLogin = (dbCol, emailAddress, password, callback) => {
     case 'Customer':
       db.Customer.find({ emailAddress, password },
         (err, results) => {
-          console.log(results);
           if (err || results.length === 0) callback(err, null);
           else callback(null, results);
         });
@@ -76,6 +75,28 @@ const getLogin = (dbCol, emailAddress, password, callback) => {
     default:
       break;
   }
+};
+
+const getCustomer = (id, callback) => {
+  const query = db.Customer.find().where({ _id: id });
+  query.exec((err, results) => {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null, results[0]);
+    }
+  });
+};
+
+const getShop = (id, callback) => {
+  const query = db.Store.find().where({ _id: id });
+  query.exec((err, results) => {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null, results[0]);
+    }
+  });
 };
 
 const postSignup = (dbCol, name, emailAddress, password, callback) => {
@@ -112,10 +133,39 @@ const postSignup = (dbCol, name, emailAddress, password, callback) => {
   }
 };
 
+const postCustomer = (id, name, emailAddress, phoneNumber, password, callback) => {
+  db.Customer.where({ _id: id }).updateOne({
+    name, emailAddress, phoneNumber, password,
+  },
+  (err, results) => {
+    if (err) callback(err);
+    else {
+      callback(null, results);
+    }
+  });
+};
+
+const postShop = (id, name, hours, emailAddress, phoneNumber,
+  websiteUrl, details, password, callback) => {
+  db.Store.where({ _id: id }).updateOne({
+    name, hours, emailAddress, phoneNumber, websiteUrl, details, password,
+  },
+  (err, results) => {
+    if (err) callback(err);
+    else {
+      callback(null, results);
+    }
+  });
+};
+
 module.exports = {
   getCalendarData,
   getShopByCalId,
   getSearchData,
   getLogin,
+  getCustomer,
+  getShop,
   postSignup,
+  postCustomer,
+  postShop,
 };

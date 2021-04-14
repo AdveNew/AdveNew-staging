@@ -24,6 +24,7 @@ export default function CustomerSettings() {
   const [confirmPass, setConfirmPass] = useState('');
   const [open, setOpen] = useState(false);
   const [openSuc, setOpenSuc] = useState(false);
+  const [openFail, setOpenFail] = useState(false);
   const [phone, setPhone] = useState('');
 
   useEffect(() => {
@@ -87,21 +88,25 @@ export default function CustomerSettings() {
   };
 
   const saveChanges = () => {
-    const route = localStorage.getItem('user.loginType') === 'Customer' ? 'api/customer' : 'api/guide';
-    axios.post(route, {
-      params: {
-        id: JSON.parse(localStorage.getItem('user.token')),
-        name: `${firstName} ${lastName}`,
-        emailAddress: email,
-        phoneNumber: phone,
-        password: pass === '' ? oldPassCheck : pass,
-      },
-    })
-      .then(() => {
-        handleClose();
-        setOpenSuc(true);
+    if (JSON.parse(localStorage.getItem('user.token')) !== null) {
+      const route = localStorage.getItem('user.loginType') === 'Customer' ? 'api/customer' : 'api/guide';
+      axios.post(route, {
+        params: {
+          id: JSON.parse(localStorage.getItem('user.token')),
+          name: `${firstName} ${lastName}`,
+          emailAddress: email,
+          phoneNumber: phone,
+          password: pass === '' ? oldPassCheck : pass,
+        },
       })
-      .catch((err) => console.error(err.message));
+        .then(() => {
+          handleClose();
+          setOpenSuc(true);
+        })
+        .catch((err) => console.error(err.message));
+    } else {
+      setOpenFail(true);
+    }
   };
 
   if (loading) {
@@ -225,6 +230,19 @@ export default function CustomerSettings() {
         >
           <MuiAlert elevation={6} variant='filled' severity='success'>
             Profile updated successfully!
+          </MuiAlert>
+        </Snackbar>
+        <Snackbar
+          open={openFail}
+          autoHideDuration={2000}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+          onClose={() => setOpenFail(false)}
+        >
+          <MuiAlert elevation={6} variant='filled' severity='error'>
+            You must be logged in to save changes!
           </MuiAlert>
         </Snackbar>
       </form>

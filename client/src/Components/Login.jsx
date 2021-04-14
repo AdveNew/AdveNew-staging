@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -25,7 +25,7 @@ export default function Login(props) {
     setEmail('');
     setPass('');
     onClose();
-  }
+  };
 
   const checkLogin = () => {
     axios.get('api/login', {
@@ -44,7 +44,7 @@ export default function Login(props) {
       })
       .catch((err) => {
         setLoginFail(true);
-        console.error(`Login Failed: ${err}`)
+        console.error(`Login Failed: ${err}`);
       });
   };
 
@@ -62,7 +62,7 @@ export default function Login(props) {
           </Grid>
           <DialogContent>
             {loginFail
-            ? (<DialogContentText color='secondary'>Incorrect email and/or password.</DialogContentText>) : null}
+              ? (<DialogContentText color='secondary'>Incorrect email and/or password.</DialogContentText>) : null}
             <TextField
               autoFocus
               margin='dense'

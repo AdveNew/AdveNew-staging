@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -89,8 +89,6 @@ export default function Header() {
   const [openSignup, setOpenSignup] = useState(false);
   const [openLogout, setOpenLogout] = useState(false);
   const [buttonState, setButtonState] = useState(1);
-
-  useEffect(() => setOpenLogout(false));
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -272,7 +270,7 @@ export default function Header() {
           </div>
           <Login open={openLogin} onClose={() => setOpenLogin(false)} />
           <Signup open={openSignup} onClose={() => setOpenSignup(false)} />
-          {openLogout ? <Logout /> : null}
+          <Logout open={openLogout} onClose={() => setOpenLogout(false)} />
         </Toolbar>
       </AppBar>
       {/* </ElevationScroll> */}

@@ -1,5 +1,6 @@
 /* eslint-disable import/extensions */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { Redirect, Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -7,20 +8,21 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-export default function Logout() {
-  const [open, setOpen] = useState(true);
+export default function Logout(props) {
+  const { open, onClose } = props;
 
-  useEffect(() => {
+  const onSubmit = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('user.token');
     localStorage.removeItem('user.loginType');
-  }, [0]);
+    onClose();
+  };
 
   return (
     <div>
       <Dialog
         open={open}
-        onClose={() => setOpen(false)}
+        onClose={onSubmit}
       >
         <DialogTitle id='alert-dialog-title'>Log Out</DialogTitle>
         <DialogContent>
@@ -29,11 +31,12 @@ export default function Logout() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpen(false)} color='primary'>
+          <Button onClick={onSubmit} color='primary' component={Link} to='/'>
             OK
           </Button>
         </DialogActions>
       </Dialog>
+      {open ? <Redirect to='/' /> : null}
     </div>
   );
 }

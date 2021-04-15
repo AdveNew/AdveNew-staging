@@ -89,6 +89,9 @@ export default function Header() {
   const [openSignup, setOpenSignup] = useState(false);
   const [openLogout, setOpenLogout] = useState(false);
   const [buttonState, setButtonState] = useState(1);
+  const [tripState, setTripState] = useState(false);
+  const [tripInfo, setTripInfo] = useState(false);
+
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -96,19 +99,29 @@ export default function Header() {
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
+  
   };
 
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
+   
   };
+
+  // const handleTripLink = () =>{ 
+   
+  //   setAnchorEl(null);
+  //   handleMobileMenuClose();
+
+    
+  // }
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
   // function ElevationScroll({ children }) {
-  //   const trigger = useScrollTrigger({
+  //   constis trigger = useScrollTrigger({
   //     // disableHysteresis: true,
   //     threshold: 0,
   //   });
@@ -118,7 +131,6 @@ export default function Header() {
   //     color: trigger ? 'default' : 'transparent',
   //   });
   // }
-
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -140,7 +152,9 @@ export default function Header() {
             Profile
           </MenuItem>
         ) : null}
-      {isAuthed && authType !== 'Shop' ? <MenuItem onClick={handleMenuClose}>My Trips</MenuItem> : null}
+
+      {isAuthed && authType !== 'Shop' ? <MenuItem onClick={() => {handleMenuClose()}} component={Link} to='/trips' >My Trips</MenuItem> : null}
+
       {!isAuthed
         ? <MenuItem onClick={() => { setOpenLogin(true); handleMenuClose(); }}>Log In</MenuItem>
         : null }
@@ -271,6 +285,7 @@ export default function Header() {
           <Login open={openLogin} onClose={() => setOpenLogin(false)} />
           <Signup open={openSignup} onClose={() => setOpenSignup(false)} />
           <Logout open={openLogout} onClose={() => setOpenLogout(false)} />
+          
         </Toolbar>
       </AppBar>
       {/* </ElevationScroll> */}

@@ -13,4 +13,6 @@ router.post('/customer', controller.postCustomer);
 router.post('/shop', controller.postShop);
 router.post('/updateBooking', controller.postUpdateBooking);
 
+router.get('/trips', controller.getTrips);
+
 module.exports = router;

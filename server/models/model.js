@@ -99,6 +99,23 @@ const getShop = (id, callback) => {
   });
 };
 
+const getTrips = (customerEmail, callback) => {
+  const query = db.Store.aggregate([
+      {$unwind : "$calendar" }, 
+      {$unwind: "$calendar.customerId"}, 
+      {$match: {"calendar.customerId": "nick.julander@gmail.com"}},
+      // {$project: {"calendar.customerId":1}}
+    ]);
+    query.exec((err, results) => {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null, results);
+    }
+  });
+};
+
+
 const postSignup = (dbCol, name, emailAddress, password, callback) => {
   switch (dbCol) {
     case 'Customer':
@@ -159,13 +176,14 @@ const postShop = (id, name, hours, emailAddress, phoneNumber,
 };
 
 const postUpdateBooking = (calendarId, customerEmail, callback) => {
+  console.log("Booked id: ", calendarId)
   db.Store.where({
     'calendar._id': calendarId,
   }).updateOne({
     $set:
       {
         'calendar.$.booked': 1,
-        'calendar.$.emailAddress': customerEmail,
+        'calendar.$.customerId': customerEmail,
       },
   },
   (err, results) => {
@@ -183,6 +201,7 @@ module.exports = {
   getLogin,
   getCustomer,
   getShop,
+  getTrips,
   postSignup,
   postCustomer,
   postShop,

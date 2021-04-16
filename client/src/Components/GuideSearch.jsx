@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
       width: '25ch',
       backgroundColor: 'white',
       borderBottom: 0,
+      borderRadius: '5px',
     },
   },
   searchIcon: {

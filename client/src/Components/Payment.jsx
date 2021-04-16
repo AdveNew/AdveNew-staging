@@ -35,14 +35,17 @@ export default function Payment(props) {
       token,
     })
       .then((data) => {
-        if (data.status === 200) {
+        if (data.status === 200 && customerLoggedIn) {
           axios.post('api/updateBooking', {
             params: {
               calendarId,
               customerEmail,
             },
           })
-            .then(() => console.log('Booking updated.'))
+            .then(() => {
+              console.log('Booking updated.');
+              props.incrementBooked();
+            })
             .catch((err) => console.log('Error adding payment to db', err.message));
         } else console.log('error completing payment using stripe');
       })

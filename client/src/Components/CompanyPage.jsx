@@ -36,7 +36,7 @@ export default function CompanyPage(props) {
         style={{ marginTop: '50px' }}
       >
         <CompanyInfo store={store} />
-        <CustomCalendar calendar={calendar} />
+        <CustomCalendar calendar={calendar} store={store} />
       </Grid>
     </div>
   );

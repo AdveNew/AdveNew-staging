@@ -222,20 +222,23 @@ export default function Header() {
             <Button variant='contained' size='medium' onClick={() => setButtonState(1)} color={buttonState === 1 ? 'secondary' : 'default'} startIcon={<SearchIcon />} style={{ marginRight: '20px' }} component={Link} to='/'>
               Find a Guide
             </Button>
-            {isAuthed
+            {isAuthed && authType === 'Shop'
               ? (
                 <Button variant='contained' size='medium' onClick={() => setButtonState(2)} color={buttonState === 2 ? 'secondary' : 'default'} startIcon={<EventIcon />} style={{ marginRight: '20px' }} component={Link} to='/calendar'>
                   Calendar
                 </Button>
               )
               : null }
-            {isAuthed
+            {isAuthed && authType === 'Customer'
               ? (
-                <Button variant='contained' size='medium' onClick={() => setButtonState(3)} color={buttonState === 3 ? 'secondary' : 'default'} startIcon={<InfoIcon />} component={Link} to='/about'>
-                  About Us
+                <Button variant='contained' size='medium' onClick={() => setButtonState(2)} color={buttonState === 2 ? 'secondary' : 'default'} startIcon={<EventIcon />} style={{ marginRight: '20px' }}>
+                  My Trips
                 </Button>
               )
-              : null}
+              : null }
+            <Button variant='contained' size='medium' onClick={() => setButtonState(3)} color={buttonState === 3 ? 'secondary' : 'default'} startIcon={<InfoIcon />} component={Link} to='/about'>
+              About Us
+            </Button>
           </div>
           {/* <div className={classes.grow} /> */}
           <div className={classes.sectionDesktop}>

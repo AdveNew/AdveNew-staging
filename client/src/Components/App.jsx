@@ -15,6 +15,8 @@ import NotFound from './NotFound.jsx';
 import CustomerSettings from './CustomerSettings.jsx';
 import CompanySettings from './CompanySettings.jsx';
 import CustomCalendar from './CustomCalendar.jsx';
+// import AboutUs from './AboutUs.jsx';
+import AboutUs from './AboutUs.jsx';
 
 import CustomerTrips from './CustomerTrips.jsx'
 
@@ -84,6 +86,12 @@ export default function App() {
           <Route path='/calendar' component={() => <CustomCalendar store={store} calendar={store.calendar} isAuthed />} />
           <Route path='/about' />
           <Route path='/trips' component={() => <CustomerTrips />} />
+
+          {isAuthed && (loginType === 'Shop')
+            ? <Route path='/calendar' component={() => <CustomCalendar store={store} calendar={store.calendar} isAuthed />} />
+            : null}
+          {/* <Route path='/about' component={() => <AboutUs/>} /> */}
+          <Route path='/about' component={() => <AboutUs />} />
 
           {isAuthed && (loginType === 'Customer' || loginType === 'Guide')
             ? <Route path='/profile' component={() => <CustomerSettings />} />

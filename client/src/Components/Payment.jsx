@@ -44,7 +44,7 @@ export default function Payment(props) {
           })
             .then(() => {
               console.log('Booking updated.');
-              window.location.reload();
+              props.incrementBooked();
             })
             .catch((err) => console.log('Error adding payment to db', err.message));
         } else console.log('error completing payment using stripe');

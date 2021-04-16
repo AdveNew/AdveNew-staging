@@ -53,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SearchResults(props) {
   const isAuthed = (JSON.parse(localStorage.getItem('user.token')) !== null);
   const classes = useStyles();
+  const [booking, setBooking] = useState(0);
   const [openLogin, setOpenLogin] = useState(false);
   const [loading, setLoading] = useState(true);
   const [drawer, setDrawer] = useState(false);
@@ -64,6 +65,10 @@ export default function SearchResults(props) {
   const [rows, setRows] = useState([{
     id: 1, name: 'error', location: 'error', startDate: new Date(), size: -1,
   }]);
+
+  const increment = () => {
+    setBooking(booking + 1);
+  }
 
   const gotoShop = (id) => {
     axios.get('api/shopByCalId', {
@@ -106,7 +111,7 @@ export default function SearchResults(props) {
       renderCell: (e) => (
         (isAuthed)
           // eslint-disable-next-line no-underscore-dangle
-          ? <Payment guideName={e.row.guide} price={e.row.price} calendarId={e.row._id} />
+          ? <Payment guideName={e.row.guide} price={e.row.price} calendarId={e.row._id} incrementBooked={increment}/>
           : <Button onClick={() => setOpenLogin(true)}>Login</Button>
       ),
     },
@@ -137,7 +142,7 @@ export default function SearchResults(props) {
         console.error(`Error: ${err.message}`);
       })
       .finally(() => setLoading(false));
-  }, [0]);
+  }, [booking]);
 
   function CustomNoRowsOverlay() {
     return (

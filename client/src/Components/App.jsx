@@ -17,8 +17,8 @@ import CompanySettings from './CompanySettings.jsx';
 import CustomCalendar from './CustomCalendar.jsx';
 // import AboutUs from './AboutUs.jsx';
 import AboutUs from './AboutUs.jsx';
-
-import CustomerTrips from './CustomerTrips.jsx'
+import LearnMore from './LearnMore.jsx';
+import CustomerTrips from './CustomerTrips.jsx';
 
 export default function App() {
   const isAuthed = (JSON.parse(localStorage.getItem('user.token')) !== null);
@@ -102,6 +102,7 @@ export default function App() {
           <Route component={NotFound} />
         </Switch>
       </Grid>
+      <LearnMore />
       <Footer store={store} bs={buttonState} setButtonState={handleButtonStateChange} />
     </div>
   );

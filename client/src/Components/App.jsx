@@ -82,7 +82,7 @@ export default function App() {
             ? <Route path='/calendar' component={() => <CustomCalendar store={store} calendar={store.calendar} isAuthed />} />
             : null}
           {/* <Route path='/about' component={() => <AboutUs/>} /> */}
-          <Route path='/about' component={() => <AboutUs/>} />
+          <Route path='/about' component={() => <AboutUs />} />
           {isAuthed && (loginType === 'Customer' || loginType === 'Guide')
             ? <Route path='/profile' component={() => <CustomerSettings />} />
             : null}

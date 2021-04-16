@@ -35,7 +35,7 @@ export default function Payment(props) {
       token,
     })
       .then((data) => {
-        if (data.status === 200) {
+        if (data.status === 200 && customerLoggedIn) {
           axios.post('api/updateBooking', {
             params: {
               calendarId,

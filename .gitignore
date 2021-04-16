@@ -7,7 +7,8 @@ bundle.js.map
 bundle.js.LICENSE.txt
 server.js
 test.html
-dist/background*
+client/dist/*.jpg
+client/dist/*.png
 
 LICENSE
 .env

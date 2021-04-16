@@ -13,6 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Payment from './Payment.jsx';
 import GuideSearch from './GuideSearch.jsx';
 import CompanyInfo from './CompanyInfo.jsx';
+import Login from './Login.jsx';
 
 const useStyles = makeStyles((theme) => ({
   resultGrid: {
@@ -50,7 +51,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SearchResults(props) {
+  const isAuthed = (JSON.parse(localStorage.getItem('user.token')) !== null);
   const classes = useStyles();
+  const [openLogin, setOpenLogin] = useState(false);
   const [loading, setLoading] = useState(true);
   const [drawer, setDrawer] = useState(false);
   const [location] = useState(props.location);
@@ -101,8 +104,10 @@ export default function SearchResults(props) {
       headerName: 'Book',
       flex: 0.6,
       renderCell: (e) => (
-        // eslint-disable-next-line no-underscore-dangle
-        <Payment guideName={e.row.guide} price={e.row.price} calendarId={e.row._id} />
+        (isAuthed)
+          // eslint-disable-next-line no-underscore-dangle
+          ? <Payment guideName={e.row.guide} price={e.row.price} calendarId={e.row._id} />
+          : <Button onClick={() => setOpenLogin(true)}>Login</Button>
       ),
     },
     {
@@ -211,7 +216,8 @@ export default function SearchResults(props) {
       />
       <Drawer open={drawer} onClose={() => setDrawer(false)}>
         <CompanyInfo store={store} />
-      </Drawer>;
+      </Drawer>
+      <Login open={openLogin} onClose={() => setOpenLogin(false)} />
     </div>
   );
 }

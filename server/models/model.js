@@ -61,14 +61,14 @@ const getLogin = (dbCol, emailAddress, password, callback) => {
     case 'Shop':
       db.Store.find({ emailAddress, password },
         (err, results) => {
-          if (err || results === null) callback(err);
+          if (err || results.length === 0) callback(err, null);
           else callback(null, results);
         });
       break;
     case 'Guide':
       db.Guide.find({ emailAddress, password },
         (err, results) => {
-          if (err || results === null) callback(err);
+          if (err || results.length === 0) callback(err, null);
           else callback(null, results);
         });
       break;

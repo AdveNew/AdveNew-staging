@@ -103,7 +103,7 @@ const getTrips = (customerEmail, callback) => {
   const query = db.Store.aggregate([
       {$unwind : "$calendar" }, 
       {$unwind: "$calendar.customerId"}, 
-      {$match: {"calendar.customerId": "nick.julander@gmail.com"}},
+      {$match: {"calendar.customerId": customerEmail}},
       // {$project: {"calendar.customerId":1}}
     ]);
     query.exec((err, results) => {

@@ -96,9 +96,6 @@ const getShop = (req, res) => {
 
 const getTrips = (req, res) => {
   const { customerEmail } = req.query;
-  // res.json({
-  //   test: "test worked",
-  // });
   model.getTrips(customerEmail, (err, results) => {
     if (err) {
       console.error('  ✗  Unable to get customer trips from database', err);

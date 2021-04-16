@@ -42,7 +42,10 @@ export default function Payment(props) {
               customerEmail,
             },
           })
-            .then(() => console.log('Booking updated.'))
+            .then(() => {
+              console.log('Booking updated.');
+              window.location.reload();
+            })
             .catch((err) => console.log('Error adding payment to db', err.message));
         } else console.log('error completing payment using stripe');
       })

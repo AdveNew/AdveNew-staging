@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
 export default function Payment(props) {
   const isAuthed = (JSON.parse(localStorage.getItem('user.token')) !== null);
   const customerLoggedIn = (localStorage.getItem('user.loginType') === 'Customer');
-  const [customerEmail] = JSON.parse(localStorage.getItem('user.email'));
+  const customerEmail = JSON.parse(localStorage.getItem('user.email'));
   const classes = useStyles();
   const [price] = useState(props.price);
   const [guideName] = useState(props.guideName);

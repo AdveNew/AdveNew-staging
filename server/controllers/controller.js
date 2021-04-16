@@ -94,6 +94,22 @@ const getShop = (req, res) => {
   });
 };
 
+const getTrips = (req, res) => {
+  const { customerEmail } = req.query;
+  model.getTrips(customerEmail, (err, results) => {
+    if (err) {
+      console.error('  ✗  Unable to get customer trips from database', err);
+      res.status(401).send();
+    } else {
+      console.log('  ✓  Customer trips retrieved from database.');
+      res.json({
+        trips: results,
+      });
+    }
+  });
+};
+
+
 /* ************ POST CONTROLLERS ************ */
 const postSignup = (req, res) => {
   const {
@@ -150,6 +166,7 @@ const postShop = (req, res) => {
 
 const postUpdateBooking = (req, res) => {
   const { calendarId, customerEmail } = req.body.params;
+  console.log("Post update booking: ", customerEmail);
   model.postUpdateBooking(calendarId, customerEmail, (err, results) => {
     if (err) {
       console.error('  ✗  Unable to update booking in database', err);
@@ -170,6 +187,7 @@ module.exports = {
   getLogin,
   getCustomer,
   getShop,
+  getTrips,
   postSignup,
   postCustomer,
   postShop,

@@ -18,6 +18,8 @@ import CustomCalendar from './CustomCalendar.jsx';
 // import AboutUs from './AboutUs.jsx';
 import AboutUs from './AboutUs.jsx';
 
+import CustomerTrips from './CustomerTrips.jsx'
+
 export default function App() {
   const isAuthed = (JSON.parse(localStorage.getItem('user.token')) !== null);
   const loginType = localStorage.getItem('user.loginType');
@@ -28,6 +30,9 @@ export default function App() {
   const [endDate, setEndDate] = useState(new Date(new Date().getTime() + (90 * 864e5)));
   const [groupSize, setGroupSize] = useState(0);
   const [buttonState, setButtonState] = useState(1);
+  const [trips, setTrips] = useState([]);
+
+  
 
   // get first store for now
   const storeName = "Yogi's Goldfish Emporium";
@@ -78,11 +83,16 @@ export default function App() {
           <Route path='/' component={() => <Home searchParams={handleStateChanges} />} exact />
           <Route path='/shop' component={() => <CompanyPage store={store} isAuthed />} />
           <Route path='/results' component={() => <SearchResults location={location} startDate={startDate} endDate={endDate} groupSize={groupSize} searchParams={handleStateChanges} />} />
+          <Route path='/calendar' component={() => <CustomCalendar store={store} calendar={store.calendar} isAuthed />} />
+          <Route path='/about' />
+          <Route path='/trips' component={() => <CustomerTrips />} />
+
           {isAuthed && (loginType === 'Shop')
             ? <Route path='/calendar' component={() => <CustomCalendar store={store} calendar={store.calendar} isAuthed />} />
             : null}
           {/* <Route path='/about' component={() => <AboutUs/>} /> */}
           <Route path='/about' component={() => <AboutUs />} />
+
           {isAuthed && (loginType === 'Customer' || loginType === 'Guide')
             ? <Route path='/profile' component={() => <CustomerSettings />} />
             : null}
@@ -95,4 +105,4 @@ export default function App() {
       <Footer store={store} bs={buttonState} setButtonState={handleButtonStateChange} />
     </div>
   );
-}
+};

@@ -66,7 +66,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function CustomerCalendar(props) {
+export default function CustomCalendar(props) {
   const classes = useStyles();
   const storeName = props.store.name;
   const [storeCalendar] = useState(props.calendar);

@@ -42,6 +42,7 @@ export default function Login(props) {
         localStorage.setItem('user.loginType', loginType);
         setLoginFail(false);
         onClose();
+        window.location.reload();
       })
       .catch((err) => {
         setLoginFail(true);

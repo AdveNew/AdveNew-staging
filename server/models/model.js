@@ -104,13 +104,15 @@ const getTrips = (customerEmail, callback) => {
       {$unwind : "$calendar" }, 
       {$unwind: "$calendar.customerId"}, 
       {$match: {"calendar.customerId": customerEmail}},
-      // {$project: {"calendar.customerId":1}}
     ]);
     query.exec((err, results) => {
     if (err) {
       callback(err);
     } else {
-      callback(null, results);
+      const resultData = results.map((result) => (
+        result.calendar
+      )).flat();
+      callback(null, resultData);    
     }
   });
 };

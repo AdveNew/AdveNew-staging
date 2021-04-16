@@ -143,7 +143,7 @@ export default function SearchResults(props) {
       })
       .finally(() => setLoading(false));
   }, [booking]);
-
+  
   function CustomNoRowsOverlay() {
     return (
       <GridOverlay className={classes.root}>

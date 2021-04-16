@@ -231,7 +231,7 @@ export default function Header() {
               : null }
             {isAuthed && authType === 'Customer'
               ? (
-                <Button variant='contained' size='medium' onClick={() => setButtonState(2)} color={buttonState === 2 ? 'secondary' : 'default'} startIcon={<EventIcon />} style={{ marginRight: '20px' }}>
+                <Button variant='contained' size='medium' onClick={() => setButtonState(2)} color={buttonState === 2 ? 'secondary' : 'default'} startIcon={<EventIcon />} component={Link} to='/trips' style={{ marginRight: '20px' }}>
                   My Trips
                 </Button>
               )

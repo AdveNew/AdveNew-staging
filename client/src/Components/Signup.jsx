@@ -11,6 +11,7 @@ import TextField from '@material-ui/core/TextField';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { RepeatRounded } from '@material-ui/icons';
 
 export default function Signup(props) {
   const { open, onClose } = props;
@@ -21,8 +22,8 @@ export default function Signup(props) {
   const [shopName, setShopName] = useState('');
   const [email, setEmail] = useState('');
   const [signupType, setSignupType] = useState('Customer');
-  const [emailCheck, setEmailCheck] = useState(true);
-  const [shopEmailCheck, setShopEmailCheck] = useState(true);
+  const [emailCheck, setEmailCheck] = useState(0);
+  const [shopEmailCheck, setShopEmailCheck] = useState(0);
 
   const passChange = (pass2) => {
     setPass(pass2.target.value);
@@ -59,11 +60,11 @@ export default function Signup(props) {
     setSignupType(event.target.value);
   };
 
-  const checkEmail = () => {
+  const checkEmail = (email) => {
     axios.get('api/getEmailCheck', {
       params: {
-        customerEmail: email,
-      }
+        email,
+      },
     })
     .then(res => {
       setEmailCheck(res.data.checked);
@@ -72,7 +73,7 @@ export default function Signup(props) {
   };
 
 
-  const checkShopEmail = () => {
+  const checkShopEmail = (email) => {
     axios.get('api/getShopEmailCheck', {
       params: {
         email: email,
@@ -83,25 +84,26 @@ export default function Signup(props) {
     })
     .catch((err) => console.error(err.message));
   };
+  checkShopEmail(email);
+  checkEmail(email);
+
 
   const submitDB = () => {
     if(signupType === 'Shop') {
-      checkShopEmail();
-      if(shopEmailCheck) {
-        alert("Email has already been registered.");
-        setShopEmailCheck(false);
-        return
+      if(shopEmailCheck > 0) {
+        alert("Email has already been used.\nIf you are sure this is a new email and you have received this message, you may just need to click register again.");
+        setShopEmailCheck(0);
+        return;
       }
     }
-    if(signupType === 'Customer') {
-      checkEmail();
-      if(emailCheck) {
-        alert("Email has already been registered.");
-        setEmailCheck(false);
-        return
+    else if(signupType === 'Customer') {
+      if(emailCheck > 0) {
+        alert("Email has already been used. If you are sure this is a new email and you have received this message, you may just need to click register again.");
+        setEmailCheck(0);
+        return;
       }
     }
-
+    
     axios.post('api/signup', {
       params: {
         dbCol: signupType,
@@ -114,7 +116,6 @@ export default function Signup(props) {
         onClose();
       })
       .catch((err) => console.error(err.message));
-    
   };
 
   return (

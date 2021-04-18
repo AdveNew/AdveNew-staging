@@ -119,7 +119,7 @@ const getTrips = (customerEmail, callback) => {
 
 
 const getEmailCheck = (customerEmail, callback) => {
-  db.Customer.exists({emailAddress: customerEmail}, function (err, result) {
+  db.Customer.count({emailAddress: customerEmail}, function (err, result) {
     if (err) {
       callback(err);
     } else {
@@ -129,7 +129,7 @@ const getEmailCheck = (customerEmail, callback) => {
 };
 
 const getShopEmailCheck = (email, callback) => {
-  db.Store.exists({emailAddress: email}, function (err, result) {
+  db.Store.count({emailAddress: email}, function (err, result) {
     if (err) {
       callback(err);
     } else {

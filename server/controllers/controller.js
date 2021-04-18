@@ -110,8 +110,8 @@ const getTrips = (req, res) => {
 };
 
 const getEmailCheck = (req, res) => {
-  const { customerEmail } = req.query;
-  model.getEmailCheck(customerEmail, (err, results) => {
+  const { email } = req.query;
+  model.getEmailCheck(email, (err, results) => {
     if (err) {
       console.error('  ✗  Unable to check customer email in database', err);
       res.status(401).send();

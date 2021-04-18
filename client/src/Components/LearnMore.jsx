@@ -48,7 +48,7 @@ export default function LearnMore() {
                             </Grid>
                         </Grid>
                         <Grid item className={classes.loc}>
-                            <Button variant="contained" size="large">Learn More</Button>
+                            <Button variant="contained" size="large" onClick={() => window.location.href = 'mailto:customercare@advenew.com?subject=Hey AdveNew'}>Learn More</Button>
                         </Grid>
                     </Grid>
                 </Grid>

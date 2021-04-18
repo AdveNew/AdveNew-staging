@@ -48,6 +48,12 @@ export default function CustomerSettings() {
       .finally(() => setLoading(false));
   }, [0]);
 
+  function isEmail(val) {
+    // eslint-disable-next-line no-useless-escape
+    const regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return regEmail.test(val);
+  }
+
   const oldPassChange = (oldPass2) => {
     setOldPass(oldPass2.target.value);
   };
@@ -130,16 +136,33 @@ export default function CustomerSettings() {
           fullWidth
           required
         />
-        <TextField
-          margin='dense'
-          id='email'
-          label='Email Address'
-          type='email'
-          onChange={(e) => setEmail(e.target.value)}
-          value={email} // set value to previous email
-          fullWidth
-          required
-        />
+        {isEmail(email)
+          ? (
+            <TextField
+              margin='dense'
+              id='email'
+              label='Email Address'
+              type='email'
+              onChange={(e) => setEmail(e.target.value)}
+              value={email} // set value to previous email
+              fullWidth
+              required
+            />
+          )
+          : (
+            <TextField
+              margin='dense'
+              id='email'
+              label='Email Address'
+              type='email'
+              onChange={(e) => setEmail(e.target.value)}
+              value={email} // set value to previous email
+              fullWidth
+              required
+              error
+            />
+          )
+        }
         <TextField
           margin='dense'
           id='phone'
@@ -172,9 +195,18 @@ export default function CustomerSettings() {
           multiline
           rowsMax={6}
         />
-        <Button style={{ float: 'left', marginTop: '20px' }} variant='contained' color='secondary' onClick={saveChanges}>
-          Save Changes
-        </Button>
+        {isEmail(email)
+          ? (
+            <Button style={{ float: 'left', marginTop: '20px' }} variant='contained' color='secondary' onClick={saveChanges}>
+              Save Changes
+            </Button>
+          )
+          : (
+            <Button style={{ float: 'left', marginTop: '20px' }} variant='contained' color='secondary' disabled>
+              Save Changes
+            </Button>
+          )
+        }
         <Button style={{ float: 'right', marginTop: '20px' }} variant='contained' color='primary' onClick={handleOpen}>
           Change Password
         </Button>

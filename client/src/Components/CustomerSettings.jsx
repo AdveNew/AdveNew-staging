@@ -58,6 +58,12 @@ export default function CustomerSettings() {
     setEmail(emailVal.target.value);
   };
 
+  function isEmail(val) {
+    // eslint-disable-next-line no-useless-escape
+    const regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return regEmail.test(val);
+  }
+
   const oldPassChange = (oldPass2) => {
     setOldPass(oldPass2.target.value);
   };
@@ -143,16 +149,31 @@ export default function CustomerSettings() {
           fullWidth
           required
         />
-        <TextField
-          margin='dense'
-          id='email'
-          label='Email Address'
-          type='email'
-          onChange={emailChange}
-          value={email} // set value to previous email
-          fullWidth
-          required
-        />
+        {isEmail(email)
+              ? (
+                <TextField
+                  margin='dense'
+                  id='email'
+                  label='Email Address'
+                  type='email'
+                  onChange={emailChange}
+                  value={email}
+                  fullWidth
+                  required
+                />
+              ) : (
+                <TextField
+                  margin='dense'
+                  id='email'
+                  error
+                  label='Email Address'
+                  type='email'
+                  onChange={emailChange}
+                  value={email}
+                  fullWidth
+                  required
+                />
+              )}
         <TextField
           margin='dense'
           id='phone'
@@ -163,9 +184,21 @@ export default function CustomerSettings() {
           fullWidth
           required
         />
-        <Button style={{ float: 'left', marginTop: '20px' }} variant='contained' color='secondary' onClick={saveChanges}>
+        {isEmail(email)
+          ? (
+            <Button style={{ float: 'left', marginTop: '20px' }} variant='contained' color='secondary' onClick={saveChanges}>
+              Save Changes
+            </Button>
+          )
+          : (
+            <Button style={{ float: 'left', marginTop: '20px' }} variant='contained' color='secondary' disabled>
+              Save Changes
+            </Button>
+          )
+        }
+        {/* <Button style={{ float: 'left', marginTop: '20px' }} variant='contained' color='secondary' onClick={saveChanges}>
           Save Changes
-        </Button>
+        </Button> */}
         <Button style={{ float: 'right', marginTop: '20px' }} variant='contained' color='primary' onClick={handleOpen}>
           Change Password
         </Button>
@@ -203,10 +236,12 @@ export default function CustomerSettings() {
           <DialogActions>
             {(oldPass !== ''
               && pass !== ''
+              && isEmail(email) === true
               && confirmPass !== ''
               && pass === confirmPass
               && oldPass === oldPassCheck
               && oldPassCheck !== pass
+              
             )
               ? (
                 <Button variant='contained' color='primary' onClick={saveChanges}>Change Password</Button>

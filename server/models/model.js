@@ -118,6 +118,26 @@ const getTrips = (customerEmail, callback) => {
 };
 
 
+const getEmailCheck = (customerEmail, callback) => {
+  db.Customer.exists({emailAddress: customerEmail}, function (err, result) {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null,result)
+    }
+  });
+};
+
+const getShopEmailCheck = (email, callback) => {
+  db.Store.exists({emailAddress: email}, function (err, result) {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null,result)
+    }
+  });
+};
+
 const postSignup = (dbCol, name, emailAddress, password, callback) => {
   switch (dbCol) {
     case 'Customer':
@@ -204,6 +224,8 @@ module.exports = {
   getCustomer,
   getShop,
   getTrips,
+  getEmailCheck,
+  getShopEmailCheck,
   postSignup,
   postCustomer,
   postShop,

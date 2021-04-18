@@ -153,7 +153,7 @@ export default function Header() {
           </MenuItem>
         ) : null}
 
-      {isAuthed && authType !== 'Shop' ? <MenuItem onClick={() => {handleMenuClose()}} component={Link} to='/trips' >My Trips</MenuItem> : null}
+      {/* {isAuthed && authType !== 'Shop' ? <MenuItem onClick={() => {handleMenuClose()}} component={Link} to='/trips' >My Trips</MenuItem> : null} */}
 
       {!isAuthed
         ? <MenuItem onClick={() => { setOpenLogin(true); handleMenuClose(); }}>Log In</MenuItem>
@@ -242,7 +242,7 @@ export default function Header() {
           </div>
           {/* <div className={classes.grow} /> */}
           <div className={classes.sectionDesktop}>
-            {isAuthed
+            {/* {isAuthed
               ? (
                 <Tooltip title='Messages' placement='bottom'>
                   <IconButton aria-label='show 4 new mails' className={routeLoc ? classes.titleLight : classes.titleDark}>
@@ -261,7 +261,7 @@ export default function Header() {
                     </Badge>
                   </IconButton>
                 </Tooltip>
-              ) : null }
+              ) : null } */}
             <IconButton
               edge='end'
               aria-label='account of current user'

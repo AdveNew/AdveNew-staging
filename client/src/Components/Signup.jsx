@@ -21,6 +21,8 @@ export default function Signup(props) {
   const [shopName, setShopName] = useState('');
   const [email, setEmail] = useState('');
   const [signupType, setSignupType] = useState('Customer');
+  const [emailCheck, setEmailCheck] = useState(true);
+  const [shopEmailCheck, setShopEmailCheck] = useState(true);
 
   const passChange = (pass2) => {
     setPass(pass2.target.value);
@@ -57,7 +59,49 @@ export default function Signup(props) {
     setSignupType(event.target.value);
   };
 
+  const checkEmail = () => {
+    axios.get('api/getEmailCheck', {
+      params: {
+        customerEmail: email,
+      }
+    })
+    .then(res => {
+      setEmailCheck(res.data.checked);
+    })
+    .catch((err) => console.error(err.message));
+  };
+
+
+  const checkShopEmail = () => {
+    axios.get('api/getShopEmailCheck', {
+      params: {
+        email: email,
+      }
+    })
+    .then(res => {
+      setShopEmailCheck(res.data.checked);
+    })
+    .catch((err) => console.error(err.message));
+  };
+
   const submitDB = () => {
+    if(signupType === 'Shop') {
+      checkShopEmail();
+      if(shopEmailCheck) {
+        alert("Email has already been registered.");
+        setShopEmailCheck(false);
+        return
+      }
+    }
+    if(signupType === 'Customer') {
+      checkEmail();
+      if(emailCheck) {
+        alert("Email has already been registered.");
+        setEmailCheck(false);
+        return
+      }
+    }
+
     axios.post('api/signup', {
       params: {
         dbCol: signupType,
@@ -70,6 +114,7 @@ export default function Signup(props) {
         onClose();
       })
       .catch((err) => console.error(err.message));
+    
   };
 
   return (

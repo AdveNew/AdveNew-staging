@@ -10,7 +10,7 @@ import Header from './Header.jsx';
 import Home from './Home.jsx';
 import SearchResults from './SearchResults.jsx';
 import CompanyPage from './CompanyPage.jsx';
-import Footer from './Footer.jsx';
+// import Footer from './Footer.jsx';
 import NotFound from './NotFound.jsx';
 import CustomerSettings from './CustomerSettings.jsx';
 import CompanySettings from './CompanySettings.jsx';
@@ -101,7 +101,7 @@ export default function App() {
           <Route component={NotFound} />
         </Switch>
       </Grid>
-      <Footer store={store} bs={buttonState} setButtonState={handleButtonStateChange} />
+      {/* <Footer store={store} bs={buttonState} setButtonState={handleButtonStateChange} /> */}
     </div>
   );
 };

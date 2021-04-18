@@ -109,6 +109,35 @@ const getTrips = (req, res) => {
   });
 };
 
+const getEmailCheck = (req, res) => {
+  const { customerEmail } = req.query;
+  model.getEmailCheck(customerEmail, (err, results) => {
+    if (err) {
+      console.error('  ✗  Unable to check customer email in database', err);
+      res.status(401).send();
+    } else {
+      console.log('  ✓  Customer email checked in database.');
+      res.json({
+        checked: results,
+      });
+    }
+  });
+};
+
+const getShopEmailCheck = (req, res) => {
+  const { email } = req.query;
+  model.getEmailCheck(email, (err, results) => {
+    if (err) {
+      console.error('  ✗  Unable to check customer email in database', err);
+      res.status(401).send();
+    } else {
+      console.log('  ✓  Customer email checked in database.');
+      res.json({
+        checked: results,
+      });
+    }
+  });
+};
 
 /* ************ POST CONTROLLERS ************ */
 const postSignup = (req, res) => {
@@ -188,6 +217,8 @@ module.exports = {
   getCustomer,
   getShop,
   getTrips,
+  getEmailCheck,
+  getShopEmailCheck,
   postSignup,
   postCustomer,
   postShop,

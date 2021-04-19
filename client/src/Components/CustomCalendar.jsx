@@ -99,6 +99,7 @@ export default function CustomCalendar(props) {
         status: e.booked,
         customerName: e.customerId,
         experience: e.experience,
+        location: e.location,
         notes: e.notes,
       }))))]));
 
@@ -138,6 +139,15 @@ export default function CustomCalendar(props) {
           id: c.experience,
           color: 'grey',
           text: c.experience,
+        })),
+      },
+      {
+        fieldName: 'location',
+        title: 'Location',
+        instances: storeCalendar.map((c) => ({
+          id: c.location,
+          color: 'grey',
+          text: c.location,
         })),
       },
     ]);

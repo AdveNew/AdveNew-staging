@@ -214,6 +214,7 @@ const postAddCalendarEvent = (req, res) => {
   } = req.body.params;
 
   const toAdd = {
+    id,
     booked,
     endDate,
     guide,
@@ -227,7 +228,7 @@ const postAddCalendarEvent = (req, res) => {
 
   console.log(toAdd);
 
-  model.postAddCalendarEvent(emailAddress, id, toAdd, (err, results) => {
+  model.postAddCalendarEvent(emailAddress, toAdd, (err, results) => {
     if (err) {
       console.error('  ✗  Unable to add booking in database', err);
       res.status(401).send();

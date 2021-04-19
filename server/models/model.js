@@ -217,7 +217,7 @@ const postUpdateBooking = (calendarId, customerEmail, callback) => {
   });
 };
 
-const postAddCalendarEvent = (emailAddress, id, toAdd, callback) => {
+const postAddCalendarEvent = (emailAddress, toAdd, callback) => {
   db.Store.update({ emailAddress },
     {
       $push: {

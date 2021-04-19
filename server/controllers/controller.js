@@ -2,8 +2,8 @@ const model = require('../models/model.js');
 
 /* ************ GET CONTROLLERS ************ */
 const getCalendarData = (req, res) => {
-  const { storeName } = req.query;
-  model.getCalendarData(storeName, (err, results) => {
+  const { storeEmail } = req.query;
+  model.getCalendarData(storeEmail, (err, results) => {
     if (err) {
       console.error('  ✗  Unable to get store from database', err);
     } else {
@@ -195,13 +195,90 @@ const postShop = (req, res) => {
 
 const postUpdateBooking = (req, res) => {
   const { calendarId, customerEmail } = req.body.params;
-  console.log("Post update booking: ", customerEmail);
   model.postUpdateBooking(calendarId, customerEmail, (err, results) => {
     if (err) {
       console.error('  ✗  Unable to update booking in database', err);
       res.status(401).send();
     } else {
       console.log(`  ✓  Updated booking ${customerEmail} in database.`);
+      res.status(200).json({
+        results,
+      });
+    }
+  });
+};
+
+const postAddCalendarEvent = (req, res) => {
+  const {
+    id, emailAddress, booked, endDate, guide, startDate,
+  } = req.body.params;
+
+  const toAdd = {
+    booked,
+    endDate,
+    guide,
+    startDate,
+  };
+
+  Object.keys(toAdd).forEach((k) => {
+    // eslint-disable-next-line no-unused-expressions
+    (!toAdd[k] && toAdd[k] !== undefined) && delete toAdd[k];
+  });
+
+  console.log(toAdd);
+
+  model.postAddCalendarEvent(emailAddress, id, toAdd, (err, results) => {
+    if (err) {
+      console.error('  ✗  Unable to add booking in database', err);
+      res.status(401).send();
+    } else {
+      console.log(`  ✓  Added booking with ${id} in database.`);
+      res.status(200).json({
+        results,
+      });
+    }
+  });
+};
+
+/* ************ PUT CONTROLLERS ************ */
+const putUpdateCalendarEvent = (req, res) => {
+  const {
+    id, emailAddress, booked, endDate, guide, startDate,
+  } = req.body.params;
+
+  const toUpdate = {
+    'calendar.$.booked': booked,
+    'calendar.$.endDate': endDate,
+    'calendar.$.guide': guide,
+    'calendar.$.startDate': startDate,
+  };
+
+  Object.keys(toUpdate).forEach((k) => {
+    // eslint-disable-next-line no-unused-expressions
+    (!toUpdate[k] && toUpdate[k] !== undefined) && delete toUpdate[k];
+  });
+
+  model.putUpdateCalendarEvent(id, emailAddress, toUpdate, (err, results) => {
+    if (err) {
+      console.error('  ✗  Unable to update booking in database', err);
+      res.status(401).send();
+    } else {
+      console.log(`  ✓  Updated booking ${id} in database.`);
+      res.status(200).json({
+        results,
+      });
+    }
+  });
+};
+
+const putCancelCalendarEvent = (req, res) => {
+  const { emailAddress, id } = req.body.params;
+  model.putCancelCalendarEvent(emailAddress, id, (err, results) => {
+    if (err) {
+      console.error('  ✗  Unable to cancel booking in database', err);
+      res.status(401).send();
+    } else {
+      console.log(`  ✓  Cancelled booking ${id} in database.`);
       res.status(200).json({
         results,
       });
@@ -223,4 +300,7 @@ module.exports = {
   postCustomer,
   postShop,
   postUpdateBooking,
+  postAddCalendarEvent,
+  putUpdateCalendarEvent,
+  putCancelCalendarEvent,
 };

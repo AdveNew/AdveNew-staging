@@ -10,7 +10,6 @@ import GuideSearch from './GuideSearch.jsx';
 import Image from '../../dist/1aebfc8b9efd877a631e7d6194e43680.jpg';
 import LearnMore from './LearnMore.jsx';
 
-
 const useStyles = makeStyles((theme) => ({
   background: {
     backgroundImage: `url(${Image})`,
@@ -56,21 +55,21 @@ export default function Home(props) {
     );
   }
   return (
-    // eslint-disable-next-line react/jsx-fragments
-      <React.Fragment>
-        <div className={classes.background}>
-          <Grid
-            container
-            direction='column'
-            justify='space-evenly'
-            alignItems='center'
-          >
-            <div className={classes.text}>
-              <GuideSearch changeSearchParams={props.searchParams} />
-            </div>
-          </Grid>
-        </div>
-        <LearnMore />
-      </React.Fragment>
+  // eslint-disable-next-line react/jsx-fragments
+    <React.Fragment>
+      <div className={classes.background}>
+        <Grid
+          container
+          direction='column'
+          justify='space-evenly'
+          alignItems='center'
+        >
+          <div className={classes.text}>
+            <GuideSearch changeSearchParams={props.searchParams} />
+          </div>
+        </Grid>
+      </div>
+      <LearnMore />
+    </React.Fragment>
   );
 }

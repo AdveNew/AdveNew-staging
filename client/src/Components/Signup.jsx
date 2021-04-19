@@ -66,44 +66,41 @@ export default function Signup(props) {
         email,
       },
     })
-    .then(res => {
-      setEmailCheck(res.data.checked);
-    })
-    .catch((err) => console.error(err.message));
+      .then((res) => {
+        setEmailCheck(res.data.checked);
+      })
+      .catch((err) => console.error(err.message));
   };
-
 
   const checkShopEmail = (email) => {
     axios.get('api/getShopEmailCheck', {
       params: {
-        email: email,
-      }
+        email,
+      },
     })
-    .then(res => {
-      setShopEmailCheck(res.data.checked);
-    })
-    .catch((err) => console.error(err.message));
+      .then((res) => {
+        setShopEmailCheck(res.data.checked);
+      })
+      .catch((err) => console.error(err.message));
   };
   checkShopEmail(email);
   checkEmail(email);
 
-
   const submitDB = () => {
-    if(signupType === 'Shop') {
-      if(shopEmailCheck > 0) {
-        alert("Email has already been used.\nIf you are sure this is a new email and you have received this message, you may just need to click register again.");
+    if (signupType === 'Shop') {
+      if (shopEmailCheck > 0) {
+        alert('Email has already been used.\nIf you are sure this is a new email and you have received this message, you may just need to click register again.');
         setShopEmailCheck(0);
         return;
       }
-    }
-    else if(signupType === 'Customer') {
-      if(emailCheck > 0) {
-        alert("Email has already been used. If you are sure this is a new email and you have received this message, you may just need to click register again.");
+    } else if (signupType === 'Customer') {
+      if (emailCheck > 0) {
+        alert('Email has already been used. If you are sure this is a new email and you have received this message, you may just need to click register again.');
         setEmailCheck(0);
         return;
       }
     }
-    
+
     axios.post('api/signup', {
       params: {
         dbCol: signupType,

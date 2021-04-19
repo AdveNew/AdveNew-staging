@@ -16,6 +16,7 @@ export default function Logout(props) {
     localStorage.removeItem('user.token');
     localStorage.removeItem('user.loginType');
     localStorage.removeItem('user.email');
+    props.buttonState();
     onClose();
   };
 

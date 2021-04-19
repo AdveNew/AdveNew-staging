@@ -1,7 +1,8 @@
 const db = require('../../database/index.js');
 
-const getCalendarData = (storeName, callback) => {
-  const query = db.Store.find({ name: storeName });
+/* ************ GET MODELS ************ */
+const getCalendarData = (storeEmail, callback) => {
+  const query = db.Store.find({ emailAddress: storeEmail });
   query.exec((err, results) => {
     if (err) {
       callback(err);
@@ -101,43 +102,43 @@ const getShop = (id, callback) => {
 
 const getTrips = (customerEmail, callback) => {
   const query = db.Store.aggregate([
-      {$unwind : "$calendar" }, 
-      {$unwind: "$calendar.customerId"}, 
-      {$match: {"calendar.customerId": customerEmail}},
-    ]);
-    query.exec((err, results) => {
+    { $unwind: '$calendar' },
+    { $unwind: '$calendar.customerId' },
+    { $match: { 'calendar.customerId': customerEmail } },
+  ]);
+  query.exec((err, results) => {
     if (err) {
       callback(err);
     } else {
       const resultData = results.map((result) => (
         result.calendar
       )).flat();
-      callback(null, resultData);    
+      callback(null, resultData);
     }
   });
 };
 
-
 const getEmailCheck = (customerEmail, callback) => {
-  db.Customer.count({emailAddress: customerEmail}, function (err, result) {
+  db.Customer.count({ emailAddress: customerEmail }, (err, result) => {
     if (err) {
       callback(err);
     } else {
-      callback(null,result)
+      callback(null, result);
     }
   });
 };
 
 const getShopEmailCheck = (email, callback) => {
-  db.Store.count({emailAddress: email}, function (err, result) {
+  db.Store.count({ emailAddress: email }, (err, result) => {
     if (err) {
       callback(err);
     } else {
-      callback(null,result)
+      callback(null, result);
     }
   });
 };
 
+/* ************ POST MODELS ************ */
 const postSignup = (dbCol, name, emailAddress, password, callback) => {
   switch (dbCol) {
     case 'Customer':
@@ -198,7 +199,7 @@ const postShop = (id, name, hours, emailAddress, phoneNumber,
 };
 
 const postUpdateBooking = (calendarId, customerEmail, callback) => {
-  console.log("Booked id: ", calendarId)
+  console.log('Booked id: ', calendarId);
   db.Store.where({
     'calendar._id': calendarId,
   }).updateOne({
@@ -206,6 +207,57 @@ const postUpdateBooking = (calendarId, customerEmail, callback) => {
       {
         'calendar.$.booked': 1,
         'calendar.$.customerId': customerEmail,
+      },
+  },
+  (err, results) => {
+    if (err) callback(err);
+    else {
+      callback(null, results);
+    }
+  });
+};
+
+const postAddCalendarEvent = (emailAddress, id, toAdd, callback) => {
+  db.Store.update({ emailAddress },
+    {
+      $push: {
+        calendar: toAdd,
+      },
+    },
+    (err, results) => {
+      console.log(results);
+      if (err) callback(err);
+      else {
+        callback(null, results);
+      }
+    });
+};
+
+/* ************ PUT MODELS ************ */
+const putUpdateCalendarEvent = (id, emailAddress, toUpdate, callback) => {
+  db.Store.where({
+    emailAddress,
+    'calendar.id': id,
+  }).updateOne({
+    $set: toUpdate,
+  },
+  (err, results) => {
+    if (err) callback(err);
+    else {
+      callback(null, results);
+    }
+  });
+};
+
+const putCancelCalendarEvent = (emailAddress, id, callback) => {
+  db.Store.where({
+    emailAddress,
+    'calendar.id': id,
+  }).updateOne({
+    $set:
+      {
+        'calendar.$.booked': -2,
+        'calendar.$.id': id,
       },
   },
   (err, results) => {
@@ -230,4 +282,7 @@ module.exports = {
   postCustomer,
   postShop,
   postUpdateBooking,
+  postAddCalendarEvent,
+  putUpdateCalendarEvent,
+  putCancelCalendarEvent,
 };

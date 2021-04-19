@@ -15,9 +15,7 @@ import NotFound from './NotFound.jsx';
 import CustomerSettings from './CustomerSettings.jsx';
 import CompanySettings from './CompanySettings.jsx';
 import CustomCalendar from './CustomCalendar.jsx';
-// import AboutUs from './AboutUs.jsx';
 import AboutUs from './AboutUs.jsx';
-import LearnMore from './LearnMore.jsx';
 import CustomerTrips from './CustomerTrips.jsx';
 
 export default function App() {
@@ -30,16 +28,13 @@ export default function App() {
   const [endDate, setEndDate] = useState(new Date(new Date().getTime() + (90 * 864e5)));
   const [groupSize, setGroupSize] = useState(0);
   const [buttonState, setButtonState] = useState(1);
-  const [trips, setTrips] = useState([]);
-
-  
 
   // get first store for now
-  const storeName = "Yogi's Goldfish Emporium";
+  const storeEmail = JSON.parse(localStorage.getItem('user.email'));
   useEffect(() => {
     axios.get('api/calendar', {
       params: {
-        storeName,
+        storeEmail,
       },
     })
       .then((res) => {
@@ -89,7 +84,6 @@ export default function App() {
           {isAuthed && (loginType === 'Shop')
             ? <Route path='/calendar' component={() => <CustomCalendar store={store} calendar={store.calendar} isAuthed />} />
             : null}
-          <Route path='/about' component={() => <AboutUs/>} />
           <Route path='/about' component={() => <AboutUs />} />
 
           {isAuthed && (loginType === 'Customer' || loginType === 'Guide')
@@ -104,4 +98,4 @@ export default function App() {
       {/* <Footer store={store} bs={buttonState} setButtonState={handleButtonStateChange} /> */}
     </div>
   );
-};
+}

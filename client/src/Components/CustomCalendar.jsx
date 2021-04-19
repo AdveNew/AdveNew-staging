@@ -3,6 +3,7 @@
 /* eslint-disable import/prefer-default-export */
 import React, { useState, useEffect } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+import axios from 'axios';
 import { green, blue, yellow } from '@material-ui/core/colors';
 import Paper from '@material-ui/core/Paper/Paper.js';
 import Container from '@material-ui/core/Container/Container.js';
@@ -69,6 +70,7 @@ const useStyles = makeStyles(() => ({
 export default function CustomCalendar(props) {
   const classes = useStyles();
   const storeName = props.store.name;
+  const emailAddress = JSON.parse(localStorage.getItem('user.email'));
   const [storeCalendar] = useState(props.calendar);
   const [calendar, setCalendar] = useState([]);
   const [resources, setResources] = useState([]);
@@ -149,16 +151,59 @@ export default function CustomCalendar(props) {
     ]);
   }, [checked]);
 
+  const addEvent = (e) => {
+    const id = Math.floor(Math.random() * Math.random() * 3939);
+    axios.post('api/calendar/add', {
+      params: {
+        id,
+        emailAddress,
+        booked: e.status || null,
+        endDate: e.endDate || null,
+        guide: e.title || null,
+        startDate: e.startDate || null,
+      },
+    })
+      .then(() => console.log('Added successfully'))
+      .catch((err) => console.error(err.message));
+  };
+
+  const changeEvent = (e) => {
+    const id = Object.keys(e)[0];
+    axios.put('api/calendar/update', {
+      params: {
+        id,
+        emailAddress,
+        booked: e[id].status || null,
+        endDate: e[id].endDate || null,
+        guide: e[id].title || null,
+        startDate: e[id].startDate || null,
+      },
+    })
+      .then(() => console.log('Changed successfully'))
+      .catch((err) => console.error(err.message));
+  };
+
+  const cancelEvent = (id) => {
+    axios.put('api/calendar/cancel', {
+      params: { emailAddress, id },
+    })
+      .then(() => console.log('Cancelled successfully'))
+      .catch((err) => console.error(err.message));
+  };
+
   const commitChanges = ({ added, changed, deleted }) => {
     if (added) {
+      addEvent(added);
       const startingAddedId = calendar.length > 0 ? calendar[calendar.length - 1].id + 1 : 0;
       setCalendar([...calendar, { id: startingAddedId, ...added }]);
     }
     if (changed) {
+      changeEvent(changed);
       setCalendar(calendar.map((appointment) => (
         changed[calendar.id] ? appointment : { ...appointment, ...changed[appointment.id] })));
     }
     if (deleted !== undefined) {
+      cancelEvent(deleted);
       setCalendar(calendar.filter((appointment) => appointment.id !== deleted));
     }
   };
@@ -173,6 +218,8 @@ export default function CustomCalendar(props) {
       <Paper elevation={2}> <h2 style={{ textAlign: 'center', paddingTop: '10px' }}>{storeName} Calendar</h2>
         <Paper elevation={1}>
           <Scheduler
+            timeZone='America/Denver'
+            height={600}
             data={calendar}
             defaultCurrentView='Numeric Mode'
             className={classes.calendar}

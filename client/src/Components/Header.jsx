@@ -16,7 +16,6 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import SearchIcon from '@material-ui/icons/Search';
 import Toolbar from '@material-ui/core/Toolbar';
-import Tooltip from '@material-ui/core/Tooltip/Tooltip.js';
 import Typography from '@material-ui/core/Typography';
 // import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import logo from '../../dist/logo.png';
@@ -89,9 +88,6 @@ export default function Header() {
   const [openSignup, setOpenSignup] = useState(false);
   const [openLogout, setOpenLogout] = useState(false);
   const [buttonState, setButtonState] = useState(1);
-  const [tripState, setTripState] = useState(false);
-  const [tripInfo, setTripInfo] = useState(false);
-
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -99,22 +95,12 @@ export default function Header() {
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
-  
   };
 
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
-   
   };
-
-  // const handleTripLink = () =>{ 
-   
-  //   setAnchorEl(null);
-  //   handleMobileMenuClose();
-
-    
-  // }
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
@@ -131,6 +117,7 @@ export default function Header() {
   //     color: trigger ? 'default' : 'transparent',
   //   });
   // }
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -152,8 +139,6 @@ export default function Header() {
             Profile
           </MenuItem>
         ) : null}
-
-      {/* {isAuthed && authType !== 'Shop' ? <MenuItem onClick={() => {handleMenuClose()}} component={Link} to='/trips' >My Trips</MenuItem> : null} */}
 
       {!isAuthed
         ? <MenuItem onClick={() => { setOpenLogin(true); handleMenuClose(); }}>Log In</MenuItem>
@@ -215,7 +200,7 @@ export default function Header() {
         <Toolbar className={classes.toolbar}>
           <img src={routeLoc ? logo : logoDark} alt='AdveNew' className={classes.logo} />
           {/* <div> {SVG.advenewLogo} </div> */}
-          <Typography className={routeLoc ? classes.titleLight : classes.titleDark} variant='h6' component={Link} to='/'>
+          <Typography className={routeLoc ? classes.titleLight : classes.titleDark} variant='h6' onClick={() => setButtonState(1)} component={Link} to='/'>
             AdveNew
           </Typography>
           <div className={classes.headerOptions}>
@@ -240,28 +225,7 @@ export default function Header() {
               About Us
             </Button>
           </div>
-          {/* <div className={classes.grow} /> */}
           <div className={classes.sectionDesktop}>
-            {/* {isAuthed
-              ? (
-                <Tooltip title='Messages' placement='bottom'>
-                  <IconButton aria-label='show 4 new mails' className={routeLoc ? classes.titleLight : classes.titleDark}>
-                    <Badge badgeContent={4} color='primary'>
-                      <MailIcon />
-                    </Badge>
-                  </IconButton>
-                </Tooltip>
-              ) : null }
-            {isAuthed
-              ? (
-                <Tooltip title='Notifications' placement='bottom'>
-                  <IconButton aria-label='show 17 new notifications' className={routeLoc ? classes.titleLight : classes.titleDark}>
-                    <Badge badgeContent={17} color='primary'>
-                      <NotificationsIcon />
-                    </Badge>
-                  </IconButton>
-                </Tooltip>
-              ) : null } */}
             <IconButton
               edge='end'
               aria-label='account of current user'
@@ -287,8 +251,11 @@ export default function Header() {
           </div>
           <Login open={openLogin} onClose={() => setOpenLogin(false)} />
           <Signup open={openSignup} onClose={() => setOpenSignup(false)} />
-          <Logout open={openLogout} onClose={() => setOpenLogout(false)} />
-          
+          <Logout
+            open={openLogout}
+            onClose={() => setOpenLogout(false)}
+            buttonState={() => setButtonState(1)}
+          />
         </Toolbar>
       </AppBar>
       {/* </ElevationScroll> */}

@@ -31,9 +31,9 @@ const storeSchema = new mongoose.Schema({
       experience: String,
       groupSize: Number,
       guide: String,
-      location: String,
+      location: { type: String, default: 'Colorado' },
       notes: String,
-      price: Number,
+      price: { type: Number, default: '200' },
       startDate: Date, // stores both data and time
     },
   ],

@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -79,6 +79,7 @@ export default function Header() {
   const isAuthed = (JSON.parse(localStorage.getItem('user.token')) !== null);
   const authType = localStorage.getItem('user.loginType');
   const routeLoc = (useLocation().pathname === '/');
+  const location = useLocation();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
@@ -88,6 +89,26 @@ export default function Header() {
   const [openSignup, setOpenSignup] = useState(false);
   const [openLogout, setOpenLogout] = useState(false);
   const [buttonState, setButtonState] = useState(1);
+
+  useEffect(() => {
+    switch (location.pathname) {
+      case '/':
+        setButtonState(1);
+        break;
+      case '/about':
+        setButtonState(3);
+        break;
+      case '/calendar':
+        setButtonState(2);
+        break;
+      case '/trips':
+        setButtonState(2);
+        break;
+      default:
+        setButtonState(0);
+        break;
+    };
+  });
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -200,23 +221,23 @@ export default function Header() {
         <Toolbar className={classes.toolbar}>
           <img src={routeLoc ? logo : logoDark} alt='AdveNew' className={classes.logo} />
           {/* <div> {SVG.advenewLogo} </div> */}
-          <Typography className={routeLoc ? classes.titleLight : classes.titleDark} variant='h6' onClick={() => setButtonState(1)} component={Link} to='/'>
+          <Typography className={routeLoc ? classes.titleLight : classes.titleDark} variant='h6' component={Link} to='/'>
             AdveNew
           </Typography>
           <div className={classes.headerOptions}>
-            <Button variant='contained' size='medium' onClick={() => setButtonState(1)} color={buttonState === 1 ? 'secondary' : 'default'} startIcon={<SearchIcon />} style={{ marginRight: '20px' }} component={Link} to='/'>
+            <Button variant='contained' size='medium' color={buttonState === 1 ? 'secondary' : 'default'} startIcon={<SearchIcon />} style={{ marginRight: '20px' }} component={Link} to='/'>
               Find a Guide
             </Button>
             {isAuthed && authType === 'Shop'
               ? (
-                <Button variant='contained' size='medium' onClick={() => setButtonState(2)} color={buttonState === 2 ? 'secondary' : 'default'} startIcon={<EventIcon />} style={{ marginRight: '20px' }} component={Link} to='/calendar'>
+                <Button variant='contained' size='medium' color={buttonState === 2 ? 'secondary' : 'default'} startIcon={<EventIcon />} style={{ marginRight: '20px' }} component={Link} to='/calendar'>
                   Calendar
                 </Button>
               )
               : null }
             {isAuthed && authType === 'Customer'
               ? (
-                <Button variant='contained' size='medium' onClick={() => setButtonState(2)} color={buttonState === 2 ? 'secondary' : 'default'} startIcon={<EventIcon />} component={Link} to='/trips' style={{ marginRight: '20px' }}>
+                <Button variant='contained' size='medium' color={buttonState === 2 ? 'secondary' : 'default'} startIcon={<EventIcon />} component={Link} to='/trips' style={{ marginRight: '20px' }}>
                   My Trips
                 </Button>
               )

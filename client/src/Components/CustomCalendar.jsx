@@ -71,7 +71,7 @@ export default function CustomCalendar(props) {
   const classes = useStyles();
   const storeName = props.store.name;
   const emailAddress = JSON.parse(localStorage.getItem('user.email'));
-  const [storeCalendar] = useState(props.calendar);
+  const [storeCalendar, ] = useState(props.calendar);
   const [calendar, setCalendar] = useState([]);
   const [resources, setResources] = useState([]);
   const [editorProps, setEditorProps] = useState([]);
@@ -83,6 +83,16 @@ export default function CustomCalendar(props) {
   });
 
   useEffect(() => {
+    axios.get('api/calendar', {
+      params: {
+        emailAddress,
+      },
+    })
+      .then((res) => {
+        setStore(res.data.store);
+        setLoading(false);
+      })
+      .catch((err) => console.error(err.message));
     const toFilter = [];
     if (checked.Booked) toFilter.push(1);
     if (checked.Available) toFilter.push(0);

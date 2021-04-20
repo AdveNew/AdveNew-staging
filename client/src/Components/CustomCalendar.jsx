@@ -163,14 +163,16 @@ export default function CustomCalendar(props) {
 
   const addEvent = (e) => {
     const id = Math.floor(Math.random() * Math.random() * 3939);
+    console.log(e);
     axios.post('api/calendar/add', {
       params: {
         id,
         emailAddress,
-        booked: e.status || null,
+        booked: JSON.stringify(e.status) || null,
         endDate: e.endDate || null,
         guide: e.title || null,
         startDate: e.startDate || null,
+        location: e.location || null,
       },
     })
       .then(() => console.log('Added successfully'))
@@ -179,14 +181,16 @@ export default function CustomCalendar(props) {
 
   const changeEvent = (e) => {
     const id = Object.keys(e)[0];
+    console.log(e[id]);
     axios.put('api/calendar/update', {
       params: {
         id,
         emailAddress,
-        booked: e[id].status || null,
+        booked: JSON.stringify(e[id].status) || null,
         endDate: e[id].endDate || null,
         guide: e[id].title || null,
         startDate: e[id].startDate || null,
+        location: e[id].location || null,
       },
     })
       .then(() => console.log('Changed successfully'))

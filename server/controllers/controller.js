@@ -223,7 +223,7 @@ const postAddCalendarEvent = (req, res) => {
 
   Object.keys(toAdd).forEach((k) => {
     // eslint-disable-next-line no-unused-expressions
-    (!toAdd[k] && toAdd[k] !== undefined) && delete toAdd[k];
+    (toAdd[k] === null && toAdd[k] !== undefined) && delete toAdd[k];
   });
 
   console.log(toAdd);
@@ -244,20 +244,25 @@ const postAddCalendarEvent = (req, res) => {
 /* ************ PUT CONTROLLERS ************ */
 const putUpdateCalendarEvent = (req, res) => {
   const {
-    id, emailAddress, booked, endDate, guide, startDate,
+    id, emailAddress, booked, endDate, guide, location, startDate,
   } = req.body.params;
 
   const toUpdate = {
     'calendar.$.booked': booked,
     'calendar.$.endDate': endDate,
     'calendar.$.guide': guide,
+    'calendar.$.location': location,
     'calendar.$.startDate': startDate,
   };
 
+  console.log(toUpdate);
+
   Object.keys(toUpdate).forEach((k) => {
     // eslint-disable-next-line no-unused-expressions
-    (!toUpdate[k] && toUpdate[k] !== undefined) && delete toUpdate[k];
+    (toUpdate[k] === null && toUpdate[k] !== undefined) && delete toUpdate[k];
   });
+
+  console.log(toUpdate);
 
   model.putUpdateCalendarEvent(id, emailAddress, toUpdate, (err, results) => {
     if (err) {

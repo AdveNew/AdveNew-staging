@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles/index.js';
 import axios from 'axios';
 import { format, parseISO } from 'date-fns';
 import { DataGrid, GridOverlay } from '@material-ui/data-grid';

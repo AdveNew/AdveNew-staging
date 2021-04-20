@@ -46,7 +46,7 @@ async function generateData() {
       const newBooking = {
         id: j * Math.floor(Math.random() * storeSeed * 3939),
         accommodations: 'None',
-        booked: Faker.Random.element([-2, -1, 0, 1]),
+        booked: Faker.Random.element([-2, -1, 0, 0, 0, 0, 0, 1, 1, 1]),
         cancellationHours: Faker.Random.element([24, 48, 72, 96]),
         customerId: Faker.Internet.freeEmail(),
         endDate: datetime.setHours(hour + (Math.floor((Math.random() * 3) + 1))),

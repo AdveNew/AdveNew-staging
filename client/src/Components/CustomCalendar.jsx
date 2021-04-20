@@ -180,7 +180,6 @@ export default function CustomCalendar(props) {
 
   const changeEvent = (e) => {
     const id = Object.keys(e)[0];
-    console.log(e[id]);
     axios.put('api/calendar/update', {
       params: {
         id,

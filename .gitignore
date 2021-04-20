@@ -15,6 +15,7 @@ LICENSE
 
 # AWS PEM KEY
 prim.pem
+josh-primary.pem
 
 # TESTING
 /coverage

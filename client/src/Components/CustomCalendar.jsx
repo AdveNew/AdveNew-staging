@@ -71,7 +71,7 @@ export default function CustomCalendar(props) {
   const classes = useStyles();
   const storeName = props.store.name;
   const emailAddress = JSON.parse(localStorage.getItem('user.email'));
-  const [storeCalendar, ] = useState(props.calendar);
+  const [storeCalendar, setStoreCalendar] = useState(props.calendar);
   const [calendar, setCalendar] = useState([]);
   const [resources, setResources] = useState([]);
   const [editorProps, setEditorProps] = useState([]);
@@ -89,10 +89,10 @@ export default function CustomCalendar(props) {
       },
     })
       .then((res) => {
-        setStore(res.data.store);
-        setLoading(false);
+        setStoreCalendar(res.data.store);
       })
       .catch((err) => console.error(err.message));
+
     const toFilter = [];
     if (checked.Booked) toFilter.push(1);
     if (checked.Available) toFilter.push(0);
@@ -169,7 +169,7 @@ export default function CustomCalendar(props) {
         instances: [],
       },
     ]);
-  }, [checked]);
+  }, [checked, editorProps]);
 
   const addEvent = (e) => {
     const id = Math.floor(Math.random() * Math.random() * 3939);

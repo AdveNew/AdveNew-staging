@@ -107,7 +107,7 @@ export default function Header() {
       default:
         setButtonState(0);
         break;
-    };
+    }
   });
 
   const handleProfileMenuOpen = (event) => {

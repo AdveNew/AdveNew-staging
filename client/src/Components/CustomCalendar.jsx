@@ -169,7 +169,7 @@ export default function CustomCalendar(props) {
         instances: [],
       },
     ]);
-  }, [checked, editorProps]);
+  }, [checked]);
 
   const addEvent = (e) => {
     const id = Math.floor(Math.random() * Math.random() * 3939);

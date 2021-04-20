@@ -39,13 +39,12 @@ const getSearchData = (location, startDate, endDate, size, callback) => {
       const resultData = results.map((result) => (
         result.calendar.filter((booking) => (
           booking.location === location
-          && booking.groupSize > size
+          && booking.groupSize >= size
           && booking.startDate >= new Date(startDate)
           && booking.endDate <= new Date(endDate)
           && booking.booked === booked
         ))
       )).flat();
-      console.log(resultData);
       callback(null, resultData);
     }
   });

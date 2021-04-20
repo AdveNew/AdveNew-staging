@@ -163,7 +163,6 @@ export default function CustomCalendar(props) {
 
   const addEvent = (e) => {
     const id = Math.floor(Math.random() * Math.random() * 3939);
-    console.log(e);
     axios.post('api/calendar/add', {
       params: {
         id,

@@ -118,31 +118,11 @@ const getTrips = (customerEmail, callback) => {
   });
 };
 
-const getEmailCheck = (customerEmail, callback) => {
-  db.Customer.count({ emailAddress: customerEmail }, (err, result) => {
-    if (err) {
-      callback(err);
-    } else {
-      callback(null, result);
-    }
-  });
-};
-
-const getShopEmailCheck = (email, callback) => {
-  db.Store.count({ emailAddress: email }, (err, result) => {
-    if (err) {
-      callback(err);
-    } else {
-      callback(null, result);
-    }
-  });
-};
-
 /* ************ POST MODELS ************ */
 const postSignup = (dbCol, name, emailAddress, password, callback) => {
   switch (dbCol) {
     case 'Customer':
-      db.Customer.updateMany({ name, emailAddress, password }, { upsert: true },
+      db.Customer.insertMany({ name, emailAddress, password }, { upsert: true },
         (err, results) => {
           if (err) callback(err);
           else {
@@ -276,8 +256,6 @@ module.exports = {
   getCustomer,
   getShop,
   getTrips,
-  getEmailCheck,
-  getShopEmailCheck,
   postSignup,
   postCustomer,
   postShop,

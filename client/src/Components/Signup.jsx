@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import Radio from '@material-ui/core/Radio';
@@ -20,6 +21,7 @@ export default function Signup(props) {
   const [lastName, setLastName] = useState('');
   const [shopName, setShopName] = useState('');
   const [email, setEmail] = useState('');
+  const [signUpFail, setSignUpFail] = useState(false);
   const [signupType, setSignupType] = useState('Customer');
 
   const passChange = (pass2) => {
@@ -67,9 +69,13 @@ export default function Signup(props) {
       },
     })
       .then(() => {
+        setSignUpFail(false);
         onClose();
       })
-      .catch((err) => console.error(err.message));
+      .catch((err) => {
+        console.error(err.message);
+        setSignUpFail(true);
+      });
   };
 
   return (
@@ -85,6 +91,8 @@ export default function Signup(props) {
                 <FormControlLabel value='Shop' control={<Radio />} label='Shop' />
               </RadioGroup>
             </Grid>
+            {signUpFail
+              ? (<DialogContentText color='secondary'>Email already in use. Please try again.</DialogContentText>) : null}
             {(signupType === 'Shop')
               ? (
                 <TextField
@@ -121,29 +129,16 @@ export default function Signup(props) {
                   />
                 </div>
               )}
-            {isEmail(email)
-              ? (
-                <TextField
-                  margin='dense'
-                  id='email'
-                  label='Email Address'
-                  type='email'
-                  onChange={emailChange}
-                  fullWidth
-                  required
-                />
-              ) : (
-                <TextField
-                  margin='dense'
-                  id='email'
-                  error
-                  label='Email Address'
-                  type='email'
-                  onChange={emailChange}
-                  fullWidth
-                  required
-                />
-              )}
+            <TextField
+              margin='dense'
+              id='email'
+              error={!isEmail(email)}
+              label='Email Address'
+              type='email'
+              onChange={emailChange}
+              fullWidth
+              required
+            />
             <TextField
               margin='dense'
               id='password'
@@ -153,29 +148,16 @@ export default function Signup(props) {
               fullWidth
               required
             />
-            {pass === confirmPass && confirmPass !== ''
-              ? (
-                <TextField
-                  margin='dense'
-                  id='repassword'
-                  label='Re-enter Password'
-                  type='password'
-                  onChange={confirmPassChange}
-                  fullWidth
-                  required
-                />
-              ) : (
-                <TextField
-                  margin='dense'
-                  error
-                  id='repassword'
-                  label='Re-enter Password'
-                  type='password'
-                  onChange={confirmPassChange}
-                  fullWidth
-                  required
-                />
-              ) }
+            <TextField
+              margin='dense'
+              id='repassword'
+              error={pass !== confirmPass && confirmPass === ''}
+              label='Re-enter Password'
+              type='password'
+              onChange={confirmPassChange}
+              fullWidth
+              required
+            />
           </DialogContent>
           <DialogActions>
             <Button onClick={onClose} color='primary'>
@@ -184,11 +166,9 @@ export default function Signup(props) {
             {(pass !== ''
             && confirmPass !== ''
             && pass === confirmPass
-            && ((firstName !== '' && lastName !== '')
-            || shopName !== '')
-            && email !== '')
-            && isEmail(email) === true
-
+            && ((signupType === 'Shop') ? (shopName !== '') : (firstName !== '' && lastName !== ''))
+            && email !== ''
+            && isEmail(email) === true)
               ? (
                 <Button onClick={submitDB}>
                   Register

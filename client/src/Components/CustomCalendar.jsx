@@ -83,16 +83,6 @@ export default function CustomCalendar(props) {
   });
 
   useEffect(() => {
-    axios.get('api/calendar', {
-      params: {
-        emailAddress,
-      },
-    })
-      .then((res) => {
-        setStoreCalendar(res.data.store);
-      })
-      .catch((err) => console.error(err.message));
-
     const toFilter = [];
     if (checked.Booked) toFilter.push(1);
     if (checked.Available) toFilter.push(0);
@@ -169,7 +159,17 @@ export default function CustomCalendar(props) {
         instances: [],
       },
     ]);
-  }, [checked]);
+  }, [checked, props.calendar]);
+
+  const updateCalendar = () => {
+    axios.get('api/calendar', {
+      params: {
+        storeEmail: emailAddress,
+      },
+    })
+      .then((res) => setStoreCalendar(res.data.store.calendar))
+      .catch((err) => console.error(err.message));
+  };
 
   const addEvent = (e) => {
     const id = Math.floor(Math.random() * Math.random() * 3939);
@@ -184,7 +184,7 @@ export default function CustomCalendar(props) {
         location: e.location || null,
       },
     })
-      .then(() => console.log('Added successfully'))
+      .then(() => updateCalendar())
       .catch((err) => console.error(err.message));
   };
 
@@ -209,7 +209,7 @@ export default function CustomCalendar(props) {
     axios.put('api/calendar/cancel', {
       params: { emailAddress, id },
     })
-      .then(() => console.log('Cancelled successfully'))
+      .then(() => updateCalendar())
       .catch((err) => console.error(err.message));
   };
 

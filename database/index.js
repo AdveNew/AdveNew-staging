@@ -9,11 +9,12 @@ mongoose.connect(uri, options)
   .catch((err) => console.error('Error connecting to database', err));
 
 mongoose.set('autoCreate', true);
+mongoose.set('useCreateIndex', true);
 
 // mongoDB creates unique IDs, so not added to schema
 const storeSchema = new mongoose.Schema({
   details: { type: String, default: '' },
-  emailAddress: { type: String, default: '' },
+  emailAddress: { type: String, default: '', unique: true },
   hours: { type: String, default: '' },
   logo: { type: String, default: '' },
   name: { type: String, default: '' },
@@ -41,7 +42,7 @@ const storeSchema = new mongoose.Schema({
 
 const guideSchema = new mongoose.Schema({
   avatar: { type: String, default: '' },
-  emailAddress: { type: String, default: '' },
+  emailAddress: { type: String, default: '', unique: true },
   location: { type: String, default: '' },
   name: { type: String, default: '' },
   password: { type: String, default: 'password' },
@@ -50,7 +51,7 @@ const guideSchema = new mongoose.Schema({
 
 const customerSchema = new mongoose.Schema({
   avatar: { type: String, default: '' },
-  emailAddress: { type: String, default: '' },
+  emailAddress: { type: String, default: '', unique: true },
   location: { type: String, default: '' },
   name: { type: String, default: '' },
   password: { type: String, default: 'password' },

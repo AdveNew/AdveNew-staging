@@ -9,8 +9,6 @@ router.get('/search', controller.getSearchData);
 router.get('/login', controller.getLogin);
 router.get('/customer', controller.getCustomer);
 router.get('/shop', controller.getShop);
-router.get('/getEmailCheck', controller.getEmailCheck);
-router.get('/getShopEmailCheck', controller.getShopEmailCheck);
 router.get('/trips', controller.getTrips);
 router.post('/signup', controller.postSignup);
 router.post('/customer', controller.postCustomer);

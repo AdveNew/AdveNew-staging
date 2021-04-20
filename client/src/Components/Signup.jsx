@@ -60,32 +60,6 @@ export default function Signup(props) {
     setSignupType(event.target.value);
   };
 
-  const checkEmail = (email) => {
-    axios.get('api/getEmailCheck', {
-      params: {
-        email,
-      },
-    })
-      .then((res) => {
-        setEmailCheck(res.data.checked);
-      })
-      .catch((err) => console.error(err.message));
-  };
-
-  const checkShopEmail = (email) => {
-    axios.get('api/getShopEmailCheck', {
-      params: {
-        email,
-      },
-    })
-      .then((res) => {
-        setShopEmailCheck(res.data.checked);
-      })
-      .catch((err) => console.error(err.message));
-  };
-  checkShopEmail(email);
-  checkEmail(email);
-
   const submitDB = () => {
     if (signupType === 'Shop') {
       if (shopEmailCheck > 0) {

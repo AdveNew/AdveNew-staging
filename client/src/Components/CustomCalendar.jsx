@@ -97,7 +97,7 @@ export default function CustomCalendar(props) {
         title: e.guide,
         price: e.price,
         status: e.booked,
-        customerName: e.customerId,
+        customerName: e.customerEmail,
         experience: e.experience,
         location: e.location,
         notes: e.notes,
@@ -118,9 +118,9 @@ export default function CustomCalendar(props) {
         fieldName: 'customerName',
         title: 'Customer Name',
         instances: storeCalendar.map((c) => ({
-          id: c.customerId,
+          id: c.customerEmail,
           color: 'grey',
-          text: c.customerId,
+          text: c.customerEmail,
         })),
       },
       {

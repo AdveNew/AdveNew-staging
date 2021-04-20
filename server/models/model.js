@@ -45,6 +45,7 @@ const getSearchData = (location, startDate, endDate, size, callback) => {
           && booking.booked === booked
         ))
       )).flat();
+      console.log(resultData);
       callback(null, resultData);
     }
   });
@@ -103,8 +104,8 @@ const getShop = (id, callback) => {
 const getTrips = (customerEmail, callback) => {
   const query = db.Store.aggregate([
     { $unwind: '$calendar' },
-    { $unwind: '$calendar.customerId' },
-    { $match: { 'calendar.customerId': customerEmail } },
+    { $unwind: '$calendar.customerEmail' },
+    { $match: { 'calendar.customerEmail': customerEmail } },
   ]);
   query.exec((err, results) => {
     if (err) {
@@ -142,7 +143,7 @@ const getShopEmailCheck = (email, callback) => {
 const postSignup = (dbCol, name, emailAddress, password, callback) => {
   switch (dbCol) {
     case 'Customer':
-      db.Customer.insertMany({ name, emailAddress, password },
+      db.Customer.updateMany({ name, emailAddress, password }, { upsert: true },
         (err, results) => {
           if (err) callback(err);
           else {
@@ -206,7 +207,7 @@ const postUpdateBooking = (calendarId, customerEmail, callback) => {
     $set:
       {
         'calendar.$.booked': 1,
-        'calendar.$.customerId': customerEmail,
+        'calendar.$.customerEmail': customerEmail,
       },
   },
   (err, results) => {

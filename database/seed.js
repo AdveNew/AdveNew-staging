@@ -27,7 +27,7 @@ async function generateData() {
   /* ************ seed data for 4 stores ************ */
   const stores = [];
   const shopNames = ["Yogi's Goldfish Emporium", "Scott's Ole Tackle", "George's Fly Fishing Unlimited", "Josh's Fishing Tackle"];
-  const shopWebsites = ['https://www.golfish.emp', 'https://www.oletackle.com', 'https://www.flyfishingulim.com', 'https://www.fishtackle.com'];
+  const shopWebsites = ['https://www.goldfish.emp', 'https://www.oletackle.com', 'https://www.flyfishingulim.com', 'https://www.fishtackle.com'];
   const shopEmails = ['yogi@golfish.emp', 'scott@oletackle.com', 'george@flyfishingulim.com', 'josh@fishtackle.com'];
   for (let i = 1; i <= storeSeed; i += 1) {
     // make some calendar bookings for each store
@@ -48,7 +48,7 @@ async function generateData() {
         accommodations: 'None',
         booked: Faker.Random.element([-2, -1, 0, 0, 0, 0, 0, 1, 1, 1]),
         cancellationHours: Faker.Random.element([24, 48, 72, 96]),
-        customerId: Faker.Internet.freeEmail(),
+        customerEmail: Faker.Internet.freeEmail(),
         endDate: datetime.setHours(hour + (Math.floor((Math.random() * 3) + 1))),
         experience: Faker.Random.element(['Beginner', 'Novice', 'Advanced', 'Pro', 'Expert']),
         guide: Faker.Name.firstName(),
@@ -99,7 +99,7 @@ async function generateData() {
     // for all of customer info
     const customer = {
       avatar: Faker.Avatar.image(),
-      emailAddress: Faker.Internet.freeEmail(),
+      emailAddress: (i === 1 ? 'test@email.com' : Faker.Internet.freeEmail()),
       location: Faker.Address.state(),
       name: Faker.Name.name(),
       phoneNumber: Faker.Random.element(['303-', '720-']).concat(Faker.PhoneNumber.exchangeCode().concat('-').concat(Faker.PhoneNumber.subscriberNumber())),

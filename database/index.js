@@ -28,11 +28,11 @@ const storeSchema = new mongoose.Schema({
       cancellationHours: Number,
       customerEmail: String,
       endDate: Date,
-      experience: String,
+      experience: { type: String, default: 'Beginner' },
       groupSize: { type: Number, default: '1' },
       guide: String,
       location: { type: String, default: 'Colorado' },
-      notes: String,
+      notes: { type: String, default: 'none' },
       price: { type: Number, default: '200' },
       startDate: Date, // stores both data and time
     },

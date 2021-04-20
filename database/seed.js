@@ -28,7 +28,7 @@ async function generateData() {
   const stores = [];
   const shopNames = ["Yogi's Goldfish Emporium", "Scott's Ole Tackle", "George's Fly Fishing Unlimited", "Josh's Fishing Tackle"];
   const shopWebsites = ['https://www.goldfish.emp', 'https://www.oletackle.com', 'https://www.flyfishingulim.com', 'https://www.fishtackle.com'];
-  const shopEmails = ['yogi@golfish.emp', 'scott@oletackle.com', 'george@flyfishingulim.com', 'josh@fishtackle.com'];
+  const shopEmails = ['yogi@goldfish.emp', 'scott@oletackle.com', 'george@flyfishingulim.com', 'josh@fishtackle.com'];
   for (let i = 1; i <= storeSeed; i += 1) {
     // make some calendar bookings for each store
     const calendar = [];

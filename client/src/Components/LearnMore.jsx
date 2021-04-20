@@ -39,13 +39,13 @@ export default function LearnMore() {
                 </Typography>
               </Grid>
               <Grid item>
-                <Typography variant='p'>
+                <Typography variant='body1'>
                   <strong>
                     Take advantage of AdveNew&lsquo;s marketplace, landing pages, and scheduler.
                   </strong>
                 </Typography>
                 <br />
-                <Typography variant='p'>
+                <Typography variant='body1'>
                   <strong>
                     Take your business to the next level.
                   </strong>

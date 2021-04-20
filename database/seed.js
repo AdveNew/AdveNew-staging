@@ -46,7 +46,7 @@ async function generateData() {
       const e = Faker.Internet.freeEmail(); // set an email each time around
       // 1% of all booking get assigned to test email (for dev seed)
       const eA = ['test@email.com'];
-      for (let arr = 0; arr < 50; arr += 1) eA.push(e);
+      for (let arr = 1; arr < 50; arr += 1) eA.push(e);
       const newBooking = {
         id: j * Math.floor(Math.random() * storeSeed * 3939),
         accommodations: 'None',

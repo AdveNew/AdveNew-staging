@@ -77,7 +77,7 @@ export default function Footer(props) {
             <Tooltip title='Company Info (Coming Soon)' placement='top'>
               <IconButton onClick={() => setDrawer(true)}><InfoIcon /></IconButton>
             </Tooltip>
-            <Drawer open={false} onClose={() => setDrawer(false)}>
+            <Drawer open={drawer} onClose={() => setDrawer(false)}>
               <CompanyInfo store={store} />
             </Drawer>
             <Tooltip title='More Info (Coming Soon)' placement='top'>

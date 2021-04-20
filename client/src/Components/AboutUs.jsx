@@ -89,7 +89,7 @@ export default function AboutUs() {
       <Typography display='block' align='center' paragraph variant='h5'>
         <strong>Our team is composed of adventurous Computer Science majors.</strong>
         <br />
-        We are dedicated to helping customers find guide shops and
+        We are dedicated to helping customers find guide shops, and
         increasing the efficiency of the businesses we work with.
       </Typography>
       <Grid

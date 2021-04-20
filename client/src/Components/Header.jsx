@@ -4,20 +4,15 @@ import { Link, useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import AppBar from '@material-ui/core/AppBar';
-import Badge from '@material-ui/core/Badge';
 import Button from '@material-ui/core/Button';
 import EventIcon from '@material-ui/icons/Event';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
-import MailIcon from '@material-ui/icons/Mail';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import MoreIcon from '@material-ui/icons/MoreVert';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import SearchIcon from '@material-ui/icons/Search';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-// import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import logo from '../../dist/logo.png';
 import logoDark from '../../dist/logo_dark.png';
 import Login from './Login.jsx';
@@ -31,8 +26,19 @@ const useStyles = makeStyles((theme) => ({
   headerOptions: {
     flexGrow: 1,
     marginRight: theme.spacing(2),
+    display: 'block',
     textAlign: 'center',
     backgroundColor: 'transparent',
+  },
+  smBreakOption: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
+  },
+  xsBreakOption: {
+    [theme.breakpoints.down('xs')]: {
+      display: 'none',
+    },
   },
   logo: {
     height: 40,
@@ -41,31 +47,11 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
-  sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'flex',
-    },
-  },
-  sectionMobile: {
-    display: 'flex',
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
-    },
-  },
   titleLight: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
     textDecoration: 'inherit',
     color: 'white',
   },
   titleDark: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
     textDecoration: 'inherit',
     color: 'inherit',
   },
@@ -78,20 +64,29 @@ export default function Header() {
   const classes = useStyles();
   const isAuthed = (JSON.parse(localStorage.getItem('user.token')) !== null);
   const authType = localStorage.getItem('user.loginType');
-  const routeLoc = (useLocation().pathname === '/');
-  const location = useLocation();
+  const route = useLocation();
+  const [titleColor, setTitleColor] = useState();
+  const [logoColor, setLogoColor] = useState();
+  const [toolbarColor, setToolbarColor] = useState('transparent');
+  const [elevate, setElevate] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const [openLogin, setOpenLogin] = useState(false);
   const [openSignup, setOpenSignup] = useState(false);
   const [openLogout, setOpenLogout] = useState(false);
   const [buttonState, setButtonState] = useState(1);
 
+  // handle button effect based on route
   useEffect(() => {
-    switch (location.pathname) {
+    if (window.location.pathname === '/') {
+      setTitleColor(classes.titleLight);
+      setLogoColor(logo);
+    } else {
+      setTitleColor(classes.titleDark);
+      setLogoColor(logoDark);
+    }
+    switch (window.location.pathname) {
       case '/':
         setButtonState(1);
         break;
@@ -108,36 +103,30 @@ export default function Header() {
         setButtonState(0);
         break;
     }
-  });
+  }, [route]);
+
+  // event listener for scrolling effect
+  const handleScroll = () => {
+    if (window.location.pathname === '/') {
+      setTitleColor(window.scrollY > 20 ? classes.titleDark : classes.titleLight);
+      setLogoColor(window.scrollY > 20 ? logoDark : logo);
+    } else {
+      setTitleColor(classes.titleDark);
+      setLogoColor(logoDark);
+    }
+    setToolbarColor(window.scrollY > 20 ? 'default' : 'transparent');
+    setElevate(window.scrollY > 20 ? 3 : 0);
+  };
+
+  window.addEventListener('scroll', handleScroll);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
   const handleMenuClose = () => {
     setAnchorEl(null);
-    handleMobileMenuClose();
   };
-
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
-
-  // function ElevationScroll({ children }) {
-  //   constis trigger = useScrollTrigger({
-  //     // disableHysteresis: true,
-  //     threshold: 0,
-  //   });
-
-  //   return React.cloneElement(children, {
-  //     elevation: trigger ? 1 : 0,
-  //     color: trigger ? 'default' : 'transparent',
-  //   });
-  // }
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -146,7 +135,6 @@ export default function Header() {
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       id={menuId}
       keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
@@ -173,59 +161,18 @@ export default function Header() {
     </Menu>
   );
 
-  const mobileMenuId = 'primary-search-account-menu-mobile';
-  const renderMobileMenu = (
-    <Menu
-      className={routeLoc ? classes.titleLight : classes.titleDark}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton aria-label='show 4 new mails' color='inherit'>
-          <Badge badgeContent={4} color='primary'>
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton aria-label='show 11 new notifications' color='inherit'>
-          <Badge badgeContent={11} color='primary'>
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label='account of current user'
-          aria-controls='primary-search-account-menu'
-          aria-haspopup='true'
-          color='inherit'
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-    </Menu>
-  );
-
   return (
     <div>
-      {/* <ElevationScroll> */}
-      <AppBar position='fixed' color='transparent' elevation={0}>
+      <AppBar position='fixed' color={toolbarColor} elevation={elevate}>
         <Toolbar className={classes.toolbar}>
-          <img src={routeLoc ? logo : logoDark} alt='AdveNew' className={classes.logo} />
-          {/* <div> {SVG.advenewLogo} </div> */}
-          <Typography className={routeLoc ? classes.titleLight : classes.titleDark} variant='h6' component={Link} to='/'>
+          <Link to='/'>
+            <img src={logoColor} alt='AdveNew' className={classes.logo} />
+          </Link>
+          <Typography className={`${titleColor} ${classes.xsBreakOption}`} variant='h6' component={Link} to='/'>
             AdveNew
           </Typography>
           <div className={classes.headerOptions}>
-            <Button variant='contained' size='medium' color={buttonState === 1 ? 'secondary' : 'default'} startIcon={<SearchIcon />} style={{ marginRight: '20px' }} component={Link} to='/'>
+            <Button className={classes.xsBreakOption} variant='contained' size='medium' color={buttonState === 1 ? 'secondary' : 'default'} startIcon={<SearchIcon />} style={{ marginRight: '20px' }} component={Link} to='/'>
               Find a Guide
             </Button>
             {isAuthed && authType === 'Shop'
@@ -242,11 +189,11 @@ export default function Header() {
                 </Button>
               )
               : null }
-            <Button variant='contained' size='medium' onClick={() => setButtonState(3)} color={buttonState === 3 ? 'secondary' : 'default'} startIcon={<InfoIcon />} component={Link} to='/about'>
+            <Button className={classes.smBreakOption} variant='contained' size='medium' color={buttonState === 3 ? 'secondary' : 'default'} startIcon={<InfoIcon />} component={Link} to='/about'>
               About Us
             </Button>
           </div>
-          <div className={classes.sectionDesktop}>
+          <div>
             <IconButton
               edge='end'
               aria-label='account of current user'
@@ -254,20 +201,9 @@ export default function Header() {
               aria-haspopup='true'
               onClick={handleProfileMenuOpen}
               color='inherit'
-              className={routeLoc ? classes.titleLight : classes.titleDark}
+              className={titleColor}
             >
               <AccountCircle />
-            </IconButton>
-          </div>
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label='show more'
-              aria-controls={mobileMenuId}
-              aria-haspopup='true'
-              onClick={handleMobileMenuOpen}
-              color='inherit'
-            >
-              <MoreIcon />
             </IconButton>
           </div>
           <Login open={openLogin} onClose={() => setOpenLogin(false)} />
@@ -279,8 +215,6 @@ export default function Header() {
           />
         </Toolbar>
       </AppBar>
-      {/* </ElevationScroll> */}
-      {renderMobileMenu}
       {renderMenu}
     </div>
   );

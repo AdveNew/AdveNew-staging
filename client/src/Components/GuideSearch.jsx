@@ -15,6 +15,11 @@ import SearchIcon from '@material-ui/icons/Search';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
+  breakOption: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
+  },
   textField: {
     '& .MuiTextField-root': {
       margin: theme.spacing(1),
@@ -177,6 +182,7 @@ export default function GuideSearch(props) {
           InputLabelProps={{
             shrink: true,
           }}
+          className={classes.breakOption}
         />
       </FormControl>
       {(endDate > startDate && location !== '' && startDate >= startOfDay(new Date()))

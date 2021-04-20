@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import GuideSearch from './GuideSearch.jsx';
-import Image from '../../dist/background9_reduced.jpg';
+import Image from '../../dist/background9.jpg';
 import LearnMore from './LearnMore.jsx';
 
 const useStyles = makeStyles((theme) => ({

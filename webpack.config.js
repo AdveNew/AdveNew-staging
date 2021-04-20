@@ -52,13 +52,10 @@ const client = {
         use: ['style-loader!css-loader', 'less-loader'],
       },
       {
-        test: /\.(jpe?g|JPG|png|gif|mp3|svg|ttf|woff2|woff|eot)(\?[a-z0-9=.]+)?$/,
-        use: [
-          {
-            loader: 'url-loader?name=[name].[ext]',
-            options: { limit: 8192 },
-          },
-        ],
+        test: /\.(jpe?g|JPG|png|gif|svg)$/,
+        use: {
+          loader: 'url-loader',
+        },
       },
     ],
   },

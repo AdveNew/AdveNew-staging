@@ -14,7 +14,7 @@ import CompanyPage from './CompanyPage.jsx';
 import NotFound from './NotFound.jsx';
 import CustomerSettings from './CustomerSettings.jsx';
 import CompanySettings from './CompanySettings.jsx';
-import CustomCalendar from './CustomCalendar.jsx';
+import CustomCalendar from './Calendar/CustomCalendar.jsx';
 import AboutUs from './AboutUs.jsx';
 import CustomerTrips from './CustomerTrips.jsx';
 

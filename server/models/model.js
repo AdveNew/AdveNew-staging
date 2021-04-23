@@ -131,7 +131,7 @@ const postSignup = (dbCol, name, emailAddress, password, callback) => {
         });
       break;
     case 'Shop':
-      db.Store.insertMany({ name, emailAddress, password },
+      db.Store.insertMany({ name, emailAddress, password }, { upsert: true },
         (err, results) => {
           if (err) callback(err);
           else {
@@ -140,7 +140,7 @@ const postSignup = (dbCol, name, emailAddress, password, callback) => {
         });
       break;
     case 'Guide':
-      db.Guide.insertMany({ name, emailAddress, password },
+      db.Guide.insertMany({ name, emailAddress, password }, { upsert: true },
         (err, results) => {
           if (err) callback(err);
           else {

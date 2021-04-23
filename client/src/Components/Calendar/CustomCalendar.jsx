@@ -21,6 +21,7 @@ import {
   DateNavigator, Resources,
   Toolbar, TodayButton, ConfirmationDialog,
 } from '@devexpress/dx-react-scheduler-material-ui';
+import locations from './Locations.jsx';
 
 const GreenCheckbox = withStyles({
   root: {
@@ -117,11 +118,11 @@ export default function CustomCalendar(props) {
       {
         fieldName: 'customerName',
         title: 'Customer Name',
-        instances: storeCalendar.map((c) => ({
+        instances: [...new Set(storeCalendar.map((c) => ({
           id: c.customerEmail,
           color: 'grey',
           text: c.customerEmail,
-        })),
+        })))],
       },
       {
         fieldName: 'price',
@@ -135,20 +136,18 @@ export default function CustomCalendar(props) {
       {
         fieldName: 'experience',
         title: 'Experience',
-        instances: storeCalendar.map((c) => ({
-          id: c.experience,
-          color: 'grey',
-          text: c.experience,
-        })),
+        instances: [
+          { id: 'Beginner', color: 'grey', text: 'Beginner' },
+          { id: 'Novice', color: 'grey', text: 'Novice' },
+          { id: 'Advanced', color: 'grey', text: 'Advanced' },
+          { id: 'Pro', color: 'grey', text: 'Pro' },
+          { id: 'Expert', color: 'grey', text: 'Expert' },
+        ],
       },
       {
         fieldName: 'location',
         title: 'Location',
-        instances: storeCalendar.map((c) => ({
-          id: c.location,
-          color: 'grey',
-          text: c.location,
-        })),
+        instances: locations,
       },
     ]);
 
@@ -159,7 +158,7 @@ export default function CustomCalendar(props) {
         instances: [],
       },
     ]);
-  }, [checked, props.calendar]);
+  }, [checked, storeCalendar]);
 
   const updateCalendar = () => {
     axios.get('api/calendar', {

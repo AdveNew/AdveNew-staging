@@ -6,7 +6,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 
 // Components
 import CompanyInfo from './CompanyInfo.jsx';
-import CustomCalendar from './CustomCalendar.jsx';
+import CustomCalendar from './Calendar/CustomCalendar.jsx';
 
 export default function CompanyPage(props) {
   const [store] = useState(props.store);

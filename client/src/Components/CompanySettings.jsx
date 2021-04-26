@@ -139,7 +139,7 @@ export default function CustomerSettings() {
         <TextField
           margin='dense'
           id='email'
-          error={isEmail(email)}
+          error={!isEmail(email)}
           label='Email Address'
           type='email'
           onChange={(e) => setEmail(e.target.value)}

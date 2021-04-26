@@ -21,6 +21,7 @@ import CustomerTrips from './CustomerTrips.jsx';
 export default function App() {
   const isAuthed = (JSON.parse(localStorage.getItem('user.token')) !== null);
   const loginType = localStorage.getItem('user.loginType');
+  const storeEmail = JSON.parse(localStorage.getItem('user.email'));
   const [store, setStore] = useState([]);
   const [loading, setLoading] = useState(true);
   const [location, setLocation] = useState('Colorado');
@@ -29,8 +30,6 @@ export default function App() {
   const [groupSize, setGroupSize] = useState(0);
   const [buttonState, setButtonState] = useState(1);
 
-  // get first store for now
-  const storeEmail = JSON.parse(localStorage.getItem('user.email'));
   useEffect(() => {
     axios.get('api/calendar', {
       params: {

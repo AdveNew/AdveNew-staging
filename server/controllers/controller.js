@@ -180,13 +180,14 @@ const postUpdateBooking = (req, res) => {
 
 const postAddCalendarEvent = (req, res) => {
   const {
-    id, emailAddress, booked, endDate, guide, hobby, startDate,
+    id, emailAddress, booked, endDate, experience, guide, hobby, startDate,
   } = req.body.params;
 
   const toAdd = {
     id,
     booked,
     endDate,
+    experience,
     guide,
     hobby,
     startDate,
@@ -215,13 +216,15 @@ const postAddCalendarEvent = (req, res) => {
 /* ************ PUT CONTROLLERS ************ */
 const putUpdateCalendarEvent = (req, res) => {
   const {
-    id, emailAddress, booked, endDate, guide, location, startDate,
+    id, emailAddress, booked, endDate, experience, guide, location, hobby, startDate,
   } = req.body.params;
 
   const toUpdate = {
     'calendar.$.booked': booked,
     'calendar.$.endDate': endDate,
+    'calendar.$.experience': experience,
     'calendar.$.guide': guide,
+    'calendar.$.hobby': hobby,
     'calendar.$.location': location,
     'calendar.$.startDate': startDate,
   };

@@ -182,6 +182,7 @@ export default function CustomCalendar(props) {
         emailAddress,
         booked: JSON.stringify(e.status) || null,
         endDate: e.endDate || null,
+        experience: e.experience || null,
         guide: e.title || null,
         hobby: e.hobby || null,
         startDate: e.startDate || null,
@@ -200,6 +201,7 @@ export default function CustomCalendar(props) {
         emailAddress,
         booked: JSON.stringify(e[id].status) || null,
         endDate: e[id].endDate || null,
+        experience: e[id].experience || null,
         guide: e[id].title || null,
         hobby: e[id].hobby || null,
         startDate: e[id].startDate || null,
@@ -245,7 +247,6 @@ export default function CustomCalendar(props) {
       <Paper elevation={2}> <h2 style={{ textAlign: 'center', paddingTop: '10px' }}>{storeName} Calendar</h2>
         <Paper elevation={1}>
           <Scheduler
-            timeZone='America/Denver'
             height={600}
             data={calendar}
             defaultCurrentView='Numeric Mode'

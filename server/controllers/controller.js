@@ -180,7 +180,7 @@ const postUpdateBooking = (req, res) => {
 
 const postAddCalendarEvent = (req, res) => {
   const {
-    id, emailAddress, booked, endDate, guide, startDate,
+    id, emailAddress, booked, endDate, guide, hobby, startDate,
   } = req.body.params;
 
   const toAdd = {
@@ -188,6 +188,7 @@ const postAddCalendarEvent = (req, res) => {
     booked,
     endDate,
     guide,
+    hobby,
     startDate,
   };
 

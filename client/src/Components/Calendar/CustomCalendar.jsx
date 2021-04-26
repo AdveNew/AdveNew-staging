@@ -183,6 +183,7 @@ export default function CustomCalendar(props) {
         booked: JSON.stringify(e.status) || null,
         endDate: e.endDate || null,
         guide: e.title || null,
+        hobby: e.hobby || null,
         startDate: e.startDate || null,
         location: e.location || null,
       },
@@ -200,11 +201,12 @@ export default function CustomCalendar(props) {
         booked: JSON.stringify(e[id].status) || null,
         endDate: e[id].endDate || null,
         guide: e[id].title || null,
+        hobby: e[id].hobby || null,
         startDate: e[id].startDate || null,
         location: e[id].location || null,
       },
     })
-      .then(() => console.log('Changed successfully'))
+      .then(() => updateCalendar())
       .catch((err) => console.error(err.message));
   };
 

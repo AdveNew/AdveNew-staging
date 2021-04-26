@@ -68,7 +68,7 @@ export default function SearchResults(props) {
 
   const increment = () => {
     setBooking(booking + 1);
-  }
+  };
 
   const gotoShop = (id) => {
     axios.get('api/shopByCalId', {
@@ -86,6 +86,7 @@ export default function SearchResults(props) {
   const columns = [
     { field: 'guide', headerName: 'Guide\'s Name', flex: 0.8 },
     { field: 'location', headerName: 'Location', flex: 0.8 },
+    { field: 'hobby', headerName: 'Hobby', flex: 0.8 },
     {
       field: 'startDate',
       headerName: 'Date',
@@ -110,8 +111,14 @@ export default function SearchResults(props) {
       flex: 0.6,
       renderCell: (e) => (
         (isAuthed)
-          // eslint-disable-next-line no-underscore-dangle
-          ? <Payment guideName={e.row.guide} price={e.row.price} calendarId={e.row._id} incrementBooked={increment}/>
+          ? (
+            <Payment
+              guideName={e.row.guide}
+              price={e.row.price}
+              calendarId={e.row._id} // eslint-disable-line no-underscore-dangle
+              incrementBooked={increment}
+            />
+          )
           : <Button onClick={() => setOpenLogin(true)}>Login</Button>
       ),
     },
@@ -143,7 +150,7 @@ export default function SearchResults(props) {
       })
       .finally(() => setLoading(false));
   }, [booking]);
-  
+
   function CustomNoRowsOverlay() {
     return (
       <GridOverlay className={classes.root}>

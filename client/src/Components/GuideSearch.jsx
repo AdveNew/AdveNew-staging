@@ -103,6 +103,7 @@ export default function GuideSearch(props) {
           onChange={handleLocationChange}
           margin='normal'
           variant='filled'
+          value={location}
           placeholder='Enter State, i.e. Colorado'
           InputLabelProps={{
             shrink: true,
@@ -110,68 +111,34 @@ export default function GuideSearch(props) {
         />
       </FormControl>
       <FormControl variant='filled'>
-        {startDate >= startOfDay(new Date())
-          ? (
-            <TextField
-              required
-              type='date'
-              label='Start Date Range'
-              onChange={handleStartDateChange}
-              defaultValue={startVisDate}
-              margin='normal'
-              variant='filled'
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-          ) : (
-            <TextField
-              required
-              type='date'
-              error
-              label='Start Date Range'
-              onChange={handleStartDateChange}
-              defaultValue={startVisDate}
-              margin='normal'
-              variant='filled'
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-          )}
-
+        <TextField
+          required
+          type='date'
+          error={startDate < startOfDay(new Date())}
+          label='Start Date Range'
+          onChange={handleStartDateChange}
+          defaultValue={startVisDate}
+          margin='normal'
+          variant='filled'
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
       </FormControl>
       <FormControl variant='filled'>
-        {endDate < startDate
-          ? (
-            <TextField
-              required
-              error
-              type='date'
-              label='End Date Range'
-              onChange={handleEndDateChange}
-              defaultValue={endVisDate}
-              margin='normal'
-              variant='filled'
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-          )
-          : (
-            <TextField
-              required
-              type='date'
-              label='End Date Range'
-              onChange={handleEndDateChange}
-              defaultValue={endVisDate}
-              margin='normal'
-              variant='filled'
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-          )}
+        <TextField
+          required
+          error={endDate < startDate}
+          type='date'
+          label='End Date Range'
+          onChange={handleEndDateChange}
+          defaultValue={endVisDate}
+          margin='normal'
+          variant='filled'
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
       </FormControl>
       <FormControl variant='filled'>
         <TextField

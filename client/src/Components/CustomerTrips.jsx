@@ -92,6 +92,7 @@ export default function CustomerTrips() {
     },
     { field: 'location', headerName: 'Location', flex: 0.8 },
     { field: 'guide', headerName: 'Guide\'s Name', flex: 0.8 },
+    { field: 'hobby', headerName: 'Hobby', flex: 0.8 },
     { field: 'experience', headerName: 'Experience', flex: 0.8 },
     {
       field: 'shop',
@@ -102,7 +103,33 @@ export default function CustomerTrips() {
         <Button onClick={() => gotoShop(id.row._id)}>View</Button>
       ),
     },
+    {
+      field: 'booked',
+      headerName: 'Status',
+      flex: 0.8,
+      renderCell: (s) => {
+        // eslint-disable-next-line no-underscore-dangle
+        let status = '';
+        switch (s.value) {
+          case -2:
+            status = 'Cancelled';
+            break;
+          case -1:
+            status = 'Requested';
+            break;
+          case 0:
+            status = 'Available';
+            break;
+          case 1:
+            status = 'Booked';
+            break;
+          default:
+            break;
+        }
+        return status;
+      },
 
+    },
   ];
 
   function CustomNoRowsOverlay() {

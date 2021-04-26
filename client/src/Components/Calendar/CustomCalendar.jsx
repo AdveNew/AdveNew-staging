@@ -22,6 +22,8 @@ import {
   Toolbar, TodayButton, ConfirmationDialog,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import locations from './Locations.jsx';
+import hobbies from './Hobbies.jsx';
+import prices from './Prices.jsx';
 
 const GreenCheckbox = withStyles({
   root: {
@@ -95,13 +97,14 @@ export default function CustomCalendar(props) {
         id: e.id,
         startDate: new Date(e.startDate),
         endDate: new Date(e.endDate),
-        title: e.guide,
-        price: e.price,
-        status: e.booked,
         customerName: e.customerEmail,
         experience: e.experience,
+        hobby: e.hobby,
         location: e.location,
         notes: e.notes,
+        price: e.price,
+        status: e.booked,
+        title: e.guide,
       }))))]));
 
     setResources([
@@ -116,22 +119,28 @@ export default function CustomCalendar(props) {
         ],
       },
       {
+        fieldName: 'hobby',
+        title: 'Hobby',
+        instances: hobbies,
+      },
+      {
+        fieldName: 'location',
+        title: 'Location',
+        instances: locations,
+      },
+      {
         fieldName: 'customerName',
         title: 'Customer Name',
-        instances: [...new Set(storeCalendar.map((c) => ({
+        instances: storeCalendar.map((c) => ({
           id: c.customerEmail,
           color: 'grey',
           text: c.customerEmail,
-        })))],
+        })),
       },
       {
         fieldName: 'price',
         title: 'Price',
-        instances: storeCalendar.map((c) => ({
-          id: c.price,
-          color: 'grey',
-          text: '$'.concat(c.price),
-        })),
+        instances: prices,
       },
       {
         fieldName: 'experience',
@@ -143,11 +152,6 @@ export default function CustomCalendar(props) {
           { id: 'Pro', color: 'grey', text: 'Pro' },
           { id: 'Expert', color: 'grey', text: 'Expert' },
         ],
-      },
-      {
-        fieldName: 'location',
-        title: 'Location',
-        instances: locations,
       },
     ]);
 

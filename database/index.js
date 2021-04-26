@@ -32,6 +32,7 @@ const storeSchema = new mongoose.Schema({
       experience: { type: String, default: 'Beginner' },
       groupSize: { type: Number, default: '1' },
       guide: String,
+      hobby: String,
       location: { type: String, default: 'Colorado' },
       notes: { type: String, default: 'none' },
       price: { type: Number, default: '200' },

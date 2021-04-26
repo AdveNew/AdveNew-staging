@@ -56,11 +56,12 @@ async function generateData() {
         endDate: datetime.setHours(hour + (Math.floor((Math.random() * 3) + 1))),
         experience: Faker.Random.element(['Beginner', 'Novice', 'Advanced', 'Pro', 'Expert']),
         guide: Faker.Name.firstName(),
+        groupSize: Faker.Number.between(1, 6),
+        hobby: 'Fly Fishing',
         // location: Faker.Address.city().concat(', ').concat(Faker.Address.state()),
         location: Faker.Address.state(),
         notes: Faker.Matz.quote(),
-        price: Faker.Number.between(25, 100) * 4,
-        groupSize: Faker.Number.between(1, 6),
+        price: Faker.Number.between(25, 100) * 4, // range: $100 to $400
         startDate: datetime.setHours(hour),
       };
       // add each generated booking to array (for db)

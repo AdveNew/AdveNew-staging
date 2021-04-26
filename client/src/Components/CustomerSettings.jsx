@@ -149,31 +149,17 @@ export default function CustomerSettings() {
           fullWidth
           required
         />
-        {isEmail(email)
-              ? (
-                <TextField
-                  margin='dense'
-                  id='email'
-                  label='Email Address'
-                  type='email'
-                  onChange={emailChange}
-                  value={email}
-                  fullWidth
-                  required
-                />
-              ) : (
-                <TextField
-                  margin='dense'
-                  id='email'
-                  error
-                  label='Email Address'
-                  type='email'
-                  onChange={emailChange}
-                  value={email}
-                  fullWidth
-                  required
-                />
-              )}
+        <TextField
+          margin='dense'
+          id='email'
+          error={isEmail(email)}
+          label='Email Address'
+          type='email'
+          onChange={emailChange}
+          value={email}
+          fullWidth
+          required
+        />
         <TextField
           margin='dense'
           id='phone'
@@ -184,21 +170,9 @@ export default function CustomerSettings() {
           fullWidth
           required
         />
-        {isEmail(email)
-          ? (
-            <Button style={{ float: 'left', marginTop: '20px' }} variant='contained' color='secondary' onClick={saveChanges}>
-              Save Changes
-            </Button>
-          )
-          : (
-            <Button style={{ float: 'left', marginTop: '20px' }} variant='contained' color='secondary' disabled>
-              Save Changes
-            </Button>
-          )
-        }
-        {/* <Button style={{ float: 'left', marginTop: '20px' }} variant='contained' color='secondary' onClick={saveChanges}>
+        <Button style={{ float: 'left', marginTop: '20px' }} variant='contained' color='secondary' onClick={saveChanges} disabled={isEmail(email)}>
           Save Changes
-        </Button> */}
+        </Button>
         <Button style={{ float: 'right', marginTop: '20px' }} variant='contained' color='primary' onClick={handleOpen}>
           Change Password
         </Button>
@@ -241,7 +215,7 @@ export default function CustomerSettings() {
               && pass === confirmPass
               && oldPass === oldPassCheck
               && oldPassCheck !== pass
-              
+
             )
               ? (
                 <Button variant='contained' color='primary' onClick={saveChanges}>Change Password</Button>

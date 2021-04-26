@@ -136,33 +136,17 @@ export default function CustomerSettings() {
           fullWidth
           required
         />
-        {isEmail(email)
-          ? (
-            <TextField
-              margin='dense'
-              id='email'
-              label='Email Address'
-              type='email'
-              onChange={(e) => setEmail(e.target.value)}
-              value={email} // set value to previous email
-              fullWidth
-              required
-            />
-          )
-          : (
-            <TextField
-              margin='dense'
-              id='email'
-              label='Email Address'
-              type='email'
-              onChange={(e) => setEmail(e.target.value)}
-              value={email} // set value to previous email
-              fullWidth
-              required
-              error
-            />
-          )
-        }
+        <TextField
+          margin='dense'
+          id='email'
+          error={isEmail(email)}
+          label='Email Address'
+          type='email'
+          onChange={(e) => setEmail(e.target.value)}
+          value={email} // set value to previous email
+          fullWidth
+          required
+        />
         <TextField
           margin='dense'
           id='phone'
@@ -195,18 +179,9 @@ export default function CustomerSettings() {
           multiline
           rowsMax={6}
         />
-        {isEmail(email)
-          ? (
-            <Button style={{ float: 'left', marginTop: '20px' }} variant='contained' color='secondary' onClick={saveChanges}>
-              Save Changes
-            </Button>
-          )
-          : (
-            <Button style={{ float: 'left', marginTop: '20px' }} variant='contained' color='secondary' disabled>
-              Save Changes
-            </Button>
-          )
-        }
+        <Button style={{ float: 'left', marginTop: '20px' }} variant='contained' color='secondary' onClick={saveChanges} disabled={isEmail(email)}>
+          Save Changes
+        </Button>
         <Button style={{ float: 'right', marginTop: '20px' }} variant='contained' color='primary' onClick={handleOpen}>
           Change Password
         </Button>

@@ -18,7 +18,7 @@ COPY . /
 RUN npm install
 RUN npm run build
 
-# # what port the container will show the outside world
+# what port the container will show the outside world
 EXPOSE 3000
 
 # start the app

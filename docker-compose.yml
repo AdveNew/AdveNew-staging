@@ -7,8 +7,9 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - 'database'
-    # app running on port 3000, direct to HTTP (80/8080) port
+    # app running on port 3000, direct to HTTPS (443) & to HTTP (80)
     ports:
+      - '443:3000'
       - '80:3000'
 
   # create database image
